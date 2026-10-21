@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trái Đất, Mặt Trời và chu kỳ ngày đêm · 2zer011 slide</title>
+<link rel="stylesheet" href="../assets/deck.css">
+<style>
+#stage{background:#070b1a;background-image:radial-gradient(ellipse at 85% 0%,#16254f 0,#0b1330 45%,#070b1a 80%)}
+body{color:#e8eefc}
+.stars{position:absolute;left:0;top:0;width:2px;height:2px;border-radius:50%;background:transparent}
+.eyebrow{color:#ffb547}
+.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13)}
+.mu{color:#9fb0d0}.hl{color:#ffb547}.bl{color:#6cb6ff}.gr{color:#7ee0c3}
+#foot{color:#7f90b3}#bar{background:#ffb547}
+.big{font-size:60px}
+.ro{padding:20px 28px}
+.ro .k{font-size:24px;color:#9fb0d0}.ro .v{font-size:46px;font-weight:700;line-height:1.15;font-family:"Times New Roman",Times,serif}
+.dot{display:inline-block;width:18px;height:18px;border-radius:50%;margin-right:12px;vertical-align:-2px}
+.row2{padding:30px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:34px;line-height:1.35}
+.row2 .a{width:470px;color:#9fb0d0}.row2 .c{font-weight:600}
+.q{font-size:34px;font-weight:600;line-height:1.35}
+.ans{font-size:30px;line-height:1.5;color:#c9d6f2}
+</style></head>
+<body>
+<div id="stage">
+<div class="stars" id="stars"></div>
+
+<!-- 1. Mở đầu -->
+<section class="slide" data-nofoot="">
+  <svg class="abs" style="left:1010px;top:100px" width="820" height="820" viewBox="0 0 820 820" id="cover"></svg>
+  <div class="abs fy jc" style="left:120px;top:0;width:960px;height:1080px">
+    <p class="eyebrow s">Thiên văn · Địa lý</p>
+    <h1 class="title s d1" style="font-size:94px;margin-top:22px">Trái Đất<br>và Mặt Trời</h1>
+    <p class="lead s d2 mu" style="margin-top:28px;font-size:40px">Quỹ đạo, vòng quay và chu kỳ ngày đêm</p>
+    <p class="sm s d3 mu" style="margin-top:56px">Bài thuyết trình · 2zer011 slide<br>Bấm, Space hoặc phím → để sang trang</p>
+  </div>
+</section>
+
+<!-- 2. Vị trí -->
+<section class="slide" data-by="Trái Đất trong Hệ Mặt Trời">
+  <svg class="abs" style="left:100px;top:190px" width="760" height="760" viewBox="0 0 760 760" id="inner"></svg>
+  <div class="abs fy" style="left:960px;top:92px;width:840px;height:880px">
+    <p class="eyebrow s">Vị trí</p>
+    <h2 class="title s d1" style="font-size:60px;margin-top:14px">Hành tinh thứ ba<br>tính từ Mặt Trời</h2>
+    <div class="fy gy22" style="margin-top:44px">
+      <div class="card b"><div class="num hl" style="font-size:54px">149,6 triệu km</div><p class="txt mu" style="margin-top:8px">khoảng cách trung bình tới Mặt Trời, gọi là 1 đơn vị thiên văn (1 AU).</p></div>
+      <div class="card b"><div class="num bl" style="font-size:54px">8 phút 20 giây</div><p class="txt mu" style="margin-top:8px">thời gian ánh sáng Mặt Trời đi tới Trái Đất.</p></div>
+      <div class="card b"><div class="num gr" style="font-size:54px">Vùng ở được</div><p class="txt mu" style="margin-top:8px">đủ xa, đủ gần để nước tồn tại ở thể lỏng trên bề mặt.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Quỹ đạo -->
+<section class="slide" data-by="Quỹ đạo của Trái Đất" data-anim="orbit">
+  <div class="abs" style="left:120px;top:76px;width:1680px">
+    <p class="eyebrow s">Quỹ đạo</p>
+    <h2 class="title s d1" style="font-size:56px;margin-top:8px">Hình elip, gần tròn, một vòng hơn 365 ngày</h2>
+  </div>
+  <svg class="abs" style="left:100px;top:250px" width="1100" height="740" viewBox="0 0 1060 710" id="orbit"></svg>
+  <div class="abs fy gy14" style="left:1250px;top:262px;width:550px">
+    <div class="card ro s d2"><div class="k">Ngày trong năm</div><div class="v hl" id="o-date">3 tháng 1</div></div>
+    <div class="card ro s d3"><div class="k">Khoảng cách tới Mặt Trời</div><div class="v bl" id="o-dist">147,1 triệu km</div></div>
+    <div class="card ro s d4"><div class="k">Tốc độ trên quỹ đạo</div><div class="v gr" id="o-vel">30,3 km/s</div></div>
+    <p class="sm mu s d5" style="margin-top:6px">Quỹ đạo thật gần tròn (độ lệch tâm 0,0167). Hình vẽ phóng đại để thấy rõ: gần Mặt Trời thì chạy nhanh hơn.</p>
+  </div>
+</section>
+
+<!-- 4. Tự quay, ngày đêm -->
+<section class="slide" data-by="Tự quay và chu kỳ ngày đêm" data-anim="spin">
+  <div class="abs" style="left:120px;top:76px;width:1680px">
+    <p class="eyebrow s">Ngày và đêm</p>
+    <h2 class="title s d1" style="font-size:56px;margin-top:8px">Trái Đất tự quay: nửa sáng, nửa tối</h2>
+  </div>
+  <svg class="abs" style="left:60px;top:230px" width="860" height="760" viewBox="0 0 760 700" id="spin"></svg>
+  <div class="abs fy gy22" style="left:1000px;top:262px;width:800px">
+    <div class="card ro s d2 fx mid jb"><div><div class="k">Giờ địa phương của người quan sát</div><div class="v" style="font-size:64px" id="s-time">12:00</div></div><div class="tc"><div class="v hl" style="font-size:38px" id="s-label">Giữa trưa</div><div class="k" id="s-state">Ban ngày</div></div></div>
+    <ul class="l s d3 mu">
+      <li>Quay quanh trục theo chiều <b>từ Tây sang Đông</b>, nên ta thấy Mặt Trời mọc ở Đông, lặn ở Tây.</li>
+      <li>Một vòng quay hết <b>23 giờ 56 phút 4 giây</b> (ngày thiên văn).</li>
+      <li>Tốc độ ở xích đạo khoảng <b>1.670 km/h</b>; ở hai cực gần như bằng 0.</li>
+      <li>Mặt Trời ở rất xa, tia sáng coi như song song, luôn chiếu sáng <b>một nửa</b> Trái Đất.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 5. Ngày thiên văn vs ngày Mặt Trời -->
+<section class="slide" data-by="Ngày thiên văn và ngày Mặt Trời">
+  <div class="abs" style="left:120px;top:76px;width:1680px">
+    <p class="eyebrow s">Vì sao một ngày là 24 giờ?</p>
+    <h2 class="title s d1" style="font-size:56px;margin-top:8px">Quay đủ một vòng vẫn chưa kịp “trưa”</h2>
+  </div>
+  <svg class="abs" style="left:100px;top:260px" width="1000" height="700" viewBox="-60 0 1000 700" id="solar"></svg>
+  <div class="abs fy gy22" style="left:1040px;top:262px;width:760px">
+    <div class="card b"><p class="q hl">Ngày thiên văn · 23 g 56 ph 4 s</p><p class="ans" style="margin-top:6px">Thời gian để Trái Đất quay đủ 360° so với các ngôi sao xa.</p></div>
+    <div class="card b"><p class="q bl">Ngày Mặt Trời · 24 g</p><p class="ans" style="margin-top:6px">Thời gian giữa hai lần Mặt Trời ở đúng điểm cao nhất. Dài hơn vì Trái Đất vừa đi thêm một đoạn trên quỹ đạo.</p></div>
+    <div class="card b"><p class="q gr">360° ÷ 365,25 ≈ 0,9856° mỗi ngày</p><p class="ans" style="margin-top:6px">Phải quay thêm góc đó, mất khoảng <b>3 phút 56 giây</b>, để Mặt Trời trở lại đúng vị trí.</p></div>
+  </div>
+</section>
+
+<!-- 6. Mùa -->
+<section class="slide" data-by="Độ nghiêng trục và bốn mùa">
+  <div class="abs" style="left:120px;top:76px;width:1680px">
+    <p class="eyebrow s">Bốn mùa</p>
+    <h2 class="title s d1" style="font-size:56px;margin-top:8px">Mùa sinh ra từ độ nghiêng, không phải từ khoảng cách</h2>
+  </div>
+  <svg class="abs" style="left:60px;top:230px" width="1100" height="780" viewBox="0 0 1100 780" id="seasons"></svg>
+  <div class="abs fy gy22" style="left:1200px;top:262px;width:600px">
+    <div class="card b"><p class="q hl">Trục nghiêng 23,44°</p><p class="ans" style="margin-top:6px">so với đường vuông góc mặt phẳng quỹ đạo, và luôn hướng về cùng một phía (gần sao Bắc Cực).</p></div>
+    <div class="card b"><p class="q bl">21/6 · Hạ chí</p><p class="ans" style="margin-top:6px">Bắc bán cầu ngả về phía Mặt Trời: nắng cao, ngày dài. Nam bán cầu thì ngược lại.</p></div>
+    <div class="card b"><p class="q gr">20/3 và 23/9 · Phân điểm</p><p class="ans" style="margin-top:6px">Ngày và đêm dài gần bằng nhau trên toàn Trái Đất.</p></div>
+  </div>
+</section>
+
+<!-- 7. Độ dài ngày -->
+<section class="slide" data-by="Độ dài ngày theo vĩ độ" data-anim="daylen">
+  <div class="abs" style="left:120px;top:76px;width:1680px">
+    <p class="eyebrow s">Ngày dài, ngày ngắn</p>
+    <h2 class="title s d1" style="font-size:56px;margin-top:8px">Càng xa xích đạo, ngày đêm càng chênh nhau</h2>
+  </div>
+  <svg class="abs" style="left:100px;top:230px" width="1160" height="740" viewBox="0 0 1000 640" id="chart"></svg>
+  <div class="abs fy gy22" style="left:1300px;top:262px;width:500px">
+    <div class="card s d2 fy gy14" style="padding:26px 30px">
+      <div class="sm"><span class="dot" style="background:#7ee0c3"></span>Xích đạo (0°)</div>
+      <div class="sm"><span class="dot" style="background:#ffb547"></span>Hà Nội (21°B)</div>
+      <div class="sm"><span class="dot" style="background:#6cb6ff"></span>Vĩ độ 45°B</div>
+      <div class="sm"><span class="dot" style="background:#ff7a90"></span>Vòng cực (66,5°B)</div>
+    </div>
+    <p class="txt s d3 mu">Hà Nội: khoảng <b class="hl">13,3 giờ</b> ngày vào hạ chí, <b class="hl">10,7 giờ</b> vào đông chí.</p>
+    <p class="sm s d4 mu">Tính lý thuyết, chưa kể khúc xạ khí quyển. Nam bán cầu có đồ thị lệch nửa năm.</p>
+  </div>
+</section>
+
+<!-- 8. Hiểu lầm -->
+<section class="slide" data-by="Những hiểu lầm thường gặp">
+  <div class="pad fy">
+    <p class="eyebrow s">Sửa cho đúng</p>
+    <h2 class="title s d1" style="font-size:56px;margin-top:8px">Bốn hiểu lầm thường gặp</h2>
+    <div class="fy gy22 f1" style="margin-top:36px">
+      <div class="fx gx28 f1">
+        <div class="card b f1 fy jc"><p class="q hl">“Mùa hè vì Trái Đất gần Mặt Trời hơn.”</p><p class="ans" style="margin-top:10px">Sai. Gần nhất (cận nhật) là đầu tháng 1, lúc Bắc bán cầu đang mùa đông.</p></div>
+        <div class="card b f1 fy jc"><p class="q hl">“Ngày đêm do Trái Đất quay quanh Mặt Trời.”</p><p class="ans" style="margin-top:10px">Sai. Ngày đêm là do <b>tự quay quanh trục</b>. Quay quanh Mặt Trời tạo ra năm.</p></div>
+      </div>
+      <div class="fx gx28 f1">
+        <div class="card b f1 fy jc"><p class="q hl">“Mặt Trời luôn mọc đúng hướng Đông.”</p><p class="ans" style="margin-top:10px">Chỉ đúng vào hai ngày phân điểm. Mùa hè ở Bắc bán cầu, Mặt Trời mọc lệch về phía Đông Bắc.</p></div>
+        <div class="card b f1 fy jc"><p class="q hl">“Quỹ đạo Trái Đất là hình elip rất méo.”</p><p class="ans" style="margin-top:10px">Gần như tròn: khoảng cách chỉ đổi khoảng 3% (147,1 đến 152,1 triệu km).</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. Số liệu -->
+<section class="slide" data-by="Số liệu cần nhớ">
+  <div class="pad fy">
+    <p class="eyebrow s">Tóm tắt</p>
+    <h2 class="title s d1" style="font-size:56px;margin-top:8px">Số liệu cần nhớ</h2>
+    <div class="fx gx56 f1" style="margin-top:28px">
+      <div class="f1 fy">
+        <div class="row2 fx b"><span class="a">Khoảng cách trung bình</span><span class="c hl">149,6 triệu km</span></div>
+        <div class="row2 fx b"><span class="a">Cận nhật (đầu tháng 1)</span><span class="c hl">≈ 147,1 triệu km</span></div>
+        <div class="row2 fx b"><span class="a">Viễn nhật (đầu tháng 7)</span><span class="c hl">≈ 152,1 triệu km</span></div>
+        <div class="row2 fx b"><span class="a">Độ lệch tâm quỹ đạo</span><span class="c hl">0,0167</span></div>
+        <div class="row2 fx b"><span class="a">Tốc độ trung bình</span><span class="c hl">29,78 km/s</span></div>
+      </div>
+      <div class="f1 fy">
+        <div class="row2 fx b"><span class="a">Năm thiên văn</span><span class="c bl">365,256 ngày</span></div>
+        <div class="row2 fx b"><span class="a">Năm nhiệt đới (chu kỳ mùa)</span><span class="c bl">365,2422 ngày</span></div>
+        <div class="row2 fx b"><span class="a">Ngày thiên văn</span><span class="c bl">23 g 56 ph 4 s</span></div>
+        <div class="row2 fx b"><span class="a">Ngày Mặt Trời trung bình</span><span class="c bl">24 giờ</span></div>
+        <div class="row2 fx b"><span class="a">Độ nghiêng trục</span><span class="c bl">23,44°</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. Ôn nhanh -->
+<section class="slide" data-by="Ôn nhanh">
+  <div class="pad fy">
+    <p class="eyebrow s">Ôn nhanh</p>
+    <h2 class="title s d1" style="font-size:56px;margin-top:8px">Trả lời bằng một câu</h2>
+    <div class="fy gy22 f1" style="margin-top:36px">
+      <div class="card fy jc f1"><p class="q">1. Vì sao có ngày và đêm?</p><p class="ans b" style="margin-top:8px"><span class="hl">→</span> Trái Đất hình cầu, luôn được chiếu sáng một nửa, và tự quay quanh trục.</p></div>
+      <div class="card fy jc f1"><p class="q">2. Vì sao có bốn mùa?</p><p class="ans b" style="margin-top:8px"><span class="hl">→</span> Trục nghiêng 23,44° giữ nguyên hướng khi Trái Đất đi quanh Mặt Trời, nên lượng ánh sáng mỗi bán cầu nhận thay đổi theo thời điểm.</p></div>
+      <div class="card fy jc f1"><p class="q">3. Một vòng quanh Mặt Trời mất bao lâu?</p><p class="ans b" style="margin-top:8px"><span class="hl">→</span> Khoảng 365,25 ngày, với tốc độ trung bình gần 30 km/s.</p></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<script src="../assets/deck.js"></script>
+<script>
+(function () {
+  var NS = 'http://www.w3.org/2000/svg', PI = Math.PI;
+  function S(tag, a, p) {
+    var e = document.createElementNS(NS, tag), k;
+    for (k in a) if (a.hasOwnProperty(k)) e.setAttribute(k, a[k]);
+    if (p) p.appendChild(e); return e;
+  }
+  function T(p, x, y, txt, size, fill, anchor, weight) {
+    var e = S('text', { x: x, y: y, fill: fill || '#e8eefc', 'font-size': size || 24, 'text-anchor': anchor || 'middle' }, p);
+    if (weight) e.setAttribute('font-weight', weight);
+    e.appendChild(document.createTextNode(txt)); return e;
+  }
+  function defsGlow(svg, id, c1) {
+    var d = S('defs', {}, svg), g = S('radialGradient', { id: id }, d);
+    S('stop', { offset: '0%', 'stop-color': '#fff6d6' }, g); S('stop', { offset: '35%', 'stop-color': c1 }, g);
+    S('stop', { offset: '100%', 'stop-color': c1, 'stop-opacity': 0 }, g);
+  }
+  function earthGrad(svg, id) {
+    var d = S('defs', {}, svg), g = S('radialGradient', { id: id, cx: '35%', cy: '30%', r: '80%' }, d);
+    S('stop', { offset: '0%', 'stop-color': '#7cc4ff' }, g); S('stop', { offset: '100%', 'stop-color': '#1b5fb0' }, g);
+  }
+
+  /* sao nền */
+  (function () {
+    var s = [], i, x = 7, r = function () { x = (x * 16807) % 2147483647; return x / 2147483647; };
+    for (i = 0; i < 110; i++) s.push(Math.round(r() * 1920) + 'px ' + Math.round(r() * 1080) + 'px 0 ' + (r() < .2 ? 1 : 0) + 'px rgba(255,255,255,' + (0.25 + r() * 0.6).toFixed(2) + ')');
+    document.getElementById('stars').style.boxShadow = s.join(',');
+  })();
+
+  /* 1. bìa */
+  (function () {
+    var v = document.getElementById('cover'); defsGlow(v, 'cg', '#ffb547'); earthGrad(v, 'cge');
+    S('circle', { cx: 410, cy: 410, r: 400, fill: 'url(#cg)', opacity: .55 }, v);
+    S('circle', { cx: 410, cy: 410, r: 96, fill: '#ffcf70' }, v);
+    S('ellipse', { cx: 410, cy: 410, rx: 340, ry: 250, fill: 'none', stroke: 'rgba(255,255,255,.28)', 'stroke-width': 2, 'stroke-dasharray': '6 10' }, v);
+    S('circle', { cx: 650, cy: 270, r: 30, fill: 'url(#cge)' }, v);
+  })();
+
+  /* 2. các hành tinh trong */
+  (function () {
+    var v = document.getElementById('inner'); defsGlow(v, 'ig', '#ffb547'); earthGrad(v, 'ige');
+    var C = 380, pl = [[62, 'Sao Thủy', '0,39 AU', 210, 7, '#b9b1a8'], [115, 'Sao Kim', '0,72 AU', 35, 11, '#e8c987'], [160, 'Trái Đất', '1 AU', 305, 16, 'url(#ige)'], [243, 'Sao Hỏa', '1,52 AU', 160, 10, '#d9684a']], i;
+    S('circle', { cx: C, cy: C, r: 110, fill: 'url(#ig)', opacity: .6 }, v);
+    S('circle', { cx: C, cy: C, r: 24, fill: '#ffcf70' }, v);
+    for (i = 0; i < pl.length; i++) {
+      var p = pl[i], a = p[3] * PI / 180, x = C + p[0] * Math.cos(a), y = C - p[0] * Math.sin(a), e = i === 2;
+      S('circle', { cx: C, cy: C, r: p[0], fill: 'none', stroke: e ? 'rgba(108,182,255,.8)' : 'rgba(255,255,255,.22)', 'stroke-width': e ? 3 : 1.5 }, v);
+      S('circle', { cx: x, cy: y, r: p[4], fill: p[5] }, v);
+      var right = Math.cos(a) >= 0;
+      T(v, x + (right ? 1 : -1) * (p[4] + 12), y - 2, p[1], e ? 28 : 22, e ? '#6cb6ff' : '#c9d6f2', right ? 'start' : 'end', e ? 700 : 400);
+      T(v, x + (right ? 1 : -1) * (p[4] + 12), y + 24, p[2], 20, '#7f90b3', right ? 'start' : 'end');
+    }
+    T(v, C, 700, 'Bốn hành tinh trong, đúng tỉ lệ khoảng cách.', 20, '#7f90b3'); T(v, C, 726, 'Sao Mộc ở 5,2 AU, ngoài khung hình.', 20, '#7f90b3');
+  })();
+
+  /* 3. quỹ đạo */
+  var orbit = (function () {
+    var v = document.getElementById('orbit'); defsGlow(v, 'og', '#ffb547'); earthGrad(v, 'oge');
+    var a = 380, e = 0.4, b = a * Math.sqrt(1 - e * e), cx = 500, cy = 358, sx = cx + a * e, sy = cy;
+    S('ellipse', { cx: cx, cy: cy, rx: a, ry: b, fill: 'none', stroke: 'rgba(255,255,255,.32)', 'stroke-width': 2, 'stroke-dasharray': '5 9' }, v);
+    var wedge = S('path', { d: '', fill: 'rgba(255,181,71,.28)', stroke: 'rgba(255,181,71,.7)', 'stroke-width': 1.5 }, v);
+    S('circle', { cx: sx, cy: sy, r: 120, fill: 'url(#og)', opacity: .55 }, v);
+    S('circle', { cx: sx, cy: sy, r: 34, fill: '#ffcf70' }, v);
+    T(v, sx, sy + 66, 'Mặt Trời', 22, '#ffd98f');
+    S('circle', { cx: sx + a * (1 - e), cy: sy, r: 6, fill: '#ffb547' }, v);
+    S('circle', { cx: sx - a * (1 + e), cy: sy, r: 6, fill: '#ffb547' }, v);
+    T(v, sx + a * (1 - e), sy + 36, 'Cận nhật · ~3/1', 22, '#ffd98f', 'middle');
+    T(v, sx - a * (1 + e), sy + 36, 'Viễn nhật · ~4/7', 22, '#ffd98f', 'middle');
+    var pl = S('circle', { cx: 0, cy: 0, r: 17, fill: 'url(#oge)' }, v);
+    var lb = T(v, 0, 0, 'Trái Đất', 24, '#6cb6ff', 'middle', 700);
+    var mon = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31], run = false, t0 = 0, id = 0, YEAR = 26000;
+    function kep(M) { var E = M, i; for (i = 0; i < 7; i++) E = E - (E - e * Math.sin(E) - M) / (1 - e * Math.cos(E)); return E; }
+    function pos(M) { var E = kep(M); return [sx + a * (Math.cos(E) - e), sy - b * Math.sin(E)]; }
+    function draw(t) {
+      var M = 2 * PI * t, p = pos(M); pl.setAttribute('cx', p[0]); pl.setAttribute('cy', p[1]);
+      lb.setAttribute('x', p[0]); lb.setAttribute('y', p[1] + (p[1] > sy ? 46 : -30));
+      var dd = 'M' + sx + ' ' + sy + ' L' + p[0] + ' ' + p[1], k, q;
+      for (k = 1; k <= 14; k++) { q = pos(M - (k / 14) * (2 * PI / 12)); dd += ' L' + q[0] + ' ' + q[1]; }
+      // cung quét: đi ngược thời gian rồi đóng về Mặt Trời
+      wedge.setAttribute('d', dd + ' Z');
+      var day = (2 + 365.25 * t) % 365.25, m = 0, dm = Math.floor(day);
+      while (dm >= mon[m]) { dm -= mon[m]; m++; if (m > 11) { m = 11; break; } }
+      document.getElementById('o-date').innerHTML = (dm + 1) + ' tháng ' + (m + 1);
+      document.getElementById('o-dist').innerHTML = (149.6 * (1 - 0.0167 * Math.cos(M))).toFixed(1).replace('.', ',') + ' triệu km';
+      document.getElementById('o-vel').innerHTML = (29.78 * (1 + 0.0167 * Math.cos(M))).toFixed(1).replace('.', ',') + ' km/s';
+    }
+    function loop(now) {
+      if (!run) return; if (!t0) t0 = now;
+      draw(((now - t0) % YEAR) / YEAR); id = Deck.raf(loop);
+    }
+    draw(0);
+    return {
+      start: function () { if (run) return; run = true; t0 = 0; id = Deck.raf(loop); },
+      stop: function () { run = false; Deck.caf(id); }
+    };
+  })();
+  Deck.anims.orbit = orbit;
+
+  /* 4. tự quay + ngày đêm */
+  var spin = (function () {
+    var v = document.getElementById('spin'); earthGrad(v, 'sge');
+    var C = 400, cy = 360, R = 220, i;
+    for (i = -3; i <= 3; i++) {
+      var y = cy + i * 60;
+      S('line', { x1: 40, y1: y, x2: 140, y2: y, stroke: '#ffcf70', 'stroke-width': 3, opacity: .85 }, v);
+      S('polygon', { points: '140,' + (y - 8) + ' 156,' + y + ' 140,' + (y + 8), fill: '#ffcf70', opacity: .85 }, v);
+    }
+    T(v, 90, cy - 230, 'Ánh sáng', 22, '#ffd98f'); T(v, 90, cy - 204, 'Mặt Trời', 22, '#ffd98f');
+    var g = S('g', {}, v);
+    S('circle', { cx: C, cy: cy, r: R, fill: 'url(#sge)' }, g);
+    // lục địa trừu tượng, xoay cùng Trái Đất
+    S('path', { d: 'M330 230 Q380 200 430 235 Q450 280 410 300 Q380 330 345 305 Q310 270 330 230 Z', fill: '#4fae6a', opacity: .85 }, g);
+    S('path', { d: 'M470 360 Q520 340 550 385 Q555 430 515 450 Q480 430 470 360 Z', fill: '#4fae6a', opacity: .85 }, g);
+    S('path', { d: 'M290 410 Q330 400 350 440 Q340 490 305 500 Q275 460 290 410 Z', fill: '#4fae6a', opacity: .85 }, g);
+    S('circle', { cx: C, cy: cy, r: 6, fill: '#e8eefc' }, g);                      // cực Bắc
+    S('line', { x1: C, y1: cy, x2: C - R, y2: cy, stroke: 'rgba(255,255,255,.55)', 'stroke-width': 2, 'stroke-dasharray': '4 6' }, g);
+    var man = S('circle', { cx: C - R, cy: cy, r: 13, fill: '#ff5a6e', stroke: '#fff', 'stroke-width': 3 }, g);
+    S('path', { d: 'M' + C + ' ' + (cy - R) + ' A' + R + ' ' + R + ' 0 0 1 ' + C + ' ' + (cy + R) + ' Z', fill: 'rgba(2,4,14,.66)' }, v);
+    S('circle', { cx: C, cy: cy, r: R, fill: 'none', stroke: 'rgba(255,255,255,.4)', 'stroke-width': 2 }, v);
+    T(v, C - 120, cy - R - 24, 'Ban ngày', 26, '#ffd98f', 'middle', 700); T(v, C + 120, cy - R - 24, 'Ban đêm', 26, '#9fb0d0', 'middle', 700);
+    T(v, C - R - 8, cy - 26, '12 g', 22, '#ffd98f', 'end'); T(v, C + R + 14, cy + 6, '0 g', 22, '#9fb0d0', 'start');
+    T(v, C + 14, cy - R + 36, '6 g', 22, '#e8eefc', 'start'); T(v, C + 14, cy + R - 20, '18 g', 22, '#e8eefc', 'start');
+    T(v, C, cy + R + 52, 'Nhìn từ trên cực Bắc xuống: Trái Đất quay ngược chiều kim đồng hồ ↺', 22, '#9fb0d0');
+    var run = false, t0 = 0, id = 0, DAY = 12000;
+    function label(h) {
+      if (h >= 5 && h < 7) return 'Bình minh'; if (h >= 7 && h < 11) return 'Buổi sáng'; if (h >= 11 && h < 13) return 'Giữa trưa';
+      if (h >= 13 && h < 17) return 'Buổi chiều'; if (h >= 17 && h < 19) return 'Hoàng hôn'; if (h >= 19 && h < 23) return 'Buổi tối'; return 'Đêm khuya';
+    }
+    function draw(f) {
+      g.setAttribute('transform', 'rotate(' + (-f * 360) + ' ' + C + ' ' + cy + ')');
+      var h = (12 + 24 * f) % 24, hh = Math.floor(h), mm = Math.floor((h - hh) * 60);
+      document.getElementById('s-time').innerHTML = (hh < 10 ? '0' : '') + hh + ':' + (mm < 10 ? '0' : '') + mm;
+      document.getElementById('s-label').innerHTML = label(h);
+      document.getElementById('s-state').innerHTML = (h >= 6 && h < 18) ? 'Ban ngày' : 'Ban đêm';
+    }
+    function loop(now) { if (!run) return; if (!t0) t0 = now; draw(((now - t0) % DAY) / DAY); id = Deck.raf(loop); }
+    draw(0);
+    return { start: function () { if (run) return; run = true; t0 = 0; id = Deck.raf(loop); }, stop: function () { run = false; Deck.caf(id); } };
+  })();
+  Deck.anims.spin = spin;
+
+  /* 5. ngày Mặt Trời */
+  (function () {
+    var v = document.getElementById('solar'); earthGrad(v, 'ssge'); defsGlow(v, 'sg', '#ffb547');
+    var Sx = 70, Sy = 350, Rr = 297, k, d = '';
+    S('circle', { cx: Sx, cy: Sy, r: 130, fill: 'url(#sg)', opacity: .7 }, v); S('circle', { cx: Sx, cy: Sy, r: 40, fill: '#ffcf70' }, v);
+    T(v, Sx + 10, Sy + 80, 'Mặt Trời', 22, '#ffd98f');
+    for (k = -34; k <= 34; k += 2) { var q = k * PI / 180; d += (k === -34 ? 'M' : 'L') + (Sx + Rr * Math.cos(q)).toFixed(1) + ' ' + (Sy - Rr * Math.sin(q)).toFixed(1) + ' '; }
+    S('path', { d: d, fill: 'none', stroke: 'rgba(255,255,255,.3)', 'stroke-width': 2, 'stroke-dasharray': '5 9' }, v);
+    var qa = 17 * PI / 180, Ax = Sx + Rr * Math.cos(qa), Ay = Sy + Rr * Math.sin(qa), Bx = Sx + Rr * Math.cos(qa), By = Sy - Rr * Math.sin(qa);
+    var a1 = Math.atan2(Sy - Ay, Sx - Ax), a2 = Math.atan2(Sy - By, Sx - Bx);
+    function earth(x, y) {
+      S('circle', { cx: x, cy: y, r: 62, fill: 'url(#ssge)' }, v);
+      S('path', { d: 'M' + x + ' ' + (y - 62) + ' A62 62 0 0 1 ' + x + ' ' + (y + 62) + ' Z', fill: 'rgba(2,4,14,.55)' }, v);
+    }
+    function ray(x, y, ang, len, col, dash) {
+      S('line', { x1: x, y1: y, x2: x + len * Math.cos(ang), y2: y + len * Math.sin(ang), stroke: col, 'stroke-width': 3, 'stroke-dasharray': dash || '0' }, v);
+    }
+    earth(Ax, Ay); earth(Bx, By);
+    var oax = Ax + 62 * Math.cos(a1), oay = Ay + 62 * Math.sin(a1), obx = Bx + 62 * Math.cos(a1), oby = By + 62 * Math.sin(a1);
+    ray(oax, oay, a1, 150, '#ffd98f');
+    ray(obx, oby, a1, 150, '#7ee0c3', '10 8');
+    ray(obx, oby, a2, 150, '#ffd98f');
+    S('circle', { cx: oax, cy: oay, r: 9, fill: '#ff5a6e', stroke: '#fff', 'stroke-width': 2 }, v);
+    S('circle', { cx: obx, cy: oby, r: 9, fill: '#ff5a6e', stroke: '#fff', 'stroke-width': 2 }, v);
+    T(v, Ax + 80, Ay + 70, 'Hôm nay: Mặt Trời ở đúng', 22, '#e8eefc', 'start'); T(v, Ax + 80, Ay + 98, 'phía trên đầu (12 giờ trưa)', 22, '#e8eefc', 'start');
+    T(v, Bx + 80, By - 96, '23 g 56 ph sau: đã quay đủ 360°,', 22, '#e8eefc', 'start'); T(v, Bx + 80, By - 68, 'cùng hướng sao xa (nét đứt xanh)', 22, '#7ee0c3', 'start');
+    T(v, Bx + 80, By - 40, 'nhưng Mặt Trời (vàng) còn lệch', 22, '#ffd98f', 'start');
+    T(v, 450, 690, 'Góc lệch thật chỉ ≈ 0,9856°, hình vẽ phóng đại', 20, '#7f90b3');
+  })();
+
+  /* 6. mùa */
+  (function () {
+    var v = document.getElementById('seasons'); defsGlow(v, 'seg', '#ffb547');
+    var Sx = 550, Sy = 385, rx = 420, ry = 195;
+    S('ellipse', { cx: Sx, cy: Sy, rx: rx, ry: ry, fill: 'none', stroke: 'rgba(255,255,255,.3)', 'stroke-width': 2, 'stroke-dasharray': '5 9' }, v);
+    S('circle', { cx: Sx, cy: Sy, r: 120, fill: 'url(#seg)', opacity: .6 }, v); S('circle', { cx: Sx, cy: Sy, r: 44, fill: '#ffcf70' }, v);
+    T(v, Sx, Sy + 78, 'Mặt Trời', 22, '#ffd98f');
+    var tilt = 23.44 * PI / 180, dx = Math.sin(tilt), dy = -Math.cos(tilt);
+    var P = [[Sx - rx, Sy, 50, '21/6', 'Hạ chí', 'Bắc: mùa hè', 'b'], [Sx, Sy + ry, 58, '23/9', 'Thu phân', '', 'b'], [Sx + rx, Sy, 50, '21/12', 'Đông chí', 'Bắc: mùa đông', 'b'], [Sx, Sy - ry, 42, '20/3', 'Xuân phân', '', 't']], i;
+    for (i = 0; i < 4; i++) {
+      var p = P[i], x = p[0], y = p[1], r = p[2];
+      var ux = Sx - x, uy = Sy - y, L = Math.sqrt(ux * ux + uy * uy); ux /= L; uy /= L;
+      S('circle', { cx: x, cy: y, r: r, fill: '#4aa3ff' }, v);
+      var px = -uy, py = ux;
+      S('path', { d: 'M' + (x + r * px) + ' ' + (y + r * py) + ' A' + r + ' ' + r + ' 0 0 1 ' + (x - r * px) + ' ' + (y - r * py) + ' Z', fill: 'rgba(2,4,14,.62)' }, v);
+      S('line', { x1: x - dx * r * 1.7, y1: y - dy * r * 1.7, x2: x + dx * r * 1.7, y2: y + dy * r * 1.7, stroke: '#fff', 'stroke-width': 3 }, v);
+      S('circle', { cx: x + dx * r * 1.7, cy: y + dy * r * 1.7, r: 5, fill: '#ff5a6e' }, v);
+      var ty = p[6] === 't' ? y - r * 1.7 - 78 : y + r * 1.7 + 34;
+      T(v, x, ty, p[3] + ' · ' + p[4], 24, '#ffd98f', 'middle', 700);
+      if (p[5]) T(v, x, ty + 28, p[5], 22, '#c9d6f2');
+    }
+    T(v, Sx, 752, 'Chấm đỏ là cực Bắc. Trục luôn nghiêng về cùng một phía khi Trái Đất đi vòng quanh Mặt Trời.', 20, '#7f90b3');
+  })();
+
+  /* 7. độ dài ngày */
+  var daylen = (function () {
+    var v = document.getElementById('chart'), L = 70, R = 980, Tp = 20, B = 560, W = R - L, H = B - Tp, i, j;
+    function X(n) { return L + (n - 1) / 364 * W; } function Y(h) { return B - h / 24 * H; }
+    for (i = 0; i <= 24; i += 6) {
+      S('line', { x1: L, y1: Y(i), x2: R, y2: Y(i), stroke: 'rgba(255,255,255,.16)', 'stroke-width': 1 }, v);
+      T(v, L - 12, Y(i) + 8, i + ' g', 22, '#9fb0d0', 'end');
+    }
+    var ms = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+    for (i = 0; i < 12; i++) { T(v, X(ms[i] + 15), B + 38, 'T' + (i + 1), 22, '#9fb0d0'); S('line', { x1: X(ms[i] + 1), y1: B, x2: X(ms[i] + 1), y2: B + 8, stroke: '#7f90b3' }, v); }
+    T(v, L + W / 2, B + 76, 'Tháng trong năm (Bắc bán cầu)', 20, '#7f90b3');
+    function dl(lat, n) {
+      var dec = -23.44 * Math.cos(2 * PI * (n + 10) / 365) * PI / 180, x = -Math.tan(lat * PI / 180) * Math.tan(dec);
+      x = Math.max(-1, Math.min(1, x)); return 24 / PI * Math.acos(x);
+    }
+    var defs = [[0, '#7ee0c3'], [21.03, '#ffb547'], [45, '#6cb6ff'], [66.5, '#ff7a90']], lines = [], pts = [];
+    for (j = 0; j < defs.length; j++) {
+      var arr = []; for (i = 1; i <= 365; i += 4) arr.push([X(i), Y(dl(defs[j][0], i))]);
+      pts.push(arr); lines.push(S('polyline', { points: '', fill: 'none', stroke: defs[j][1], 'stroke-width': 5, 'stroke-linejoin': 'round' }, v));
+    }
+    function show(p) {
+      var j, n, s, k; for (j = 0; j < pts.length; j++) {
+        n = Math.max(2, Math.round(pts[j].length * p)); s = []; for (k = 0; k < n; k++) s.push(pts[j][k][0].toFixed(1) + ',' + pts[j][k][1].toFixed(1));
+        lines[j].setAttribute('points', s.join(' '));
+      }
+    }
+    show(1);
+    var run = false, id = 0, t0 = 0;
+    function loop(now) { if (!run) return; if (!t0) t0 = now; var p = Math.min(1, (now - t0) / 2200); show(p); if (p < 1) id = Deck.raf(loop); else run = false; }
+    return { start: function () { run = true; t0 = 0; id = Deck.raf(loop); }, stop: function () { run = false; Deck.caf(id); show(1); } };
+  })();
+  Deck.anims.daylen = daylen;
+})();
+</script>
+</body></html>

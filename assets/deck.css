@@ -1,0 +1,52 @@
+/* 2zer011 slide - engine CSS. Chủ ý chỉ dùng CSS cũ: không var(), grid, gap, inset -> chạy từ IE11 / Chrome 49 / Firefox 52 */
+*{-webkit-box-sizing:border-box;box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:#000}
+body{font-family:"Segoe UI",Tahoma,Arial,"Helvetica Neue",sans-serif;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-text-size-adjust:100%}
+body.idle{cursor:none}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;-webkit-transform-origin:0 0;-ms-transform-origin:0 0;transform-origin:0 0;overflow:hidden}
+.slide{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;opacity:0;visibility:hidden;-webkit-transition:opacity .6s ease,visibility 0s .6s;transition:opacity .6s ease,visibility 0s .6s}
+.slide.active{opacity:1;visibility:visible;-webkit-transition:opacity .6s ease,visibility 0s;transition:opacity .6s ease,visibility 0s}
+.s,.b{opacity:0;-webkit-transform:translateY(26px);-ms-transform:translateY(26px);transform:translateY(26px);-webkit-transition:opacity .6s ease,-webkit-transform .6s ease;transition:opacity .6s ease,transform .6s ease}
+.b.bs{-webkit-transform:none!important;-ms-transform:none!important;transform:none!important}
+.slide.active .s,.b.on{opacity:1;-webkit-transform:none;-ms-transform:none;transform:none}
+.slide.active .s{-webkit-transition-delay:.3s;transition-delay:.3s}
+.slide.active .s.d1{transition-delay:.45s}.slide.active .s.d2{transition-delay:.6s}.slide.active .s.d3{transition-delay:.75s}.slide.active .s.d4{transition-delay:.9s}.slide.active .s.d5{transition-delay:1.05s}
+
+/* chrome */
+#foot{position:absolute;left:120px;right:120px;bottom:34px;height:34px;font-size:24px;line-height:34px;z-index:20}
+#fl{float:left}#fr{float:right}
+#bar{position:absolute;left:0;bottom:0;height:6px;width:0;z-index:21;-webkit-transition:width .5s ease;transition:width .5s ease}
+#stage.nofoot #foot{visibility:hidden}
+
+/* bố cục */
+.pad{position:absolute;left:120px;top:92px;width:1680px;height:880px}
+.abs{position:absolute}
+.fx{display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;flex-direction:row}
+.fy{display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;flex-direction:column}
+.f1{-webkit-flex:1 1 0px;-ms-flex:1 1 0px;flex:1 1 0px;min-width:0;min-height:0}
+.f0{-webkit-flex:none;-ms-flex:none;flex:none}
+.mid{-webkit-align-items:center;align-items:center}
+.jc{-webkit-justify-content:center;justify-content:center}
+.jb{-webkit-justify-content:space-between;justify-content:space-between}
+.wrap{-webkit-flex-wrap:wrap;flex-wrap:wrap}
+.gx12>*+*{margin-left:12px}.gx20>*+*{margin-left:20px}.gx28>*+*{margin-left:28px}.gx40>*+*{margin-left:40px}.gx56>*+*{margin-left:56px}
+.gy8>*+*{margin-top:8px}.gy14>*+*{margin-top:14px}.gy22>*+*{margin-top:22px}.gy32>*+*{margin-top:32px}.gy44>*+*{margin-top:44px}
+.tc{text-align:center}
+
+/* chữ */
+.eyebrow{font-size:26px;font-weight:600;letter-spacing:4px;text-transform:uppercase}
+.title{font-family:"Times New Roman",Times,serif;font-weight:700;font-size:68px;line-height:1.12}
+.h2{font-family:"Times New Roman",Times,serif;font-weight:700;font-size:44px;line-height:1.2}
+.lead{font-size:34px;line-height:1.5}
+.txt{font-size:30px;line-height:1.5}
+.sm{font-size:26px;line-height:1.45}
+.serif{font-family:"Times New Roman",Times,serif}
+.it{font-style:italic}
+.num{font-family:"Times New Roman",Times,serif;font-weight:700;line-height:1}
+.card{border-radius:20px;padding:30px 36px}
+.pill{display:inline-block;border-radius:999px;padding:6px 22px;font-size:24px;font-weight:600}
+ul.l{list-style:none}
+ul.l li{position:relative;padding-left:34px;font-size:30px;line-height:1.45}
+ul.l li+li{margin-top:12px}
+ul.l li:before{content:"";position:absolute;left:4px;top:.55em;width:12px;height:12px;border-radius:50%;background:currentColor;opacity:.7}
+svg text{font-family:"Segoe UI",Tahoma,Arial,sans-serif}
