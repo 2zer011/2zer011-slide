@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2zer011 slide</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%239B3A2E'/%3E%3Cpath d='M24 18l22 14-22 14z' fill='%23F4EBD9'/%3E%3C/svg%3E">
+<style>
+/* ES5/CSS2-3 an toàn: không dùng CSS variables, grid, gap, inset -> chạy được trên trình duyệt cũ (Win 7) */
+*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%}
+body{background:#15100d;color:#F4EBD9;font-family:"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.5}
+a{color:inherit}
+#home{min-height:100%;padding:48px 24px 64px}
+.wrap{max-width:1100px;margin:0 auto}
+header h1{margin:0 0 6px;font:700 40px "Times New Roman",Times,serif;color:#F4EBD9}
+header p{margin:0 0 36px;color:#CDB89A;font-size:17px}
+header b{color:#E3B866}
+#warn{display:none;background:#9B3A2E;color:#fff;padding:12px 18px;border-radius:8px;margin-bottom:24px;font-size:15px}
+#list{margin:0 -12px;font-size:0}
+.card{display:inline-block;vertical-align:top;width:33.3333%;min-width:280px;padding:12px;font-size:16px;text-align:left}
+@media (max-width:900px){.card{width:50%}}
+@media (max-width:620px){.card{width:100%}}
+.card button{display:block;width:100%;padding:0;margin:0;border:1px solid #3a2e26;border-radius:14px;background:#221a15;color:inherit;font:inherit;text-align:left;cursor:pointer;overflow:hidden;-webkit-transition:border-color .2s,-webkit-transform .2s;transition:border-color .2s,transform .2s}
+.card button:hover,.card button:focus{border-color:#E3B866;outline:0;-webkit-transform:translateY(-3px);transform:translateY(-3px)}
+.thumb{position:relative;height:0;padding-bottom:56.25%;background:#2B2320 center/cover no-repeat}
+.thumb i{position:absolute;right:12px;bottom:12px;width:46px;height:46px;border-radius:50%;background:#9B3A2E;color:#F4EBD9;font-style:normal;font-size:20px;line-height:46px;text-align:center;padding-left:3px}
+.info{padding:16px 18px 18px}
+.info h2{margin:0 0 4px;font:700 21px/1.25 "Times New Roman",Times,serif}
+.info p{margin:0;color:#CDB89A;font-size:14px}
+.info small{display:block;margin-top:10px;color:#8c7a68;font-size:13px}
+.opt{margin-top:40px;padding-top:20px;border-top:1px solid #3a2e26;font-size:14px;color:#CDB89A}
+.opt label{cursor:pointer}
+.opt input{vertical-align:middle;margin-right:6px}
+.opt span{display:block;color:#8c7a68;font-size:13px;margin:4px 0 0 22px}
+footer{margin-top:28px;font-size:13px;color:#6E6157}
+
+/* Player */
+#player{display:none;position:fixed;left:0;top:0;right:0;bottom:0;background:#15100d;z-index:10}
+#bar{position:absolute;left:0;top:0;right:0;height:42px;background:#0e0a08;border-bottom:1px solid #3a2e26;padding:6px 10px;white-space:nowrap;overflow:hidden}
+#bar button{height:30px;margin-right:8px;padding:0 14px;border:1px solid #4a3c31;border-radius:6px;background:#221a15;color:#F4EBD9;font:14px "Segoe UI",Tahoma,Arial,sans-serif;cursor:pointer}
+#bar button:hover{border-color:#E3B866}
+#ptitle{display:inline-block;vertical-align:top;line-height:30px;color:#CDB89A;font-size:14px;margin-left:6px}
+#frame{position:absolute;left:0;top:42px;right:0;bottom:0;width:100%;height:-webkit-calc(100% - 42px);height:calc(100% - 42px);border:0;background:#15100d}
+#player.fs #bar{display:none}
+#player.fs #frame{top:0;height:100%}
+#loading{position:absolute;left:0;top:42px;right:0;bottom:0;text-align:center;padding-top:20%;color:#CDB89A;pointer-events:none}
+#player.fs #loading{top:0}
+</style>
+</head>
+<body>
+
+<div id="home">
+  <div class="wrap">
+    <div id="warn">Trình duyệt này quá cũ nên có thể không chiếu mượt. Hãy dùng Chrome 109 (bản cuối cho Windows 7) hoặc Firefox ESR 115.</div>
+    <header>
+      <h1><b>2zer011</b> slide</h1>
+      <p>Chọn một bài và bấm để chiếu. Phím → / Space / click để sang trang, ← để lùi, F để toàn màn hình.</p>
+    </header>
+    <div id="list"></div>
+    <div class="opt">
+      <label><input type="checkbox" id="lite"> Chế độ nhẹ (cho máy yếu / Windows cũ)</label>
+      <span>Tắt hiệu ứng nặng: nhiễu giấy, mờ, chuyển động nền. Tự bật trên máy cũ.</span>
+    </div>
+    <footer>2011 · 2zer011</footer>
+  </div>
+</div>
+
+<div id="player">
+  <div id="bar">
+    <button id="bBack" type="button">&#8592; Thư viện</button>
+    <button id="bFull" type="button">Toàn màn hình</button>
+    <button id="bLite" type="button">Chế độ nhẹ: tắt</button>
+    <button id="bTab" type="button">Mở tab riêng</button>
+    <span id="ptitle"></span>
+  </div>
+  <div id="loading">Đang tải bài…</div>
+  <iframe id="frame" title="Bài thuyết trình" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
+</div>
+
+<script>
+/* ===== DANH SÁCH BÀI =====
+   Thêm bài mới: bỏ file .html vào thư mục decks/ rồi thêm 1 dòng vào đây. */
+var DECKS = [
+  {
+    title: 'Trái Đất và Mặt Trời',
+    sub: 'Quỹ đạo, vòng quay, chu kỳ ngày đêm, bốn mùa',
+    meta: 'Thiên văn · 10 slide · có mô phỏng chuyển động',
+    file: 'decks/trai-dat-mat-troi.html',
+    thumb: 'thumbs/trai-dat-mat-troi.jpg'
+  },
+  {
+    title: 'Triết học Mác – Lênin',
+    sub: 'Duy vật biện chứng, phép biện chứng, nhận thức, duy vật lịch sử',
+    meta: 'Triết học · 15 slide',
+    file: 'decks/triet-hoc-mac-lenin.html',
+    thumb: 'thumbs/triet-hoc-mac-lenin.jpg'
+  },
+  {
+    title: 'Khổ 3 bài thơ Mùa xuân chín',
+    sub: 'Hàn Mặc Tử · Tổ 3 · Ngữ văn',
+    meta: 'Ngữ văn · 13 slide',
+    file: 'decks/mua-xuan-chin-to3.html',
+    thumb: 'thumbs/mua-xuan-chin-to3.jpg'
+  }
+];
+
+/* ===== CODE (ES5, không dùng tính năng mới) ===== */
+(function () {
+  var d = document;
+  function $(id) { return d.getElementById(id); }
+  var list = $('list'), player = $('player'), frame = $('frame'), loading = $('loading');
+  var liteBox = $('lite'), bLite = $('bLite'), bTab = $('bTab'), bFull = $('bFull'), bBack = $('bBack'), ptitle = $('ptitle');
+  var lite = false, current = null;
+
+  function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) {} return null; }
+
+  // Cảnh báo trình duyệt quá cũ (thiếu transform)
+  var st = d.documentElement.style;
+  if (!('transform' in st || 'webkitTransform' in st || 'msTransform' in st || 'MozTransform' in st)) $('warn').style.display = 'block';
+
+  // Tự bật chế độ nhẹ trên máy cũ / yếu nếu người dùng chưa chọn
+  function looksWeak() {
+    var ua = navigator.userAgent || '';
+    if (/Windows NT (5|6\.0|6\.1)/.test(ua)) return true;            // XP/Vista/7
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) return true;
+    if (navigator.deviceMemory && navigator.deviceMemory <= 2) return true;
+    return false;
+  }
+  var saved = store('lite');
+  lite = saved === null ? looksWeak() : saved === '1';
+
+  function renderLite() {
+    liteBox.checked = lite;
+    bLite.innerHTML = 'Chế độ nhẹ: ' + (lite ? 'bật' : 'tắt');
+  }
+  function setLite(v) { lite = v; store('lite', v ? '1' : '0'); renderLite(); if (current) applyLite(); }
+  liteBox.onclick = function () { setLite(liteBox.checked); };
+  bLite.onclick = function () { setLite(!lite); };
+  renderLite();
+
+  // CSS tắt hiệu ứng nặng, chèn vào bài đang chiếu (cùng origin)
+  var LITE_CSS =
+    '*{-webkit-filter:none!important;filter:none!important;mix-blend-mode:normal!important;-webkit-animation:none!important;animation:none!important;text-shadow:none!important}' +
+    '#stage::after,#sun{display:none!important}' +
+    '.slide,.s,.b{-webkit-transition-duration:.25s!important;transition-duration:.25s!important}' +
+    '.s,.b{-webkit-transform:none!important;transform:none!important}';
+  function applyLite() {
+    try {
+      var doc = frame.contentDocument; if (!doc) return;
+      var el = doc.getElementById('__lite');
+      if (lite && !el) {
+        el = doc.createElement('style'); el.id = '__lite'; el.type = 'text/css';
+        if (el.styleSheet) el.styleSheet.cssText = LITE_CSS; else el.appendChild(doc.createTextNode(LITE_CSS));
+        (doc.head || doc.documentElement).appendChild(el);
+      } else if (!lite && el) { el.parentNode.removeChild(el); }
+    } catch (e) { /* khác origin (file://): bỏ qua */ }
+  }
+
+  // Thẻ bài
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
+  var html = '';
+  for (var i = 0; i < DECKS.length; i++) {
+    var k = DECKS[i];
+    html += '<div class="card"><button type="button" data-i="' + i + '">' +
+      '<div class="thumb" style="background-image:url(\'' + esc(k.thumb || '') + '\')"><i>&#9654;</i></div>' +
+      '<div class="info"><h2>' + esc(k.title) + '</h2><p>' + esc(k.sub || '') + '</p><small>' + esc(k.meta || '') + '</small></div>' +
+      '</button></div>';
+  }
+  list.innerHTML = html;
+  list.onclick = function (e) {
+    e = e || window.event;
+    var t = e.target || e.srcElement;
+    while (t && t !== list && !(t.getAttribute && t.getAttribute('data-i') !== null)) t = t.parentNode;
+    if (t && t !== list) openDeck(DECKS[+t.getAttribute('data-i')], true);
+  };
+
+  // Toàn màn hình (có tiền tố cho trình duyệt cũ)
+  function fsEl() { return d.fullscreenElement || d.webkitFullscreenElement || d.mozFullScreenElement || d.msFullscreenElement; }
+  function enterFs() {
+    var e = player;
+    var f = e.requestFullscreen || e.webkitRequestFullscreen || e.mozRequestFullScreen || e.msRequestFullscreen;
+    if (f) { try { var r = f.call(e); if (r && r['catch']) r['catch'](function () {}); } catch (x) {} }
+  }
+  function exitFs() {
+    var f = d.exitFullscreen || d.webkitExitFullscreen || d.mozCancelFullScreen || d.msExitFullscreen;
+    if (f && fsEl()) { try { f.call(d); } catch (x) {} }
+  }
+  function syncFs() {
+    var on = !!fsEl();
+    player.className = on ? 'fs' : '';
+    bFull.innerHTML = on ? 'Thoát toàn màn hình' : 'Toàn màn hình';
+    try { frame.contentWindow.focus(); } catch (e) {}
+  }
+  var evs = ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'];
+  for (var j = 0; j < evs.length; j++) d.addEventListener(evs[j], syncFs, false);
+  bFull.onclick = function () { fsEl() ? exitFs() : enterFs(); };
+
+  // Mở / đóng bài
+  function openDeck(deck, full) {
+    current = deck;
+    ptitle.innerHTML = esc(deck.title);
+    loading.style.display = 'block';
+    player.style.display = 'block';
+    d.body.style.overflow = 'hidden';
+    if (full) enterFs();                      // phải gọi ngay trong sự kiện click
+    frame.onload = function () {
+      loading.style.display = 'none';
+      applyLite();
+      try {                                   // bỏ qua màn "Bắt đầu" của bài, vào thẳng slide 1
+        var b = frame.contentDocument.getElementById('bn');
+        if (b) b.click();
+      } catch (e) { /* file:// -> người dùng tự bấm nút Bắt đầu */ }
+      try { frame.contentWindow.focus(); } catch (e) {}
+    };
+    frame.src = deck.file;
+  }
+  function closeDeck() {
+    exitFs();
+    frame.onload = null;
+    frame.src = 'about:blank';
+    player.style.display = 'none';
+    player.className = '';
+    d.body.style.overflow = '';
+    current = null;
+  }
+  bBack.onclick = closeDeck;
+  bTab.onclick = function () { if (current) { var f = current.file; closeDeck(); window.open(f, '_blank'); } };
+  d.onkeydown = function (e) {
+    e = e || window.event;
+    if ((e.keyCode === 27) && current && !fsEl()) closeDeck();
+  };
+
+  // Mở thẳng một bài qua #tên-file (vd index.html#mua-xuan-chin-to3) để chia sẻ link
+  var h = (location.hash || '').replace('#', '');
+  if (h) for (var n = 0; n < DECKS.length; n++) if (DECKS[n].file.indexOf('/' + h + '.html') > -1) openDeck(DECKS[n], false);
+})();
+</script>
+</body>
+</html>
