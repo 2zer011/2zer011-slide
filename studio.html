@@ -1,0 +1,2007 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2zer011 Studio</title>
+<style>
+*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%;overflow:hidden}
+body{background:#14110f;color:#EADFCB;font:14px "Segoe UI",Tahoma,Arial,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+button{background:#2a221d;border:1px solid #45382f;border-radius:6px;padding:5px 10px;cursor:pointer}
+button:hover{border-color:#E3B866}
+button.pri{background:#9B3A2E;border-color:#b8493b;color:#fff}
+#top{position:absolute;left:0;right:0;top:0;height:44px;background:#1c1713;border-bottom:1px solid #38302a;padding:7px 10px;white-space:nowrap;overflow:hidden}
+#top b{color:#E3B866;font-size:16px;margin-right:10px}
+#top *{vertical-align:middle}
+#pname{background:#14110f;border:1px solid #38302a;border-radius:6px;padding:5px 8px;width:200px}
+#left{position:absolute;left:0;top:44px;bottom:0;width:170px;background:#191512;border-right:1px solid #38302a;overflow-y:auto;padding:8px}
+.sl{position:relative;margin-bottom:8px;border:2px solid #38302a;border-radius:6px;cursor:pointer;background:#000;overflow:hidden}
+.sl.on{border-color:#E3B866}
+.sl canvas{display:block;width:100%;height:auto}
+.sl span{position:absolute;left:0;top:0;background:rgba(0,0,0,.65);padding:0 6px;font-size:11px}
+#sbtn button{margin:0 3px 4px 0;padding:3px 7px}
+#mid{position:absolute;left:170px;top:44px;bottom:0;right:430px;padding:10px;overflow:auto}
+#stagew{position:relative;width:100%;height:0;padding-bottom:56.25%;background:#000;border:1px solid #38302a}
+#stagew canvas{position:absolute;left:0;top:0;width:100%;height:100%}
+#tl{margin-top:8px;white-space:nowrap}
+#tl input[type=range]{width:40%}
+#tl *{vertical-align:middle}
+#status{margin-top:8px;color:#a8998a;font-size:12px;line-height:1.5}
+#right{position:absolute;right:0;top:44px;bottom:0;width:430px;background:#191512;border-left:1px solid #38302a}
+#tabs{height:34px;border-bottom:1px solid #38302a;padding:4px 6px;white-space:nowrap;overflow:hidden}
+#tabs button{border:0;background:transparent;padding:4px 9px;border-radius:5px}
+#tabs button.on{background:#2f261f;color:#E3B866}
+.pane{position:absolute;left:0;right:0;top:34px;bottom:0;display:none}
+.pane.on{display:block}
+#edwrap{position:absolute;left:0;right:0;top:0;bottom:92px;background:#100d0b}
+#gut{position:absolute;left:0;top:0;bottom:0;width:38px;overflow:hidden;background:#15110e;color:#6c5f52;text-align:right;padding:8px 6px 8px 0;font:12px/18px Consolas,"Courier New",monospace;white-space:pre}
+#hl,#code{position:absolute;left:38px;right:0;top:0;bottom:0;margin:0;padding:8px 10px;font:13px/18px Consolas,"Courier New",monospace;white-space:pre;overflow:auto;border:0;tab-size:4;-moz-tab-size:4}
+#hl{color:#EADFCB;pointer-events:none;overflow:hidden}
+#code{background:transparent;color:transparent;caret-color:#fff;resize:none;outline:0}
+#code::selection{background:rgba(227,184,102,.35);color:transparent}
+#errs{position:absolute;left:0;right:0;bottom:0;height:92px;overflow:auto;border-top:1px solid #38302a;padding:6px 10px;font-size:12px;background:#15110e}
+.er{color:#ff8e8e;cursor:pointer;margin-bottom:2px}.er.w{color:#e3b866}
+.ok{color:#7ee0c3}
+.k1{color:#ff8f70}.k2{color:#6cb6ff}.k3{color:#9be08a}.k4{color:#e3b866}.k5{color:#6c5f52}.k6{color:#d79cff}
+.scroll{position:absolute;left:0;right:0;top:0;bottom:0;overflow:auto;padding:10px}
+.scroll h4{margin:12px 0 4px;color:#E3B866}
+.fn{padding:5px 6px;border-radius:5px;cursor:pointer;border-bottom:1px solid #26201b}
+.fn:hover{background:#2a221d}
+.fn code{color:#9be08a;font:12px Consolas,monospace}
+.fn small{display:block;color:#a8998a}
+.asset{display:inline-block;width:120px;margin:0 8px 8px 0;vertical-align:top;font-size:12px;word-wrap:break-word}
+.asset img{width:120px;height:80px;display:block;border:1px solid #38302a}
+pre.sx{background:#100d0b;border:1px solid #38302a;border-radius:6px;padding:8px;font:12px/1.5 Consolas,monospace;white-space:pre-wrap}
+#flt{width:100%;margin-bottom:6px;background:#14110f;border:1px solid #38302a;border-radius:6px;padding:5px 8px}
+#toast{position:fixed;left:50%;bottom:24px;margin-left:-180px;width:360px;background:#9B3A2E;color:#fff;padding:9px 14px;border-radius:8px;text-align:center;display:none;z-index:50}
+#ctx{position:fixed;display:none;z-index:40;background:#241c17;border:1px solid #E3B866;border-radius:6px;padding:4px 0;min-width:170px}
+#ctx div{padding:5px 14px;cursor:pointer}#ctx div:hover{background:#3a2e26}
+#pres{position:fixed;left:0;top:0;right:0;bottom:0;background:#000;z-index:100;display:none}
+#pres canvas{position:absolute;left:0;top:0;width:100%;height:100%}
+#drop{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(155,58,46,.5);display:none;z-index:60;color:#fff;font-size:28px;text-align:center;padding-top:30%}
+</style>
+</head>
+<body>
+<div id="top"><b>2zer011 Studio</b>
+ <input id="pname" title="Tên dự án">
+ <button id="bNew">Mới</button> <button id="bPlay" class="pri">&#9654; Trình chiếu</button>
+ <button id="bExpHtml">Xuất HTML</button> <button id="bExp">Lưu .zer.json</button> <button id="bImp">Mở .zer.json</button>
+ <button id="bLib">&larr; Thư viện</button>
+ <input type="file" id="fJson" accept=".json,.zer" style="display:none"><input type="file" id="fImg" accept="image/*" multiple style="display:none">
+</div>
+<div id="left"><div id="slist"></div><div id="sbtn"><button id="sAdd">+ Slide</button><button id="sDup">Nhân đôi</button><button id="sUp">&uarr;</button><button id="sDn">&darr;</button><button id="sDel">Xoá</button></div></div>
+<div id="mid">
+ <div id="stagew"><canvas id="cv" width="960" height="540"></canvas></div>
+ <div id="tl"><button id="tPlay">&#10073;&#10073;</button> <button id="tRst">&#8634;</button> <input type="range" id="tSeek" min="0" max="1000" value="0"> <span id="tTxt">0.0s</span> &nbsp; <button id="tPrev">&laquo; Bước</button> <button id="tNext">Bước &raquo;</button> <span id="stepTxt"></span> &nbsp; <button id="tHome" title="Đặt lại góc nhìn">Góc nhìn</button></div>
+ <div id="status">Kéo chuột trái vào vật để di chuyển &bull; kéo nền để xoay góc nhìn (Shift = tịnh tiến, lăn chuột = zoom, nháy đúp = đặt lại) &bull; <b>chuột phải</b> vào vật để mở mã của nó &bull; kéo thả / dán ảnh vào để nhập.</div>
+</div>
+<div id="right">
+ <div id="tabs"><button data-p="pCode" class="on">Mã</button><button data-p="pFn">Hàm</button><button data-p="pImg">Ảnh</button><button data-p="pSmp">Mẫu</button><button data-p="pSx">Cú pháp</button><button data-p="pAi">Cho AI</button></div>
+ <div class="pane on" id="pCode"><div id="edwrap"><div id="gut"></div><pre id="hl"></pre><textarea id="code" spellcheck="false" wrap="off"></textarea></div><div id="errs"></div></div>
+ <div class="pane" id="pFn"><div class="scroll"><input id="flt" placeholder="Tìm hàm... (click để chèn vào mã)"><div id="fnl"></div></div></div>
+ <div class="pane" id="pImg"><div class="scroll"><button id="bAddImg" class="pri">+ Nhập ảnh</button> <small>(hoặc kéo thả / Ctrl+V)</small><div id="assets" style="margin-top:10px"></div></div></div>
+ <div class="pane" id="pSmp"><div class="scroll"><div id="smp"></div></div></div>
+ <div class="pane" id="pAi"><div class="scroll"><p style="margin:0 0 8px;color:#a8998a">Đặc tả đầy đủ để AI (ChatGPT, Claude, Gemini…) viết mã ZER đúng ngay lần đầu. Bấm sao chép, dán cho AI trước yêu cầu của bạn, rồi dán kết quả vào tab Mã (tự bỏ ```).</p><button id="bCopy" class="pri">Sao chép đặc tả</button> <button id="bDlSpec">Tải .md</button><pre class="sx" id="specTxt" style="max-height:60vh;overflow:auto;margin-top:10px"></pre></div></div>
+ <div class="pane" id="pSx"><div class="scroll" id="sxBody"></div></div>
+</div>
+<div id="ctx"></div><div id="toast"></div><div id="drop">Thả ảnh vào đây</div>
+<div id="pres"><canvas id="pcv"></canvas></div>
+<script id="zer-runtime">/* ============================================================================
+   zer - ngôn ngữ của 2zer011 (phần 1: tiện ích, thư viện hàm, parser)
+   ES5 thuần để chạy trên trình duyệt cũ. Không phụ thuộc DOM (trừ tra màu CSS lạ).
+   ========================================================================== */
+(function (root) {
+'use strict';
+var ZER = root.ZER = { version: 1 };
+var PI = Math.PI, TAU = PI * 2;
+
+function hasOwn(o, k) { return Object.prototype.hasOwnProperty.call(o, k); }
+function isArr(v) { return Object.prototype.toString.call(v) === '[object Array]'; }
+function ZError(msg, line) { var e = new Error(msg); e.zline = line; return e; }
+function N(v) {
+  if (typeof v === 'number') return isNaN(v) ? 0 : v;
+  if (typeof v === 'string') { var f = parseFloat(v); return isNaN(f) ? 0 : f; }
+  if (isArr(v)) return N(v[0]);
+  return v ? 1 : 0;
+}
+function truthy(v) {
+  if (typeof v === 'number') return v !== 0;
+  if (typeof v === 'string') { var s = v.toLowerCase(); return !(s === '' || s === 'no' || s === 'false' || s === 'off' || s === '0' || s === 'không'); }
+  if (isArr(v)) return true;
+  return !!v;
+}
+function clamp(x, a, b) { return x < a ? a : (x > b ? b : x); }
+function V3(v, d) {            // đưa mọi thứ về vector 3 số; thiếu thì lấy từ d
+  d = d || [0, 0, 0];
+  if (isArr(v)) {
+    var r = [], i;
+    for (i = 0; i < 3; i++) r.push((v[i] === null || v[i] === undefined) ? d[i] : N(v[i]));
+    return r;
+  }
+  if (v === null || v === undefined) return [d[0], d[1], d[2]];
+  var n = N(v); return [n, n, n];
+}
+ZER._u = { N: N, V3: V3, truthy: truthy, isArr: isArr, hasOwn: hasOwn, clamp: clamp };
+
+/* ---------- màu ---------- */
+var NAMED = { red: '#ff3b30', green: '#34c759', blue: '#0a84ff', white: '#ffffff', black: '#000000', yellow: '#ffd60a', orange: '#ff9f0a',
+  purple: '#af52de', pink: '#ff6fa5', cyan: '#32d4ff', gray: '#8e8e93', grey: '#8e8e93', gold: '#e3b866', silver: '#c0c0c0', brown: '#8b5a2b',
+  teal: '#30b0c7', navy: '#1b2a5c', lime: '#a4e000', magenta: '#ff2bd6', transparent: 'rgba(0,0,0,0)', sky: '#6cb6ff', mint: '#7ee0c3',
+  coral: '#ff7a90', cream: '#f5eddc', ink: '#2a1c1c', maroon: '#800000', indigo: '#4b0082', violet: '#8a2be2', crimson: '#dc143c', olive: '#808000', skyblue: '#87ceeb', tomato: '#ff6347', salmon: '#fa8072', orchid: '#da70d6', plum: '#dda0dd', khaki: '#f0e68c', beige: '#f5f5dc', ivory: '#fffff0', lavender: '#e6e6fa', turquoise: '#40e0d0', aqua: '#00ffff', chocolate: '#d2691e', firebrick: '#b22222', darkred: '#8b0000', darkblue: '#00008b', darkgreen: '#006400', lightblue: '#add8e6', lightgreen: '#90ee90', lightgray: '#d3d3d3', lightgrey: '#d3d3d3', darkgray: '#a9a9a9', darkgrey: '#a9a9a9', steelblue: '#4682b4', royalblue: '#4169e1', slateblue: '#6a5acd', hotpink: '#ff69b4', deeppink: '#ff1493', orangered: '#ff4500', goldenrod: '#daa520', forestgreen: '#228b22', seagreen: '#2e8b57', springgreen: '#00ff7f', chartreuse: '#7fff00', tan: '#d2b48c', sienna: '#a0522d', peru: '#cd853f', wheat: '#f5deb3', snow: '#fffafa', azure: '#f0ffff', midnightblue: '#191970', dodgerblue: '#1e90ff', cornflowerblue: '#6495ed', darkorange: '#ff8c00', crimson2: '#dc143c', rose: '#ff3d7f', amber: '#ffbf00', emerald: '#50c878', ruby: '#e0115f', sapphire: '#0f52ba' };
+var colorCache = {};
+function hex2(n) { n = Math.round(clamp(n, 0, 255)); return (n < 16 ? '0' : '') + n.toString(16); }
+function parseColor(s) {
+  if (isArr(s)) return [N(s[0]), N(s[1]), N(s[2]), s.length > 3 ? N(s[3]) : 1];
+  s = String(s);
+  var c = colorCache[s]; if (c) return c;
+  var m, r = null, low = s.toLowerCase();
+  if (hasOwn(NAMED, low)) { r = parseColor(NAMED[low]); }
+  else if ((m = /^#([0-9a-f]{3,8})$/.exec(low))) {
+    var h = m[1];
+    if (h.length === 3 || h.length === 4) { var t = ''; for (var i = 0; i < h.length; i++) t += h.charAt(i) + h.charAt(i); h = t; }
+    if (h.length === 6 || h.length === 8) r = [parseInt(h.substr(0, 2), 16), parseInt(h.substr(2, 2), 16), parseInt(h.substr(4, 2), 16), h.length === 8 ? parseInt(h.substr(6, 2), 16) / 255 : 1];
+  } else if ((m = /^rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*(?:,\s*([\d.]+)\s*)?\)$/.exec(low))) {
+    r = [+m[1], +m[2], +m[3], m[4] === undefined ? 1 : +m[4]];
+  } else if (root.document) {
+    try { var cv = root.document.createElement('canvas').getContext('2d'); cv.fillStyle = '#010203'; cv.fillStyle = s; var f = cv.fillStyle; if (f !== '#010203') return (colorCache[s] = parseColor(f)); } catch (e) {}
+  }
+  if (!r) r = [128, 128, 128, 1];
+  colorCache[s] = r; return r;
+}
+function css(c, k) {             // [r,g,b,a] -> chuỗi css, k = hệ số sáng
+  k = k === undefined ? 1 : k;
+  var a = c[3] === undefined ? 1 : c[3];
+  return 'rgba(' + Math.round(clamp(c[0] * k, 0, 255)) + ',' + Math.round(clamp(c[1] * k, 0, 255)) + ',' + Math.round(clamp(c[2] * k, 0, 255)) + ',' + (Math.round(a * 1000) / 1000) + ')';
+}
+function mixRGBA(a, b, k) { return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k, (a[3] === undefined ? 1 : a[3]) + ((b[3] === undefined ? 1 : b[3]) - (a[3] === undefined ? 1 : a[3])) * k]; }
+function isColorStr(s) { return typeof s === 'string' && (/^#[0-9a-fA-F]{3,8}$/.test(s) || /^(rgb|hsl)a?\(/i.test(s) || hasOwn(NAMED, s.toLowerCase())); }
+function hsl2rgb(h, s, l) {
+  h = ((h % 360) + 360) % 360 / 360; s = clamp(s / 100, 0, 1); l = clamp(l / 100, 0, 1);
+  function f(p, q, t) { if (t < 0) t += 1; if (t > 1) t -= 1; if (t < 1 / 6) return p + (q - p) * 6 * t; if (t < 1 / 2) return q; if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6; return p; }
+  if (s === 0) return [l * 255, l * 255, l * 255];
+  var q = l < 0.5 ? l * (1 + s) : l + s - l * s, p = 2 * l - q;
+  return [f(p, q, h + 1 / 3) * 255, f(p, q, h) * 255, f(p, q, h - 1 / 3) * 255];
+}
+ZER._color = { parse: parseColor, css: css, mix: mixRGBA, isColorStr: isColorStr };
+
+/* ---------- easing ---------- */
+function bounceOut(x) { var n1 = 7.5625, d1 = 2.75; if (x < 1 / d1) return n1 * x * x; if (x < 2 / d1) return n1 * (x -= 1.5 / d1) * x + 0.75; if (x < 2.5 / d1) return n1 * (x -= 2.25 / d1) * x + 0.9375; return n1 * (x -= 2.625 / d1) * x + 0.984375; }
+var C1 = 1.70158, C3 = C1 + 1;
+var EASE = {
+  linear: function (x) { return x; },
+  smooth: function (x) { return x * x * (3 - 2 * x); },
+  'in': function (x) { return x * x; }, out: function (x) { return 1 - (1 - x) * (1 - x); },
+  inout: function (x) { return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; },
+  cubicin: function (x) { return x * x * x; }, cubicout: function (x) { return 1 - Math.pow(1 - x, 3); },
+  cubicinout: function (x) { return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; },
+  expoin: function (x) { return x === 0 ? 0 : Math.pow(2, 10 * x - 10); }, expoout: function (x) { return x === 1 ? 1 : 1 - Math.pow(2, -10 * x); },
+  expoinout: function (x) { return x === 0 ? 0 : x === 1 ? 1 : x < 0.5 ? Math.pow(2, 20 * x - 10) / 2 : (2 - Math.pow(2, -20 * x + 10)) / 2; },
+  sinein: function (x) { return 1 - Math.cos(x * PI / 2); }, sineout: function (x) { return Math.sin(x * PI / 2); }, sineinout: function (x) { return -(Math.cos(PI * x) - 1) / 2; },
+  backin: function (x) { return C3 * x * x * x - C1 * x * x; }, backout: function (x) { return 1 + C3 * Math.pow(x - 1, 3) + C1 * Math.pow(x - 1, 2); },
+  backinout: function (x) { var c2 = C1 * 1.525; return x < 0.5 ? (Math.pow(2 * x, 2) * ((c2 + 1) * 2 * x - c2)) / 2 : (Math.pow(2 * x - 2, 2) * ((c2 + 1) * (x * 2 - 2) + c2) + 2) / 2; },
+  elasticout: function (x) { return x === 0 ? 0 : x === 1 ? 1 : Math.pow(2, -10 * x) * Math.sin((x * 10 - 0.75) * (TAU / 3)) + 1; },
+  elasticin: function (x) { return x === 0 ? 0 : x === 1 ? 1 : -Math.pow(2, 10 * x - 10) * Math.sin((x * 10 - 10.75) * (TAU / 3)); },
+  bounceout: bounceOut, bouncein: function (x) { return 1 - bounceOut(1 - x); }
+};
+function easeFn(name) {
+  var k = String(name === undefined || name === null ? 'linear' : name).toLowerCase().replace(/[^a-z]/g, '').replace(/^ease/, '');
+  return EASE[k] || EASE.linear;
+}
+ZER._easeNames = (function () { var a = [], k; for (k in EASE) a.push(k); return a; })();
+
+function lerpAny(a, b, k) {
+  if (isArr(a) || isArr(b)) {
+    var aa = isArr(a), ba = isArr(b), n = Math.max(aa ? a.length : 1, ba ? b.length : 1), r = [], i;
+    for (i = 0; i < n; i++) r.push(lerpAny(aa ? a[i] : a, ba ? b[i] : b, k));
+    return r;
+  }
+  if (typeof a === 'string' && typeof b === 'string') {
+    if (isColorStr(a) && isColorStr(b)) return css(mixRGBA(parseColor(a), parseColor(b), k));
+    return k < 1 ? a : b;
+  }
+  if (a === null || a === undefined) return b;
+  if (b === null || b === undefined) return a;
+  a = N(a); b = N(b); return a + (b - a) * k;
+}
+
+/* ---------- ngẫu nhiên / noise ---------- */
+function hash(n) { n = Math.sin(n * 127.1 + 311.7) * 43758.5453123; return n - Math.floor(n); }
+function fade(t) { return t * t * t * (t * (t * 6 - 15) + 10); }
+function vnoise(x, y, z) {
+  var xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z), xf = x - xi, yf = y - yi, zf = z - zi,
+    u = fade(xf), v = fade(yf), w = fade(zf);
+  function h(i, j, k) { return hash(xi + i + (yi + j) * 57.0 + (zi + k) * 113.0 + 0.5); }
+  function l(a, b, t) { return a + (b - a) * t; }
+  return l(l(l(h(0, 0, 0), h(1, 0, 0), u), l(h(0, 1, 0), h(1, 1, 0), u), v), l(l(h(0, 0, 1), h(1, 0, 1), u), l(h(0, 1, 1), h(1, 1, 1), u), v), w);
+}
+
+/* ---------- thư viện hàm ---------- */
+var F = {}, DOCS = [];
+function def(cat, name, sig, desc, fn, snip) { F[name] = fn; DOCS.push({ cat: cat, name: name, sig: sig, desc: desc, snip: snip || sig }); }
+function un(fn) { return function (x) { if (isArr(x)) { var r = [], i; for (i = 0; i < x.length; i++) r.push(un(fn)(x[i])); return r; } return fn(N(x)); }; }
+function mod(a, b) { return ((a % b) + b) % b; }
+function saw(x) { return x - Math.floor(x); }
+function pts(a) { return isArr(a) ? a : []; }
+function vec(a) { return V3(a); }
+
+/* Toán */
+var MATH1 = [['abs', Math.abs, 'giá trị tuyệt đối'], ['floor', Math.floor, 'làm tròn xuống'], ['ceil', Math.ceil, 'làm tròn lên'], ['round', Math.round, 'làm tròn gần nhất'],
+  ['trunc', function (x) { return x < 0 ? Math.ceil(x) : Math.floor(x); }, 'bỏ phần thập phân'], ['fract', function (x) { return x - Math.floor(x); }, 'phần thập phân'],
+  ['sign', function (x) { return x > 0 ? 1 : x < 0 ? -1 : 0; }, 'dấu: -1, 0, 1'], ['sqrt', function (x) { return Math.sqrt(Math.max(0, x)); }, 'căn bậc hai'], ['cbrt', function (x) { return x < 0 ? -Math.pow(-x, 1 / 3) : Math.pow(x, 1 / 3); }, 'căn bậc ba'],
+  ['exp', Math.exp, 'e mũ x'], ['log', function (x) { return Math.log(Math.max(1e-12, x)); }, 'logarit tự nhiên'], ['log2', function (x) { return Math.log(Math.max(1e-12, x)) / Math.LN2; }, 'logarit cơ số 2'], ['log10', function (x) { return Math.log(Math.max(1e-12, x)) / Math.LN10; }, 'logarit cơ số 10'],
+  ['sin', Math.sin, 'sin (radian)'], ['cos', Math.cos, 'cos (radian)'], ['tan', Math.tan, 'tan (radian)'], ['asin', function (x) { return Math.asin(clamp(x, -1, 1)); }, 'arcsin'], ['acos', function (x) { return Math.acos(clamp(x, -1, 1)); }, 'arccos'], ['atan', Math.atan, 'arctan'],
+  ['sinh', function (x) { return (Math.exp(x) - Math.exp(-x)) / 2; }, 'sinh'], ['cosh', function (x) { return (Math.exp(x) + Math.exp(-x)) / 2; }, 'cosh'], ['tanh', function (x) { var a = Math.exp(x), b = Math.exp(-x); return (a - b) / (a + b); }, 'tanh'],
+  ['sind', function (x) { return Math.sin(x * PI / 180); }, 'sin theo ĐỘ'], ['cosd', function (x) { return Math.cos(x * PI / 180); }, 'cos theo ĐỘ'], ['tand', function (x) { return Math.tan(x * PI / 180); }, 'tan theo ĐỘ'],
+  ['deg', function (x) { return x * 180 / PI; }, 'radian sang độ'], ['rad', function (x) { return x * PI / 180; }, 'độ sang radian'], ['sq', function (x) { return x * x; }, 'bình phương'], ['neg', function (x) { return -x; }, 'đổi dấu']];
+(function () { var i; for (i = 0; i < MATH1.length; i++) def('Toán', MATH1[i][0], MATH1[i][0] + '(x)', MATH1[i][2], un(MATH1[i][1])); })();
+def('Toán', 'pow', 'pow(a, b)', 'a mũ b', function (a, b) { return Math.pow(N(a), N(b)); });
+def('Toán', 'atan2', 'atan2(y, x)', 'góc của vector (radian)', function (y, x) { return Math.atan2(N(y), N(x)); });
+def('Toán', 'mod', 'mod(a, b)', 'chia lấy dư luôn không âm', function (a, b) { b = N(b) || 1; return mod(N(a), b); });
+def('Toán', 'min', 'min(a, b, ...)', 'số nhỏ nhất', function () { var m = Infinity, i; for (i = 0; i < arguments.length; i++) m = Math.min(m, N(arguments[i])); return m; });
+def('Toán', 'max', 'max(a, b, ...)', 'số lớn nhất', function () { var m = -Infinity, i; for (i = 0; i < arguments.length; i++) m = Math.max(m, N(arguments[i])); return m; });
+def('Toán', 'clamp', 'clamp(x, lo, hi)', 'giữ x trong [lo, hi]', function (x, a, b) { return clamp(N(x), N(a), N(b)); });
+def('Toán', 'hypot', 'hypot(a, b, ...)', 'căn của tổng bình phương', function () { var s = 0, i; for (i = 0; i < arguments.length; i++) s += N(arguments[i]) * N(arguments[i]); return Math.sqrt(s); });
+def('Toán', 'sum', 'sum(a, b, ...)', 'tổng', function () { var s = 0, i, j, a; for (i = 0; i < arguments.length; i++) { a = arguments[i]; if (isArr(a)) for (j = 0; j < a.length; j++) s += N(a[j]); else s += N(a); } return s; });
+def('Toán', 'avg', 'avg(a, b, ...)', 'trung bình', function () { var s = 0, c = 0, i, j, a; for (i = 0; i < arguments.length; i++) { a = arguments[i]; if (isArr(a)) for (j = 0; j < a.length; j++) { s += N(a[j]); c++; } else { s += N(a); c++; } } return c ? s / c : 0; });
+def('Toán', 'lerp', 'lerp(a, b, k)', 'nội suy a→b theo k (0..1); dùng được cho vector và màu', function (a, b, k) { return lerpAny(a, b, N(k)); });
+def('Toán', 'invlerp', 'invlerp(a, b, x)', 'x nằm ở đâu giữa a và b (0..1)', function (a, b, x) { a = N(a); b = N(b); return b === a ? 0 : (N(x) - a) / (b - a); });
+def('Toán', 'map', 'map(x, a, b, c, d)', 'đổi x từ khoảng [a,b] sang [c,d]', function (x, a, b, c, d) { a = N(a); b = N(b); var k = b === a ? 0 : (N(x) - a) / (b - a); return N(c) + (N(d) - N(c)) * k; });
+def('Toán', 'step', 'step(edge, x)', '0 nếu x < edge, ngược lại 1', function (e, x) { return N(x) < N(e) ? 0 : 1; });
+def('Toán', 'smoothstep', 'smoothstep(a, b, x)', 'chuyển mượt từ 0 lên 1 giữa a và b', function (a, b, x) { a = N(a); b = N(b); var k = clamp((N(x) - a) / ((b - a) || 1), 0, 1); return k * k * (3 - 2 * k); });
+def('Toán', 'if', 'if(cond, a, b)', 'nếu cond đúng trả a, sai trả b', function (c, a, b) { return truthy(c) ? a : b; });
+def('Toán', 'choose', 'choose(i, a, b, c, ...)', 'chọn phần tử thứ i (vòng lại khi vượt)', function (i) { var n = arguments.length - 1; if (n < 1) return 0; return arguments[1 + mod(Math.floor(N(i)), n)]; });
+
+/* Sóng & thời gian */
+def('Sóng & thời gian', 'saw', 'saw(x)', 'răng cưa 0..1 lặp theo x', function (x) { return saw(N(x)); });
+def('Sóng & thời gian', 'tri', 'tri(x)', 'sóng tam giác 0..1', function (x) { return 1 - Math.abs(2 * saw(N(x)) - 1); });
+def('Sóng & thời gian', 'square', 'square(x)', 'sóng vuông 0/1', function (x) { return saw(N(x)) < 0.5 ? 1 : 0; });
+def('Sóng & thời gian', 'pulse', 'pulse(x, width)', 'xung: 1 trong phần width đầu của mỗi chu kỳ', function (x, w) { return saw(N(x)) < N(w) ? 1 : 0; });
+def('Sóng & thời gian', 'wave', 'wave(x)', 'sin chuẩn hoá về 0..1 (1 chu kỳ mỗi đơn vị x)', function (x) { return 0.5 + 0.5 * Math.sin(TAU * N(x)); });
+def('Sóng & thời gian', 'pingpong', 'pingpong(x, len)', 'đi tới len rồi quay lại, lặp mãi', function (x, l) { l = N(l) || 1; var m = mod(N(x), 2 * l); return m > l ? 2 * l - m : m; });
+def('Sóng & thời gian', 'loop', 'loop(x, len)', 'lặp x trong [0, len)', function (x, l) { return mod(N(x), N(l) || 1); });
+def('Sóng & thời gian', 'bob', 'bob(t, amp, freq)', 'dao động lên xuống: amp * sin(2π·freq·t)', function (t, a, f) { return N(a) * Math.sin(TAU * N(f) * N(t)); }, 'bob(t, 0.5, 0.5)');
+def('Sóng & thời gian', 'spin', 'spin(t, dps)', 'góc quay đều dps độ mỗi giây (0..360)', function (t, d) { return mod(N(t) * N(d), 360); }, 'spin(t, 30)');
+def('Sóng & thời gian', 'blink', 'blink(t, rate)', 'nhấp nháy 0/1, rate lần mỗi giây', function (t, r) { return saw(N(t) * N(r)) < 0.5 ? 1 : 0; });
+def('Sóng & thời gian', 'after', 'after(t, t0)', '1 khi đã qua thời điểm t0, ngược lại 0', function (t, t0) { return N(t) >= N(t0) ? 1 : 0; });
+def('Sóng & thời gian', 'between', 'between(t, a, b)', '1 khi t nằm trong [a, b)', function (t, a, b) { t = N(t); return t >= N(a) && t < N(b) ? 1 : 0; });
+def('Sóng & thời gian', 'fade_in', 'fade_in(t, t0, dur)', 'độ mờ 0→1 bắt đầu tại t0 kéo dài dur', function (t, t0, d) { return clamp((N(t) - N(t0)) / (N(d) || 1), 0, 1); }, 'fade_in(t, 0, 1)');
+def('Sóng & thời gian', 'fade_out', 'fade_out(t, t1, dur)', 'độ mờ 1→0 bắt đầu tại t1 kéo dài dur', function (t, t1, d) { return 1 - clamp((N(t) - N(t1)) / (N(d) || 1), 0, 1); }, 'fade_out(t, 5, 1)');
+def('Sóng & thời gian', 'tween', 'tween(t, t0, t1, a, b, ease)', 'chuyển a→b từ thời điểm t0 đến t1; ease là tên easing (mặc định inout)', function (t, t0, t1, a, b, e) {
+  t0 = N(t0); t1 = N(t1); var p = clamp((N(t) - t0) / ((t1 - t0) || 1), 0, 1); return lerpAny(a, b, easeFn(e === undefined ? 'inout' : e)(p));
+}, 'tween(t, 0, 2, 0, 5, "out")');
+def('Sóng & thời gian', 'shake', 'shake(t, amp, freq, seed)', 'rung ngẫu nhiên mượt, trả về vector (cộng vào position camera)', function (t, a, f, s) {
+  t = N(t) * N(f); s = N(s); a = N(a);
+  return [(vnoise(t, s, 0) - 0.5) * 2 * a, (vnoise(t, s + 10, 5) - 0.5) * 2 * a, (vnoise(t, s + 20, 9) - 0.5) * 2 * a];
+}, 'shake(t, 0.1, 8, 1)');
+
+/* Ngẫu nhiên */
+def('Ngẫu nhiên', 'rand', 'rand(seed)', 'số ngẫu nhiên 0..1, cùng seed luôn ra cùng kết quả', function (s) { return hash(N(s)); }, 'rand(i)');
+def('Ngẫu nhiên', 'rrange', 'rrange(seed, a, b)', 'số ngẫu nhiên trong [a, b]', function (s, a, b) { return N(a) + (N(b) - N(a)) * hash(N(s)); }, 'rrange(i, -5, 5)');
+def('Ngẫu nhiên', 'randint', 'randint(seed, a, b)', 'số nguyên ngẫu nhiên trong [a, b]', function (s, a, b) { return Math.floor(N(a) + (N(b) - N(a) + 1) * hash(N(s))); });
+def('Ngẫu nhiên', 'pick', 'pick(seed, a, b, c, ...)', 'chọn ngẫu nhiên một giá trị', function (s) { var n = arguments.length - 1; return n < 1 ? 0 : arguments[1 + Math.floor(hash(N(s)) * n) % n]; });
+def('Ngẫu nhiên', 'noise', 'noise(x, y, z)', 'nhiễu mượt 0..1 (y, z tuỳ chọn)', function (x, y, z) { return vnoise(N(x), N(y), N(z)); }, 'noise(t, i)');
+def('Ngẫu nhiên', 'snoise', 'snoise(x, y, z)', 'nhiễu mượt -1..1', function (x, y, z) { return vnoise(N(x), N(y), N(z)) * 2 - 1; });
+def('Ngẫu nhiên', 'fbm', 'fbm(x, y, z, octaves)', 'nhiễu nhiều tầng 0..1 (địa hình, mây)', function (x, y, z, o) {
+  var s = 0, a = 0.5, f = 1, i, n = clamp(Math.floor(N(o) || 4), 1, 8), tot = 0;
+  for (i = 0; i < n; i++) { s += a * vnoise(N(x) * f, N(y) * f, N(z) * f); tot += a; a *= 0.5; f *= 2; }
+  return s / tot;
+});
+def('Ngẫu nhiên', 'jitter', 'jitter(seed, amount)', 'rung ngẫu nhiên trong [-amount, amount]', function (s, a) { return (hash(N(s)) - 0.5) * 2 * N(a); });
+
+/* Easing */
+def('Easing', 'ease', 'ease(x, name)', 'áp easing lên x (0..1). Tên: ' + 'in out inout cubicin cubicout cubicinout expoin expoout expoinout sinein sineout sineinout backin backout backinout elasticin elasticout bouncein bounceout smooth', function (x, n) { return easeFn(n === undefined ? 'inout' : n)(clamp(N(x), 0, 1)); }, 'ease(x, "out")');
+(function () {
+  var ns = ['in', 'out', 'inout', 'cubicout', 'expoout', 'backout', 'elasticout', 'bounceout', 'sineinout'], i;
+  for (i = 0; i < ns.length; i++) (function (n) { def('Easing', 'ease_' + n, 'ease_' + n + '(x)', 'easing ' + n + ' cho x trong 0..1', function (x) { return EASE[n](clamp(N(x), 0, 1)); }); })(ns[i]);
+})();
+
+/* Vector */
+def('Vector', 'vec', 'vec(x, y, z)', 'tạo vector 3 chiều', function (x, y, z) { return [N(x), N(y), N(z)]; });
+def('Vector', 'vx', 'vx(v)', 'thành phần x', function (v) { return V3(v)[0]; });
+def('Vector', 'vy', 'vy(v)', 'thành phần y', function (v) { return V3(v)[1]; });
+def('Vector', 'vz', 'vz(v)', 'thành phần z', function (v) { return V3(v)[2]; });
+def('Vector', 'add', 'add(a, b)', 'cộng vector', function (a, b) { a = V3(a); b = V3(b); return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]; });
+def('Vector', 'sub', 'sub(a, b)', 'trừ vector', function (a, b) { a = V3(a); b = V3(b); return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; });
+def('Vector', 'mul', 'mul(v, k)', 'nhân vector với số', function (v, k) { v = V3(v); k = N(k); return [v[0] * k, v[1] * k, v[2] * k]; });
+def('Vector', 'div', 'div(v, k)', 'chia vector cho số', function (v, k) { v = V3(v); k = N(k) || 1; return [v[0] / k, v[1] / k, v[2] / k]; });
+def('Vector', 'dot', 'dot(a, b)', 'tích vô hướng', function (a, b) { a = V3(a); b = V3(b); return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; });
+def('Vector', 'cross', 'cross(a, b)', 'tích có hướng', function (a, b) { a = V3(a); b = V3(b); return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; });
+def('Vector', 'vlen', 'vlen(v)', 'độ dài vector', function (v) { v = V3(v); return Math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]); });
+def('Vector', 'norm', 'norm(v)', 'vector đơn vị', function (v) { v = V3(v); var l = Math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]) || 1; return [v[0] / l, v[1] / l, v[2] / l]; });
+def('Vector', 'dist', 'dist(a, b)', 'khoảng cách giữa hai điểm', function (a, b) { a = V3(a); b = V3(b); var x = a[0] - b[0], y = a[1] - b[1], z = a[2] - b[2]; return Math.sqrt(x * x + y * y + z * z); });
+def('Vector', 'polar', 'polar(r, deg)', 'điểm trên mặt phẳng XY theo bán kính và góc (độ)', function (r, d) { d = N(d) * PI / 180; return [N(r) * Math.cos(d), N(r) * Math.sin(d), 0]; }, 'polar(3, t*40)');
+def('Vector', 'orbit_y', 'orbit_y(r, deg, y)', 'điểm quay quanh trục Y (đi vòng ngang) bán kính r', function (r, d, y) { d = N(d) * PI / 180; return [N(r) * Math.cos(d), N(y), N(r) * Math.sin(d)]; }, 'orbit_y(4, t*30, 0)');
+def('Vector', 'sph', 'sph(r, az, el)', 'toạ độ cầu → vector (góc theo độ)', function (r, az, el) { az = N(az) * PI / 180; el = N(el) * PI / 180; r = N(r); return [r * Math.cos(el) * Math.sin(az), r * Math.sin(el), r * Math.cos(el) * Math.cos(az)]; });
+
+/* Màu */
+function colorFn(r, g, b, a) { return css([N(r), N(g), N(b), a === undefined ? 1 : N(a)]); }
+def('Màu', 'rgb', 'rgb(r, g, b)', 'màu từ 3 số 0..255', colorFn);
+def('Màu', 'rgba', 'rgba(r, g, b, a)', 'màu có độ trong suốt a (0..1)', colorFn);
+def('Màu', 'hsl', 'hsl(h, s, l)', 'màu theo sắc độ (0..360), bão hoà %, sáng %', function (h, s, l, a) { var c = hsl2rgb(N(h), N(s), N(l)); return css([c[0], c[1], c[2], a === undefined ? 1 : N(a)]); }, 'hsl(210, 80, 60)');
+def('Màu', 'hsla', 'hsla(h, s, l, a)', 'như hsl, thêm độ trong suốt', function (h, s, l, a) { var c = hsl2rgb(N(h), N(s), N(l)); return css([c[0], c[1], c[2], N(a)]); });
+def('Màu', 'gray', 'gray(v)', 'xám, v từ 0..1', function (v) { var n = clamp(N(v), 0, 1) * 255; return css([n, n, n, 1]); });
+def('Màu', 'mixc', 'mixc(a, b, k)', 'trộn hai màu theo k (0..1)', function (a, b, k) { return css(mixRGBA(parseColor(a), parseColor(b), N(k))); });
+def('Màu', 'lighten', 'lighten(c, k)', 'làm sáng màu (k 0..1)', function (c, k) { return css(mixRGBA(parseColor(c), [255, 255, 255, parseColor(c)[3]], clamp(N(k), 0, 1))); });
+def('Màu', 'darken', 'darken(c, k)', 'làm tối màu (k 0..1)', function (c, k) { return css(mixRGBA(parseColor(c), [0, 0, 0, parseColor(c)[3]], clamp(N(k), 0, 1))); });
+def('Màu', 'alpha', 'alpha(c, a)', 'đặt độ trong suốt cho màu', function (c, a) { var p = parseColor(c); return css([p[0], p[1], p[2], clamp(N(a), 0, 1)]); });
+def('Màu', 'rainbow', 'rainbow(k)', 'màu cầu vồng theo k (0..1, lặp)', function (k) { var c = hsl2rgb(mod(N(k), 1) * 360, 85, 58); return css([c[0], c[1], c[2], 1]); }, 'rainbow(t*0.1)');
+def('Màu', 'palette', 'palette(k, c1, c2, c3, ...)', 'màu chạy qua dải nhiều màu theo k (0..1)', function (k) {
+  var n = arguments.length - 1; if (n < 1) return '#fff'; if (n === 1) return arguments[1];
+  k = clamp(N(k), 0, 1) * (n - 1); var i = Math.min(Math.floor(k), n - 2);
+  return css(mixRGBA(parseColor(arguments[1 + i]), parseColor(arguments[2 + i]), k - i));
+});
+
+/* Tạo điểm (dùng cho points, line, polygon, extrude...) */
+def('Tạo điểm', 'ring', 'ring(n, r)', 'n điểm xếp thành vòng tròn bán kính r (mặt phẳng XY)', function (n, r) { n = clamp(Math.floor(N(n)), 1, 5000); r = N(r); var a = [], i; for (i = 0; i < n; i++) a.push([r * Math.cos(TAU * i / n), r * Math.sin(TAU * i / n), 0]); return a; }, 'ring(32, 2)');
+def('Tạo điểm', 'star', 'star(n, r1, r2)', 'ngôi sao n cánh (đỉnh r1, hõm r2), dùng cho polygon/extrude', function (n, r1, r2) { n = clamp(Math.floor(N(n)), 2, 100); var a = [], i, r; for (i = 0; i < n * 2; i++) { r = i % 2 ? N(r2) : N(r1); a.push([r * Math.cos(PI * i / n + PI / 2), r * Math.sin(PI * i / n + PI / 2), 0]); } return a; }, 'star(5, 2, 0.9)');
+def('Tạo điểm', 'spiral', 'spiral(n, r0, r1, turns, h)', 'xoắn ốc phẳng từ bán kính r0 đến r1, có thể nâng dần độ cao h', function (n, r0, r1, tu, h) {
+  n = clamp(Math.floor(N(n)), 2, 5000); var a = [], i, k, an, r; for (i = 0; i < n; i++) { k = i / (n - 1); an = N(tu) * TAU * k; r = N(r0) + (N(r1) - N(r0)) * k; a.push([r * Math.cos(an), r * Math.sin(an), N(h) * k]); } return a;
+}, 'spiral(200, 0.2, 4, 4, 0)');
+def('Tạo điểm', 'helix', 'helix(n, r, h, turns)', 'lò xo quanh trục Y cao h', function (n, r, h, tu) {
+  n = clamp(Math.floor(N(n)), 2, 5000); var a = [], i, k, an; for (i = 0; i < n; i++) { k = i / (n - 1); an = N(tu) * TAU * k; a.push([N(r) * Math.cos(an), N(h) * (k - 0.5), N(r) * Math.sin(an)]); } return a;
+}, 'helix(200, 1.5, 6, 5)');
+def('Tạo điểm', 'grid', 'grid(nx, ny, dx, dy)', 'lưới điểm nx × ny trên mặt phẳng XY, canh giữa', function (nx, ny, dx, dy) {
+  nx = clamp(Math.floor(N(nx)), 1, 200); ny = clamp(Math.floor(N(ny)), 1, 200); var a = [], i, j; for (j = 0; j < ny; j++) for (i = 0; i < nx; i++) a.push([(i - (nx - 1) / 2) * N(dx), (j - (ny - 1) / 2) * N(dy), 0]); return a;
+}, 'grid(10, 6, 1, 1)');
+def('Tạo điểm', 'grid3', 'grid3(nx, ny, nz, d)', 'lưới điểm 3D, canh giữa', function (nx, ny, nz, d) {
+  nx = clamp(Math.floor(N(nx)), 1, 40); ny = clamp(Math.floor(N(ny)), 1, 40); nz = clamp(Math.floor(N(nz)), 1, 40); var a = [], i, j, k;
+  for (k = 0; k < nz; k++) for (j = 0; j < ny; j++) for (i = 0; i < nx; i++) a.push([(i - (nx - 1) / 2) * N(d), (j - (ny - 1) / 2) * N(d), (k - (nz - 1) / 2) * N(d)]); return a;
+}, 'grid3(6, 6, 6, 1)');
+def('Tạo điểm', 'line_pts', 'line_pts(a, b, n)', 'n điểm đều nhau trên đoạn a→b', function (a, b, n) { a = V3(a); b = V3(b); n = clamp(Math.floor(N(n)), 2, 5000); var r = [], i; for (i = 0; i < n; i++) r.push(lerpAny(a, b, i / (n - 1))); return r; });
+def('Tạo điểm', 'sphere_pts', 'sphere_pts(n, r)', 'n điểm phân bố đều trên mặt cầu', function (n, r) {
+  n = clamp(Math.floor(N(n)), 1, 8000); r = N(r); var a = [], i, y, rd, ph; for (i = 0; i < n; i++) { y = 1 - 2 * (i + 0.5) / n; rd = Math.sqrt(1 - y * y); ph = i * 2.399963; a.push([r * rd * Math.cos(ph), r * y, r * rd * Math.sin(ph)]); } return a;
+}, 'sphere_pts(400, 2)');
+def('Tạo điểm', 'torus_pts', 'torus_pts(n, R, r)', 'n điểm trên mặt bánh vòng', function (n, R, r) {
+  n = clamp(Math.floor(N(n)), 1, 8000); var m = Math.ceil(Math.sqrt(n)), a = [], i, u, v; for (i = 0; i < n; i++) { u = TAU * ((i % m) / m); v = TAU * (Math.floor(i / m) / m); a.push([(N(R) + N(r) * Math.cos(v)) * Math.cos(u), N(r) * Math.sin(v), (N(R) + N(r) * Math.cos(v)) * Math.sin(u)]); } return a;
+});
+def('Tạo điểm', 'galaxy', 'galaxy(n, r, arms, twist, seed)', 'thiên hà xoắn ốc n sao, nằm trên mặt phẳng XZ', function (n, r, arms, tw, sd) {
+  n = clamp(Math.floor(N(n)), 1, 8000); r = N(r); arms = Math.max(1, Math.floor(N(arms) || 3)); sd = N(sd); var a = [], i, rr, arm, an, y;
+  for (i = 0; i < n; i++) { rr = r * Math.sqrt(hash(i * 3.1 + sd)); arm = Math.floor(hash(i * 7.7 + sd) * arms); an = arm * TAU / arms + (rr / r) * N(tw) * TAU + (hash(i * 1.3 + sd) - 0.5) * 0.7 * (1 - 0.5 * rr / r); y = (hash(i * 5.1 + sd) - 0.5) * 0.35 * (1 - rr / r); a.push([rr * Math.cos(an), y, rr * Math.sin(an)]); } return a;
+}, 'galaxy(1500, 5, 3, 1.2, 1)');
+def('Tạo điểm', 'scatter', 'scatter(n, w, h, d, seed)', 'n điểm rải ngẫu nhiên trong hộp w×h×d', function (n, w, h, d, sd) {
+  n = clamp(Math.floor(N(n)), 1, 8000); sd = N(sd); var a = [], i; for (i = 0; i < n; i++) a.push([(hash(i * 1.7 + sd) - 0.5) * N(w), (hash(i * 2.9 + sd) - 0.5) * N(h), (hash(i * 4.3 + sd) - 0.5) * N(d)]); return a;
+}, 'scatter(300, 16, 9, 12, 2)');
+def('Tạo điểm', 'lissajous', 'lissajous(n, a, b, c, size)', 'đường Lissajous 3D', function (n, a, b, c, A) {
+  n = clamp(Math.floor(N(n)), 2, 5000); var r = [], i, k; for (i = 0; i < n; i++) { k = i / n * TAU; r.push([N(A) * Math.sin(N(a) * k), N(A) * Math.sin(N(b) * k + PI / 2), N(A) * Math.sin(N(c) * k)]); } return r;
+}, 'lissajous(400, 3, 2, 5, 2)');
+def('Tạo điểm', 'wave_pts', 'wave_pts(n, len, amp, freq, phase)', 'đường sóng sin nằm ngang dài len', function (n, len, amp, fr, ph) {
+  n = clamp(Math.floor(N(n)), 2, 5000); var r = [], i, x; for (i = 0; i < n; i++) { x = (i / (n - 1) - 0.5) * N(len); r.push([x, N(amp) * Math.sin(N(fr) * x + N(ph)), 0]); } return r;
+}, 'wave_pts(120, 10, 1, 1.5, t*2)');
+def('Tạo điểm', 'curve', 'curve(n, p0, p1, p2, p3)', 'đường cong Bézier bậc 3 qua n điểm', function (n, p0, p1, p2, p3) {
+  n = clamp(Math.floor(N(n)), 2, 2000); p0 = V3(p0); p1 = V3(p1); p2 = V3(p2); p3 = V3(p3); var r = [], i, k, u, a, b, c, d, j, p;
+  for (i = 0; i < n; i++) { k = i / (n - 1); u = 1 - k; a = u * u * u; b = 3 * u * u * k; c = 3 * u * k * k; d = k * k * k; p = []; for (j = 0; j < 3; j++) p.push(a * p0[j] + b * p1[j] + c * p2[j] + d * p3[j]); r.push(p); } return r;
+}, 'curve(60, vec(-4,0,0), vec(-2,4,0), vec(2,-4,0), vec(4,0,0))');
+def('Tạo điểm', 'shift', 'shift(points, v)', 'tịnh tiến cả dãy điểm', function (p, v) { v = V3(v); return pts(p).map(function (q) { q = V3(q); return [q[0] + v[0], q[1] + v[1], q[2] + v[2]]; }); });
+def('Tạo điểm', 'scale_pts', 'scale_pts(points, k)', 'phóng/thu cả dãy điểm quanh gốc', function (p, k) { k = V3(k, [1, 1, 1]); return pts(p).map(function (q) { q = V3(q); return [q[0] * k[0], q[1] * k[1], q[2] * k[2]]; }); });
+def('Tạo điểm', 'range', 'range(a, b, step)', 'dãy số từ a đến b (không gồm b)', function (a, b, s) { a = N(a); b = N(b); s = N(s) || 1; var r = [], i = 0; for (; (s > 0 ? a < b : a > b) && i < 5000; a += s, i++) r.push(a); return r; });
+def('Tạo điểm', 'count', 'count(list)', 'số phần tử của danh sách', function (a) { return isArr(a) ? a.length : 0; });
+def('Tạo điểm', 'get', 'get(list, i)', 'lấy phần tử thứ i (vòng lại khi vượt)', function (a, i) { if (!isArr(a) || !a.length) return 0; return a[mod(Math.floor(N(i)), a.length)]; });
+
+/* Chữ */
+function fmtNum(x, d) { x = N(x); d = clamp(Math.floor(N(d)), 0, 10); var s = x.toFixed(d); return s; }
+def('Chữ', 'str', 'str(x)', 'đổi sang chuỗi', function (x) { return isArr(x) ? x.join(', ') : String(x); });
+def('Chữ', 'fmt', 'fmt(x, digits)', 'định dạng số với digits chữ số thập phân', function (x, d) { return fmtNum(x, d); }, 'fmt(x, 2)');
+def('Chữ', 'concat', 'concat(a, b, ...)', 'nối chuỗi', function () { var s = '', i; for (i = 0; i < arguments.length; i++) s += isArr(arguments[i]) ? arguments[i].join(', ') : String(arguments[i]); return s; });
+def('Chữ', 'upper', 'upper(s)', 'IN HOA', function (s) { return String(s).toUpperCase(); });
+def('Chữ', 'lower', 'lower(s)', 'in thường', function (s) { return String(s).toLowerCase(); });
+def('Chữ', 'typewriter', 'typewriter(text, t, cps)', 'hiện chữ dần như gõ máy, cps chữ mỗi giây', function (s, t, c) { s = String(s); return s.substr(0, Math.max(0, Math.floor(N(t) * (N(c) || 12)))); }, 'typewriter("Xin chào", t, 10)');
+def('Chữ', 'count_up', 'count_up(t, from, to, dur, digits)', 'số chạy từ from đến to trong dur giây, trả về chuỗi', function (t, a, b, d, dg) {
+  var p = clamp(N(t) / (N(d) || 1), 0, 1); p = 1 - Math.pow(1 - p, 3); return fmtNum(N(a) + (N(b) - N(a)) * p, dg || 0);
+}, 'count_up(t, 0, 1000, 2, 0)');
+def('Chữ', 'pad', 'pad(x, n)', 'thêm số 0 phía trước cho đủ n chữ số', function (x, n) { var s = String(Math.floor(N(x))); while (s.length < N(n)) s = '0' + s; return s; });
+
+ZER.F = F; ZER.DOCS = DOCS; ZER.easeFn = easeFn; ZER.lerpAny = lerpAny; ZER._hash = hash;
+
+/* =========================================================================
+   Token + biểu thức  ->  closure
+   ======================================================================= */
+var IDSTART = /[A-Za-z_À-ỹ]/, IDREST = /[A-Za-z0-9_À-ỹ]/;
+function tokenize(src, line) {
+  var toks = [], i = 0, n = src.length, c, m, j, s, d, v, um, rest;
+  while (i < n) {
+    c = src.charAt(i);
+    if (c === ' ' || c === '\t') { i++; continue; }
+    if (c === '"' || c === "'") {
+      j = i + 1; s = '';
+      while (j < n && src.charAt(j) !== c) {
+        if (src.charAt(j) === '\\' && j + 1 < n) { d = src.charAt(j + 1); s += d === 'n' ? '\n' : d === 't' ? '\t' : d; j += 2; } else s += src.charAt(j++);
+      }
+      if (j >= n) throw ZError('Chuỗi thiếu dấu đóng ' + c, line);
+      toks.push({ t: 'str', v: s }); i = j + 1; continue;
+    }
+    rest = src.substr(i);
+    if (c === '#') {
+      m = /^#([0-9a-fA-F]{3,8})(?![A-Za-z0-9_])/.exec(rest);
+      if (!m) throw ZError('Mã màu không hợp lệ (ví dụ #4aa3ff)', line);
+      toks.push({ t: 'str', v: m[0] }); i += m[0].length; continue;
+    }
+    if (/[0-9]/.test(c) || (c === '.' && /[0-9]/.test(src.charAt(i + 1)))) {
+      m = /^(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?/.exec(rest); v = parseFloat(m[0]); i += m[0].length;
+      um = /^(ms|s|deg|°)(?![A-Za-z_0-9])/.exec(src.substr(i));
+      if (um) { if (um[1] === 'ms') v /= 1000; i += um[0].length; }
+      toks.push({ t: 'num', v: v }); continue;
+    }
+    if (IDSTART.test(c)) { j = i + 1; while (j < n && IDREST.test(src.charAt(j))) j++; toks.push({ t: 'id', v: src.substring(i, j) }); i = j; continue; }
+    d = src.substr(i, 2);
+    if (d === '==' || d === '!=' || d === '<=' || d === '>=' || d === '&&' || d === '||') { toks.push({ t: 'op', v: d }); i += 2; continue; }
+    if ('+-*/%^(),?:<>!'.indexOf(c) >= 0) { toks.push({ t: 'op', v: c }); i++; continue; }
+    throw ZError('Ký tự lạ "' + c + '"', line);
+  }
+  return toks;
+}
+
+function Parser(toks, line) { this.t = toks; this.p = 0; this.line = line; }
+Parser.prototype.peek = function () { return this.t[this.p]; };
+Parser.prototype.isOp = function (v) { var k = this.t[this.p]; return k && k.t === 'op' && k.v === v; };
+Parser.prototype.eat = function (v) { if (this.isOp(v)) { this.p++; return true; } return false; };
+Parser.prototype.need = function (v) { if (!this.eat(v)) throw ZError('Thiếu "' + v + '"', this.line); };
+Parser.prototype.end = function () { return this.p >= this.t.length; };
+Parser.prototype.tern = function () {
+  var c = this.or();
+  if (this.eat('?')) { var a = this.tern(); this.need(':'); var b = this.tern(); return { k: 'tern', c: c, a: a, b: b }; }
+  return c;
+};
+Parser.prototype.or = function () { var a = this.and(); while (this.isOp('||')) { this.p++; a = { k: 'bin', op: '||', a: a, b: this.and() }; } return a; };
+Parser.prototype.and = function () { var a = this.eq(); while (this.isOp('&&')) { this.p++; a = { k: 'bin', op: '&&', a: a, b: this.eq() }; } return a; };
+Parser.prototype.eq = function () { var a = this.cmp(); while (this.isOp('==') || this.isOp('!=')) { var o = this.t[this.p++].v; a = { k: 'bin', op: o, a: a, b: this.cmp() }; } return a; };
+Parser.prototype.cmp = function () { var a = this.add(); while (this.isOp('<') || this.isOp('>') || this.isOp('<=') || this.isOp('>=')) { var o = this.t[this.p++].v; a = { k: 'bin', op: o, a: a, b: this.add() }; } return a; };
+Parser.prototype.add = function () { var a = this.mul(); while (this.isOp('+') || this.isOp('-')) { var o = this.t[this.p++].v; a = { k: 'bin', op: o, a: a, b: this.mul() }; } return a; };
+Parser.prototype.mul = function () { var a = this.unary(); while (this.isOp('*') || this.isOp('/') || this.isOp('%')) { var o = this.t[this.p++].v; a = { k: 'bin', op: o, a: a, b: this.unary() }; } return a; };
+Parser.prototype.unary = function () {
+  if (this.isOp('-')) { this.p++; return { k: 'un', op: '-', a: this.unary() }; }
+  if (this.isOp('+')) { this.p++; return this.unary(); }
+  if (this.isOp('!')) { this.p++; return { k: 'un', op: '!', a: this.unary() }; }
+  return this.pow();
+};
+Parser.prototype.pow = function () { var a = this.primary(); if (this.isOp('^')) { this.p++; return { k: 'bin', op: '^', a: a, b: this.unary() }; } return a; };
+Parser.prototype.primary = function () {
+  var k = this.t[this.p], items, args;
+  if (!k) throw ZError('Biểu thức bị thiếu vế', this.line);
+  this.p++;
+  if (k.t === 'num') return { k: 'num', v: k.v };
+  if (k.t === 'str') return { k: 'str', v: k.v };
+  if (k.t === 'id') {
+    if (this.isOp('(')) {
+      this.p++; args = [];
+      if (!this.isOp(')')) { do { args.push(this.tern()); } while (this.eat(',')); }
+      this.need(')');
+      return { k: 'call', n: k.v, args: args };
+    }
+    return { k: 'id', v: k.v };
+  }
+  if (k.t === 'op' && k.v === '(') {
+    items = [this.tern()];
+    while (this.eat(',')) items.push(this.tern());
+    this.need(')');
+    return items.length === 1 ? items[0] : { k: 'arr', items: items };
+  }
+  throw ZError('Không hiểu "' + k.v + '"', this.line);
+};
+
+function bin(op, a, b) {
+  var aa = isArr(a), ba = isArr(b), i, r, n;
+  if (op === '+' && ((typeof a === 'string' && !isColorStr(a)) || (typeof b === 'string' && !isColorStr(b)))) return String(isArr(a) ? a.join(',') : a) + String(isArr(b) ? b.join(',') : b);
+  if (op === '==' || op === '!=') {
+    var eq = (typeof a === 'string' || typeof b === 'string') ? String(a) === String(b) : N(a) === N(b);
+    return (op === '==') === eq ? 1 : 0;
+  }
+  if (aa || ba) { n = Math.max(aa ? a.length : 0, ba ? b.length : 0); r = []; for (i = 0; i < n; i++) r.push(bin(op, aa ? a[i] : a, ba ? b[i] : b)); return r; }
+  a = N(a); b = N(b);
+  switch (op) {
+    case '+': return a + b; case '-': return a - b; case '*': return a * b;
+    case '/': return b === 0 ? 0 : a / b; case '%': return b === 0 ? 0 : a - b * Math.floor(a / b);
+    case '^': return Math.pow(a, b);
+    case '<': return a < b ? 1 : 0; case '>': return a > b ? 1 : 0; case '<=': return a <= b ? 1 : 0; case '>=': return a >= b ? 1 : 0;
+  }
+  return 0;
+}
+function callUser(u, args, env) {
+  var l2 = {}, i, e2;
+  if (env.depth > 60) throw ZError('Hàm gọi lồng quá sâu', 0);
+  for (i = 0; i < u.params.length; i++) l2[u.params[i]] = args[i] === undefined ? 0 : args[i];
+  e2 = { t: env.t, dt: env.dt, frame: env.frame, step: env.step, vars: env.vars, uf: env.uf, loc: l2, depth: (env.depth || 0) + 1 };
+  return u.fn(e2);
+}
+function konst(f, v) { f.konst = true; f.value = v; return f; }
+function compile(n, cx) {
+  var f, a, b, c, items, i, allk, args, name, v;
+  switch (n.k) {
+    case 'num': case 'str': v = n.v; return konst(function () { return v; }, v);
+    case 'id':
+      name = n.v;
+      if (name === 'pi') return konst(function () { return PI; }, PI);
+      if (name === 'tau') return konst(function () { return TAU; }, TAU);
+      if (name === 'yes' || name === 'true' || name === 'on' || name === 'có') return konst(function () { return 1; }, 1);
+      if (name === 'no' || name === 'false' || name === 'off') return konst(function () { return 0; }, 0);
+      return function (env) {
+        var l = env.loc, vs;
+        if (l && hasOwn(l, name)) return l[name];
+        vs = env.vars; if (vs && hasOwn(vs, name)) return vs[name];
+        switch (name) { case 't': case 'time': return env.t; case 'dt': return env.dt; case 'frame': return env.frame; case 'step': return env.step; case 'e': return Math.E; }
+        return name;     // từ trơn (red, center, only...) coi như chuỗi
+      };
+    case 'arr':
+      items = []; allk = true;
+      for (i = 0; i < n.items.length; i++) { items.push(compile(n.items[i], cx)); if (!items[i].konst) allk = false; }
+      f = function (env) { var r = [], j; for (j = 0; j < items.length; j++) r.push(items[j](env)); return r; };
+      if (allk) { v = f({}); return konst(function () { return v; }, v); }
+      return f;
+    case 'un':
+      a = compile(n.a, cx);
+      if (n.op === '-') f = function (env) { var x = a(env); return isArr(x) ? bin('*', x, -1) : -N(x); };
+      else f = function (env) { return truthy(a(env)) ? 0 : 1; };
+      if (a.konst) { v = f({}); return konst(function () { return v; }, v); }
+      return f;
+    case 'bin':
+      a = compile(n.a, cx); b = compile(n.b, cx);
+      if (n.op === '&&') f = function (env) { return truthy(a(env)) && truthy(b(env)) ? 1 : 0; };
+      else if (n.op === '||') f = function (env) { return truthy(a(env)) || truthy(b(env)) ? 1 : 0; };
+      else { var op = n.op; f = function (env) { return bin(op, a(env), b(env)); }; }
+      if (a.konst && b.konst) { v = f({}); return konst(function () { return v; }, v); }
+      return f;
+    case 'tern':
+      c = compile(n.c, cx); a = compile(n.a, cx); b = compile(n.b, cx);
+      f = function (env) { return truthy(c(env)) ? a(env) : b(env); };
+      if (c.konst && a.konst && b.konst) { v = f({}); return konst(function () { return v; }, v); }
+      return f;
+    case 'call':
+      name = n.n; args = []; allk = true;
+      for (i = 0; i < n.args.length; i++) { args.push(compile(n.args[i], cx)); if (!args[i].konst) allk = false; }
+      if (cx) cx.calls.push({ n: name, line: cx.line });
+      f = function (env) {
+        var av = [], j, fn, u;
+        for (j = 0; j < args.length; j++) av.push(args[j](env));
+        fn = F[name];
+        if (fn) return fn.apply(null, av);
+        u = env.uf && env.uf[name];
+        if (u) return callUser(u, av, env);
+        throw ZError('Chưa có hàm "' + name + '"', cx ? cx.line : 0);
+      };
+      if (allk && F[name]) { try { v = f({}); return konst(function () { return v; }, v); } catch (e) { /* để lỗi lộ ra lúc chạy */ } }
+      return f;
+  }
+  throw ZError('Nút lạ', 0);
+}
+function brk(src) {      // [a, b, c] -> (a, b, c), bỏ qua trong chuỗi
+  var o = '', i, c, q = '';
+  for (i = 0; i < src.length; i++) {
+    c = src.charAt(i);
+    if (q) { o += c; if (c === q) q = ''; continue; }
+    if (c === '"' || c === "'") { q = c; o += c; continue; }
+    o += c === '[' ? '(' : c === ']' ? ')' : c;
+  }
+  return o;
+}
+function compileValue(src, line, cx) {
+  src = brk(src);
+  var toks = tokenize(src, line), P, items = [], node;
+  if (!toks.length) throw ZError('Thiếu giá trị', line);
+  P = new Parser(toks, line);
+  cx.line = line;
+  items.push(P.tern());
+  while (P.eat(',')) items.push(P.tern());
+  if (!P.end()) throw ZError('Không hiểu đoạn "' + (P.peek().v) + '"', line);
+  node = items.length === 1 ? items[0] : { k: 'arr', items: items };
+  return compile(node, cx);
+}
+ZER.compileValue = function (src) { return compileValue(src, 0, { calls: [], line: 0 }); };
+
+/* =========================================================================
+   Cây thụt lề -> project
+   ======================================================================= */
+function stripComment(s) {
+  var i, q = null, c;
+  for (i = 0; i < s.length; i++) {
+    c = s.charAt(i);
+    if (q) { if (c === '\\') i++; else if (c === q) q = null; }
+    else if (c === '"' || c === "'") q = c;
+    else if (c === '/' && s.charAt(i + 1) === '/') return s.substring(0, i);
+  }
+  return s;
+}
+function buildTree(src) {
+  var raw = String(src).split(/\r?\n/), root = { kids: [], ind: -1, ln: 0 }, stack = [root], i, line, tr, ind, j, ch, text, node;
+  for (i = 0; i < raw.length; i++) {
+    line = stripComment(raw[i]).replace(/\s+$/, '');
+    if (!line.replace(/\s/g, '')) continue;
+    ind = 0;
+    for (j = 0; j < line.length; j++) { ch = line.charAt(j); if (ch === ' ') ind++; else if (ch === '\t') ind += 4; else break; }
+    text = line.substring(j);
+    node = { ind: ind, text: text, ln: i + 1, kids: [] };
+    while (stack.length > 1 && stack[stack.length - 1].ind >= ind) stack.pop();
+    stack[stack.length - 1].kids.push(node);
+    stack.push(node);
+  }
+  return root;
+}
+function lastLn(n) { var m = n.ln, i, x; for (i = 0; i < n.kids.length; i++) { x = lastLn(n.kids[i]); if (x > m) m = x; } return m; }
+
+function splitKV(t) {          // tách "đầu" và "giá trị" tại dấu = hoặc : đầu tiên ngoài chuỗi / ngoặc
+  var i, q = null, c, depth = 0, nx, pv;
+  for (i = 0; i < t.length; i++) {
+    c = t.charAt(i);
+    if (q) { if (c === '\\') i++; else if (c === q) q = null; continue; }
+    if (c === '"' || c === "'") { q = c; continue; }
+    if (c === '(') { depth++; continue; }
+    if (c === ')') { depth--; continue; }
+    if (depth > 0) continue;
+    if (c === ':') return { head: t.substring(0, i).replace(/\s+$/, ''), sep: ':', rest: t.substring(i + 1).replace(/^\s+/, '') };
+    if (c === '=') {
+      nx = t.charAt(i + 1); pv = t.charAt(i - 1);
+      if (nx === '=' || pv === '!' || pv === '<' || pv === '>') { if (nx === '=') i++; continue; }
+      return { head: t.substring(0, i).replace(/\s+$/, ''), sep: '=', rest: t.substring(i + 1).replace(/^\s+/, '') };
+    }
+  }
+  return { head: t.replace(/\s+$/, ''), sep: '', rest: '' };
+}
+function splitWords(s) {
+  var w = [], i = 0, n = s.length, c, j, q;
+  while (i < n) {
+    c = s.charAt(i);
+    if (c === ' ' || c === '\t') { i++; continue; }
+    if (c === '"' || c === "'") { q = c; j = i + 1; while (j < n && s.charAt(j) !== q) { if (s.charAt(j) === '\\') j++; j++; } w.push(s.substring(i, j + 1)); i = j + 1; continue; }
+    j = i; while (j < n && s.charAt(j) !== ' ' && s.charAt(j) !== '\t') j++;
+    w.push(s.substring(i, j)); i = j;
+  }
+  return w;
+}
+
+var TYPES = {};
+(function () { var a = ['cube', 'box', 'sphere', 'cylinder', 'cone', 'torus', 'pyramid', 'plane', 'rect', 'circle', 'polygon', 'mesh', 'lathe', 'extrude', 'line', 'points', 'particles', 'text', 'label', 'image', 'grid', 'axes', 'group'], i; for (i = 0; i < a.length; i++) TYPES[a[i]] = true; })();
+ZER.TYPES = (function () { var a = [], k; for (k in TYPES) a.push(k); return a; })();
+var ALIAS = { coordinates: 'position', coordinate: 'position', pos: 'position', position: 'position', rotation: 'rotate', rot: 'rotate', rotate: 'rotate', scl: 'scale', scale: 'scale',
+  colour: 'color', color: 'color', 'vị trí': 'position', 'tọa độ': 'position', 'toạ độ': 'position', 'xoay': 'rotate', 'tỉ lệ': 'scale', 'màu': 'color', 'chữ': 'text', 'ảnh': 'src', 'độ mờ': 'opacity' };
+(function () {
+  var A = {
+    position: 'pos location loc place at_pos xyz center origin eye cam_position camera_position',
+    rotate: 'rotation rot angle angles euler rotate_xyz',
+    scale: 'scl scaling zoom_scale',
+    color: 'colour fill colour1 color1 tint paint col',
+    color2: 'colour2 color_end gradient',
+    radius: 'r rad',
+    size: 'font_size fontsize font-size text_size textsize s dim dimensions',
+    text: 'content label caption string str words',
+    src: 'image source url file texture_src img picture photo',
+    opacity: 'alpha transparency',
+    background: 'bg bgcolor background_color backdrop sky',
+    look: 'look_at lookat target focus',
+    fov: 'fovy field_of_view',
+    detail: 'segments seg resolution res quality subdivisions',
+    wire: 'wireframe',
+    wirecolor: 'wire_color outline_color edge_color',
+    visible: 'show',
+    reveal: 'appear show_at step_in click_in',
+    until: 'hide_at step_out disappear',
+    ease: 'easing',
+    pingpong: 'ping_pong yoyo bounce',
+    loop: 'repeat forever',
+    duration: 'length_time slide_time',
+    fade_in: 'fadein fade-in',
+    fade_out: 'fadeout fade-out',
+    vignette: 'vignetting',
+    stars: 'starfield',
+    ambient: 'ambient_light',
+    light: 'light_dir sun',
+    count: 'num number amount n_particles',
+    life: 'lifetime',
+    gravity: 'g_force',
+    width: 'thickness line_width stroke_width',
+    tube: 'tube_radius thickness_tube',
+    points: 'pts vertices_list path',
+    billboard: 'face_camera facing',
+    autoplay: 'auto film auto_play',
+    lineheight: 'line_height leading',
+    outline: 'stroke text_outline',
+    align: 'text_align halign',
+    height: 'tall',
+    depth: 'thick extrude_depth'
+  }, k, ws, i;
+  for (k in A) { ws = A[k].split(' '); for (i = 0; i < ws.length; i++) if (!ALIAS.hasOwnProperty(ws[i])) ALIAS[ws[i]] = k; }
+})();
+var KEYS = {};
+(function () {
+  var l = 'position rotate scale color color2 opacity visible reveal until wire wirecolor lit cull size radius height w h detail tube points from to width glow arrow fade count life speed spread gravity seed vertices faces closed depth profile text font bold italic align outline wrap lineheight billboard src texture flip opacity2 n step length ease loop pingpong delay background stars light ambient fog duration transition fade_in fade_out vignette autoplay title look fov mode orbit roll auto name'.split(' '), i;
+  for (i = 0; i < l.length; i++) KEYS[l[i]] = 1;
+})();
+ZER.KEYS = KEYS;
+function lev(a, b) {
+  var m = a.length, n = b.length, d = [], i, j;
+  for (i = 0; i <= m; i++) { d[i] = [i]; } for (j = 1; j <= n; j++) d[0][j] = j;
+  for (i = 1; i <= m; i++) for (j = 1; j <= n; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a.charAt(i - 1) === b.charAt(j - 1) ? 0 : 1));
+  return d[m][n];
+}
+function nearest(w, set) {
+  var best = '', bd = 99, k, dd;
+  w = w.toLowerCase();
+  for (k in set) { dd = lev(w, k); if (dd < bd) { bd = dd; best = k; } }
+  return bd <= Math.max(1, Math.floor(w.length / 3)) ? best : '';
+}
+ZER.nearest = nearest;
+var curP = null;
+var COMP = { x: 0, y: 1, z: 2, w: 0, h: 1, d: 2, r: 0, g: 1, b: 2 };
+var uidc = 0;
+
+function interp(str, loc, cx) {   // thay {biểu thức} trong tên/chuỗi tại lúc dựng
+  if (str.indexOf('{') < 0) return str;
+  return str.replace(/\{([^}]+)\}/g, function (m, ex) { var f = compileValue(ex, cx.line, cx); var v = f({ loc: loc, vars: {}, t: 0, dt: 0, frame: 0, step: 0 }); return isArr(v) ? v.join(',') : (typeof v === 'number' ? String(Math.round(v * 1e6) / 1e6) : String(v)); });
+}
+function constEval(f, loc, uf) { return f({ loc: loc || null, vars: {}, t: 0, dt: 0, frame: 0, step: 0, uf: uf || {} }); }
+
+function parseProp(n, loc, cx) {  // -> [key, fn]
+  var kv = splitKV(n.text), key = kv.head.toLowerCase().replace(/\s+/g, ' '), f, i, comps, k, m, idx, cf;
+  if (hasOwn(ALIAS, key)) key = ALIAS[key];
+  else if (/\s/.test(key) && kv.sep !== '') {
+    var w1 = key.split(' ')[0], sg0 = nearest(w1, TYPES);
+    throw ZError('Không có kiểu "' + w1 + '"' + (sg0 ? ' - có phải "' + sg0 + '"?' : '. Kiểu hợp lệ: ' + ZER.TYPES.join(', ')), n.ln);
+  }
+  if (kv.sep === '') {
+    var w0 = kv.head.split(/\s+/)[0].toLowerCase(), sg = nearest(w0, TYPES);
+    if (sg) throw ZError('Không có kiểu "' + w0 + '" - có phải "' + sg + '"? (cú pháp: ' + sg + ' ten:)', n.ln);
+    sg = nearest(w0, KEYS);
+    throw ZError('Dòng này cần dạng "tên = giá trị"' + (sg ? ' - có phải "' + sg + ' = ..."?' : ''), n.ln);
+  }
+  if (curP && !hasOwn(KEYS, key) && !/^[a-z]$/i.test(key)) { var sg2 = nearest(key, KEYS); curP.errors.push({ line: n.ln, warn: true, msg: 'Thuộc tính lạ "' + kv.head + '"' + (sg2 ? ' - có phải "' + sg2 + '"?' : ' (sẽ bị bỏ qua nếu vật không dùng)') }); }
+  if (kv.rest !== '') { f = compileValue(kv.rest, n.ln, cx); return [key, f]; }
+  if (!n.kids.length) throw ZError('Thiếu giá trị cho "' + kv.head + '"', n.ln);
+  comps = []; var allk = true;
+  for (i = 0; i < n.kids.length; i++) {
+    k = n.kids[i]; m = /^([A-Za-z])\s*[=:]\s*(.+)$/.exec(k.text);
+    if (!m || !hasOwn(COMP, m[1].toLowerCase())) throw ZError('Trong khối "' + kv.head + '" chỉ dùng X = , Y = , Z = (hoặc W/H/D)', k.ln);
+    cf = compileValue(m[2], k.ln, cx); if (!cf.konst) allk = false;
+    comps.push([COMP[m[1].toLowerCase()], cf]);
+  }
+  f = function (env) { var r = [null, null, null], j; for (j = 0; j < comps.length; j++) r[comps[j][0]] = comps[j][1](env); return r; };
+  if (allk) { var v = f({}); f = konst(function () { return v; }, v); }
+  return [key, f];
+}
+
+function parseObject(n, kv, host, loc, cx, P) {
+  var words = splitWords(kv.head), type = words[0].toLowerCase(), name = null, arg, i, w, o, s, kids = n.kids;
+  if (type === 'box') type = 'cube';
+  for (i = 1; i < words.length; i++) {
+    w = words[i];
+    if (w.charAt(0) === '"' || w.charAt(0) === "'") { s = tokenize(w, n.ln)[0].v; arg = interp(s, loc, cx); }
+    else if (name === null) name = interp(w, loc, cx);
+    else throw ZError('Thừa "' + w + '" ở dòng khai báo', n.ln);
+  }
+  o = { type: type, name: name || ('#' + (++uidc)), named: !!name, line: n.ln, endLine: lastLn(n), props: {}, kids: [], loc: loc, id: ++uidc, parentId: host.id || 0 };
+  o.objs = o.kids;
+  if (arg !== undefined) { o.props[type === 'image' ? 'src' : 'text'] = konst(function () { return arg; }, arg); }
+  parseBlock(kids, o, loc, cx, P);
+  host.objs.push(o);
+  return o;
+}
+
+function addDef(n, cx, P, m) {
+  var params = m[2].replace(/\s/g, '') ? m[2].split(',').map(function (s) { return s.replace(/\s/g, ''); }) : [];
+  cx.line = n.ln;
+  P.uf[m[1]] = { params: params, fn: compileValue(m[3], n.ln, cx), line: n.ln };
+}
+
+function parseAnimate(n, host, loc, cx, P) {
+  var head = n.text.replace(/^animate\s*/i, '').replace(/\s*:\s*$/, '').trim(), target, a, i, k, kv, m, tm, kf, pr, j, kk;
+  if (head === '' || head.toLowerCase() === 'this') { if (!host.type) throw ZError('animate cần tên đối tượng, ví dụ: animate hop:', n.ln); target = host.name; }
+  else target = interp(head, loc, cx);
+  a = { target: target, kf: [], opts: {}, line: n.ln, loc: loc };
+  for (i = 0; i < n.kids.length; i++) {
+    k = n.kids[i]; kv = splitKV(k.text);
+    if (/^at\s+/i.test(kv.head)) {
+      tm = kv.head.replace(/^at\s+/i, '');
+      kf = { time: N(constEval(compileValue(tm, k.ln, cx), loc, P.uf)), props: {}, ease: null, line: k.ln };
+      if (kv.rest) { pr = parseProp({ text: kv.rest, kids: [], ln: k.ln }, loc, cx); kf.props[pr[0]] = pr[1]; }
+      for (j = 0; j < k.kids.length; j++) {
+        kk = k.kids[j]; pr = parseProp(kk, loc, cx);
+        if (pr[0] === 'ease') kf.ease = pr[1]; else kf.props[pr[0]] = pr[1];
+      }
+      if (kf.props.ease) { kf.ease = kf.props.ease; delete kf.props.ease; }
+      a.kf.push(kf);
+    } else {
+      pr = parseProp(k, loc, cx); a.opts[pr[0]] = pr[1];
+    }
+  }
+  a.kf.sort(function (x, y) { return x.time - y.time; });
+  P.cur.anims.push(a);
+}
+
+function parseNode(n, host, loc, cx, P) {
+  var t = n.text, m, kv, words, type, i, v, a, b, st, nloc, cnt, key, pr;
+  cx.line = n.ln;
+  if ((m = /^let\s+([A-Za-z_À-ỹ][A-Za-z0-9_À-ỹ]*)\s*=\s*(.+)$/.exec(t))) {
+    if (!P.cur) { P.globalLets.push({ name: m[1], fn: compileValue(m[2], n.ln, cx) }); return; }
+    P.cur.lets.push({ name: m[1], fn: compileValue(m[2], n.ln, cx) }); return;
+  }
+  if ((m = /^def\s+([A-Za-z_]\w*)\s*\(([^)]*)\)\s*=\s*(.+)$/.exec(t))) { addDef(n, cx, P, m); return; }
+  if ((m = /^for\s+([A-Za-z_À-ỹ][A-Za-z0-9_À-ỹ]*)\s+in\s+(.+?)\s*\.\.\s*(.+?)(?:\s+step\s+(.+?))?\s*:?\s*$/.exec(t))) {
+    a = N(constEval(compileValue(m[2], n.ln, cx), loc, P.uf)); b = N(constEval(compileValue(m[3], n.ln, cx), loc, P.uf));
+    st = m[4] ? N(constEval(compileValue(m[4], n.ln, cx), loc, P.uf)) : 1;
+    if (!st) throw ZError('step không được bằng 0', n.ln);
+    cnt = Math.ceil((b - a) / st);
+    if (cnt > 3000) throw ZError('Vòng for chạy ' + cnt + ' lần, quá nhiều (tối đa 3000)', n.ln);
+    for (i = 0; i < cnt; i++) {
+      v = a + st * i; nloc = {}; for (key in (loc || {})) nloc[key] = loc[key]; nloc[m[1]] = v;
+      parseBlock(n.kids, host, nloc, cx, P);
+    }
+    return;
+  }
+  if (/^animate(\s|:|$)/i.test(t)) { parseAnimate(n, host, loc, cx, P); return; }
+  kv = splitKV(t); words = splitWords(kv.head); type = words.length ? words[0].toLowerCase() : '';
+  if (TYPES[type] || type === 'box') {
+    if (words.length > 1 || (kv.sep === ':' && kv.rest === '') || kv.sep === '') { parseObject(n, kv, host, loc, cx, P); return; }
+  }
+  if (!host.type && !host.isSlide && !host.isProject) throw ZError('Dòng không hợp lệ', n.ln);
+  if (host.isSlide && words.length === 1 && words[0].toLowerCase() === 'camera' && kv.sep === ':' && kv.rest === '') {
+    for (i = 0; i < n.kids.length; i++) { try { pr = parseProp(n.kids[i], loc, cx); P.cur.cam.props[pr[0]] = pr[1]; } catch (e) { P.errors.push({ line: e.zline || n.kids[i].ln, msg: e.message }); } }
+    P.cur.cam.line = n.ln; P.cur.cam.endLine = lastLn(n); return;
+  }
+  pr = parseProp(n, loc, cx); host.props[pr[0]] = pr[1];
+}
+function parseBlock(nodes, host, loc, cx, P) {
+  var i, n;
+  for (i = 0; i < nodes.length; i++) {
+    n = nodes[i];
+    try { parseNode(n, host, loc, cx, P); } catch (e) { P.errors.push({ line: e.zline || n.ln, msg: e.message }); }
+  }
+}
+function scanSteps(objs, P) {
+  var i, o, mx = 0, r, u, c;
+  for (i = 0; i < objs.length; i++) {
+    o = objs[i];
+    try { if (o.props.reveal) { r = N(constEval(o.props.reveal, o.loc, P.uf)); if (r > mx) mx = r; } if (o.props.until) { u = N(constEval(o.props.until, o.loc, P.uf)); if (u > mx) mx = u; } } catch (e) { /* biểu thức động: bỏ qua */ }
+    c = scanSteps(o.kids, P); if (c > mx) mx = c;
+  }
+  return mx;
+}
+
+ZER.parse = function (src) {
+  var tree = buildTree(src), P = { slides: [], uf: {}, errors: [], props: {}, globalLets: [], cur: null, title: '', isProject: true }, cx = { calls: [], line: 0 }, i, n, m, S, nm, pr, k;
+  uidc = 0; curP = P;
+  for (i = 0; i < tree.kids.length; i++) {
+    n = tree.kids[i];
+    try {
+      if (/^project\s*:?\s*$/i.test(n.text)) {
+        for (k = 0; k < n.kids.length; k++) { try { pr = parseProp(n.kids[k], {}, cx); P.props[pr[0]] = pr[1]; } catch (e) { P.errors.push({ line: e.zline || n.kids[k].ln, msg: e.message }); } }
+      } else if ((m = /^slide(?:\s+(.*?))?\s*:?\s*$/i.exec(n.text))) {
+        nm = m[1] ? m[1].replace(/^["']|["']$/g, '') : '';
+        S = { name: nm || ('Slide ' + (P.slides.length + 1)), line: n.ln, endLine: lastLn(n), props: {}, objs: [], anims: [], lets: P.globalLets.slice(), cam: { props: {}, line: 0, endLine: 0 }, maxStep: 0, isSlide: true, id: 0 };
+        P.cur = S; parseBlock(n.kids, S, {}, cx, P); S.maxStep = scanSteps(S.objs, P); P.slides.push(S); P.cur = null;
+      } else if (/^def\s/.test(n.text) || /^let\s/.test(n.text)) { parseNode(n, P, {}, cx, P); }
+      else throw ZError('Ngoài slide không có gì để vẽ. Hãy bắt đầu bằng: slide "Tên":', n.ln);
+    } catch (e) { P.errors.push({ line: e.zline || n.ln, msg: e.message }); }
+  }
+  for (i = 0; i < cx.calls.length; i++) if (!F[cx.calls[i].n] && !P.uf[cx.calls[i].n]) P.errors.push({ line: cx.calls[i].line, msg: 'Chưa có hàm "' + cx.calls[i].n + '"' });
+  P.errors.sort(function (a, b) { return a.line - b.line; });
+  var seen = {}, out = []; for (i = 0; i < P.errors.length; i++) { k = P.errors[i].line + ':' + P.errors[i].msg; if (!seen[k]) { seen[k] = 1; out.push(P.errors[i]); } } P.errors = out;
+  P.title = ''; try { if (P.props.title) P.title = String(constEval(P.props.title, {}, P.uf)); } catch (e2) {}
+  return P;
+};
+ZER.constEval = constEval;
+ZER.splitKV = splitKV;
+ZER._ = { N: N, V3: V3, truthy: truthy, isArr: isArr, hasOwn: hasOwn, hash: hash, clamp: clamp, PI: PI, TAU: TAU, parseColor: parseColor, css: css, mixRGBA: mixRGBA, easeFn: easeFn, lerpAny: lerpAny, ZError: ZError, konst: konst, vnoise: vnoise };
+
+/* ============================================================================
+   zer - phần 2: bộ vẽ 3D bằng Canvas 2D (không cần WebGL, chạy trên máy cũ)
+   ========================================================================== */
+var U = ZER._, N = U.N, V3 = U.V3, truthy = U.truthy, isArr = U.isArr, hasOwn = U.hasOwn, clamp = U.clamp, hash = U.hash,
+  parseColor = U.parseColor, css = U.css, mixRGBA = U.mixRGBA, easeFn = U.easeFn, lerpAny = U.lerpAny;
+
+/* ---------- ma trận 4x4 (hàng trước) ---------- */
+function mIdent() { return [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]; }
+function mMul(a, b) {
+  var r = new Array(16), i, j;
+  for (i = 0; i < 4; i++) for (j = 0; j < 4; j++) r[i * 4 + j] = a[i * 4] * b[j] + a[i * 4 + 1] * b[4 + j] + a[i * 4 + 2] * b[8 + j] + a[i * 4 + 3] * b[12 + j];
+  return r;
+}
+function mTRS(p, r, s) {
+  var rx = r[0] * PI / 180, ry = r[1] * PI / 180, rz = r[2] * PI / 180, cx = Math.cos(rx), sx = Math.sin(rx), cy = Math.cos(ry), sy = Math.sin(ry), cz = Math.cos(rz), sz = Math.sin(rz);
+  return [cz * cy * s[0], (cz * sy * sx - sz * cx) * s[1], (cz * sy * cx + sz * sx) * s[2], p[0],
+    sz * cy * s[0], (sz * sy * sx + cz * cx) * s[1], (sz * sy * cx - cz * sx) * s[2], p[1],
+    -sy * s[0], cy * sx * s[1], cy * cx * s[2], p[2], 0, 0, 0, 1];
+}
+function mApply(m, x, y, z) { return [m[0] * x + m[1] * y + m[2] * z + m[3], m[4] * x + m[5] * y + m[6] * z + m[7], m[8] * x + m[9] * y + m[10] * z + m[11]]; }
+function mLin(m, x, y, z) { return [m[0] * x + m[1] * y + m[2] * z, m[4] * x + m[5] * y + m[6] * z, m[8] * x + m[9] * y + m[10] * z]; }
+function dot3(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+function cross3(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
+function norm3(a) { var l = Math.sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; }
+
+/* ---------- hình học dựng sẵn ---------- */
+var GEO = {}, geoCount = 0;
+function cached(key, build) { var g = GEO[key]; if (!g) { if (geoCount > 300) { GEO = {}; geoCount = 0; } g = build(); GEO[key] = g; geoCount++; } return g; }
+function finish(geo, closed) {
+  var c = [0, 0, 0], i, k, f, nx, ny, nz, a, b, fc, n, L;
+  for (i = 0; i < geo.v.length; i++) { c[0] += geo.v[i][0]; c[1] += geo.v[i][1]; c[2] += geo.v[i][2]; }
+  c[0] /= geo.v.length || 1; c[1] /= geo.v.length || 1; c[2] /= geo.v.length || 1;
+  geo.n = []; geo.closed = closed;
+  for (i = 0; i < geo.f.length; i++) {
+    f = geo.f[i]; nx = ny = nz = 0; fc = [0, 0, 0];
+    for (k = 0; k < f.length; k++) {
+      a = geo.v[f[k]]; b = geo.v[f[(k + 1) % f.length]];
+      nx += (a[1] - b[1]) * (a[2] + b[2]); ny += (a[2] - b[2]) * (a[0] + b[0]); nz += (a[0] - b[0]) * (a[1] + b[1]);
+      fc[0] += a[0]; fc[1] += a[1]; fc[2] += a[2];
+    }
+    L = Math.sqrt(nx * nx + ny * ny + nz * nz) || 1; n = [nx / L, ny / L, nz / L];
+    if (closed) { fc = [fc[0] / f.length - c[0], fc[1] / f.length - c[1], fc[2] / f.length - c[2]]; if (dot3(n, fc) < 0) n = [-n[0], -n[1], -n[2]]; }
+    geo.n.push(n);
+  }
+  return geo;
+}
+function geoCube(w, h, d) {
+  return cached('c' + w + ',' + h + ',' + d, function () {
+    var x = w / 2, y = h / 2, z = d / 2;
+    return finish({ v: [[-x, -y, -z], [x, -y, -z], [x, y, -z], [-x, y, -z], [-x, -y, z], [x, -y, z], [x, y, z], [-x, y, z]], f: [[0, 1, 2, 3], [4, 5, 6, 7], [0, 3, 7, 4], [1, 2, 6, 5], [0, 1, 5, 4], [3, 2, 6, 7]] }, true);
+  });
+}
+function geoSphere(r, seg, rings) {
+  return cached('s' + r + ',' + seg + ',' + rings, function () {
+    var v = [], f = [], i, j, th, ph;
+    for (i = 0; i <= rings; i++) for (j = 0; j < seg; j++) { th = PI * i / rings; ph = TAU * j / seg; v.push([r * Math.sin(th) * Math.cos(ph), r * Math.cos(th), r * Math.sin(th) * Math.sin(ph)]); }
+    for (i = 0; i < rings; i++) for (j = 0; j < seg; j++) f.push([i * seg + j, i * seg + (j + 1) % seg, (i + 1) * seg + (j + 1) % seg, (i + 1) * seg + j]);
+    return finish({ v: v, f: f }, true);
+  });
+}
+function geoCylinder(r, h, seg) {
+  return cached('y' + r + ',' + h + ',' + seg, function () {
+    var v = [], f = [], j, top = [], bot = [];
+    for (j = 0; j < seg; j++) v.push([r * Math.cos(TAU * j / seg), h / 2, r * Math.sin(TAU * j / seg)]);
+    for (j = 0; j < seg; j++) v.push([r * Math.cos(TAU * j / seg), -h / 2, r * Math.sin(TAU * j / seg)]);
+    for (j = 0; j < seg; j++) { f.push([j, (j + 1) % seg, seg + (j + 1) % seg, seg + j]); top.push(j); bot.push(seg + j); }
+    f.push(top); f.push(bot);
+    return finish({ v: v, f: f }, true);
+  });
+}
+function geoCone(r, h, seg) {
+  return cached('n' + r + ',' + h + ',' + seg, function () {
+    var v = [], f = [], j, bot = [];
+    for (j = 0; j < seg; j++) { v.push([r * Math.cos(TAU * j / seg), -h / 2, r * Math.sin(TAU * j / seg)]); bot.push(j); }
+    v.push([0, h / 2, 0]);
+    for (j = 0; j < seg; j++) f.push([j, (j + 1) % seg, seg]);
+    f.push(bot);
+    return finish({ v: v, f: f }, true);
+  });
+}
+function geoTorus(R, r, seg, tseg) {
+  return cached('t' + R + ',' + r + ',' + seg + ',' + tseg, function () {
+    var v = [], f = [], i, j, u, w;
+    for (i = 0; i < seg; i++) for (j = 0; j < tseg; j++) { u = TAU * i / seg; w = TAU * j / tseg; v.push([(R + r * Math.cos(w)) * Math.cos(u), r * Math.sin(w), (R + r * Math.cos(w)) * Math.sin(u)]); }
+    for (i = 0; i < seg; i++) for (j = 0; j < tseg; j++) f.push([i * tseg + j, ((i + 1) % seg) * tseg + j, ((i + 1) % seg) * tseg + (j + 1) % tseg, i * tseg + (j + 1) % tseg]);
+    return finish({ v: v, f: f }, true);
+  });
+}
+function geoPyramid(w, h) {
+  return cached('p' + w + ',' + h, function () {
+    var x = w / 2;
+    return finish({ v: [[-x, -h / 2, -x], [x, -h / 2, -x], [x, -h / 2, x], [-x, -h / 2, x], [0, h / 2, 0]], f: [[0, 1, 2, 3], [0, 1, 4], [1, 2, 4], [2, 3, 4], [3, 0, 4]] }, true);
+  });
+}
+function geoPlane(w, h) { return cached('l' + w + ',' + h, function () { return finish({ v: [[-w / 2, -h / 2, 0], [w / 2, -h / 2, 0], [w / 2, h / 2, 0], [-w / 2, h / 2, 0]], f: [[0, 1, 2, 3]] }, false); }); }
+function geoDisc(r, seg) { return cached('d' + r + ',' + seg, function () { var v = [], f = [], j; for (j = 0; j < seg; j++) { v.push([r * Math.cos(TAU * j / seg), r * Math.sin(TAU * j / seg), 0]); f.push(j); } return finish({ v: v, f: [f] }, false); }); }
+
+function earClip(poly) {     // poly: [[x,y],..] -> danh sách tam giác (chỉ số)
+  var n = poly.length, idx = [], i, area = 0, tris = [], guard, a, b, c, ok, j, k;
+  if (n < 3) return tris;
+  for (i = 0; i < n; i++) { j = (i + 1) % n; area += poly[i][0] * poly[j][1] - poly[j][0] * poly[i][1]; idx.push(i); }
+  if (area < 0) idx.reverse();
+  function inTri(p, a, b, c) {
+    var d1 = (p[0] - b[0]) * (a[1] - b[1]) - (a[0] - b[0]) * (p[1] - b[1]), d2 = (p[0] - c[0]) * (b[1] - c[1]) - (b[0] - c[0]) * (p[1] - c[1]), d3 = (p[0] - a[0]) * (c[1] - a[1]) - (c[0] - a[0]) * (p[1] - a[1]);
+    return !((d1 < 0 || d2 < 0 || d3 < 0) && (d1 > 0 || d2 > 0 || d3 > 0));
+  }
+  guard = 0;
+  while (idx.length > 3 && guard++ < 2000) {
+    ok = false;
+    for (i = 0; i < idx.length; i++) {
+      a = poly[idx[(i + idx.length - 1) % idx.length]]; b = poly[idx[i]]; c = poly[idx[(i + 1) % idx.length]];
+      if ((b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]) <= 0) continue;
+      var empty = true;
+      for (k = 0; k < idx.length; k++) { j = idx[k]; if (poly[j] === a || poly[j] === b || poly[j] === c) continue; if (inTri(poly[j], a, b, c)) { empty = false; break; } }
+      if (!empty) continue;
+      tris.push([idx[(i + idx.length - 1) % idx.length], idx[i], idx[(i + 1) % idx.length]]); idx.splice(i, 1); ok = true; break;
+    }
+    if (!ok) break;
+  }
+  if (idx.length === 3) tris.push([idx[0], idx[1], idx[2]]);
+  else if (idx.length > 3) for (i = 1; i < idx.length - 1; i++) tris.push([idx[0], idx[i], idx[i + 1]]);
+  return tris;
+}
+function pts2(a) { var r = [], i, p; a = isArr(a) ? a : []; for (i = 0; i < a.length; i++) { p = V3(a[i]); r.push(p); } return r; }
+function geoPolygon(points) {
+  var key = 'g' + JSON.stringify(points);
+  return cached(key, function () { var v = points, tr = earClip(v.map(function (p) { return [p[0], p[1]]; })); return finish({ v: v, f: tr.length ? tr : [v.map(function (_, i) { return i; })] }, false); });
+}
+function geoExtrude(points, depth) {
+  return cached('e' + depth + JSON.stringify(points), function () {
+    var n = points.length, v = [], f = [], i, tr, m = points.map(function (p) { return [p[0], p[1]]; });
+    for (i = 0; i < n; i++) v.push([points[i][0], points[i][1], depth / 2]);
+    for (i = 0; i < n; i++) v.push([points[i][0], points[i][1], -depth / 2]);
+    tr = earClip(m);
+    for (i = 0; i < tr.length; i++) { f.push([tr[i][0], tr[i][1], tr[i][2]]); f.push([n + tr[i][2], n + tr[i][1], n + tr[i][0]]); }
+    for (i = 0; i < n; i++) f.push([i, (i + 1) % n, n + (i + 1) % n, n + i]);
+    return finish({ v: v, f: f }, true);
+  });
+}
+function geoLathe(profile, seg) {
+  return cached('h' + seg + JSON.stringify(profile), function () {
+    var v = [], f = [], i, j, p = profile.length, ph, c1 = [], c2 = [];
+    for (i = 0; i < p; i++) for (j = 0; j < seg; j++) { ph = TAU * j / seg; v.push([profile[i][0] * Math.cos(ph), profile[i][1], profile[i][0] * Math.sin(ph)]); }
+    for (i = 0; i < p - 1; i++) for (j = 0; j < seg; j++) f.push([i * seg + j, i * seg + (j + 1) % seg, (i + 1) * seg + (j + 1) % seg, (i + 1) * seg + j]);
+    for (j = 0; j < seg; j++) { c1.push(j); c2.push((p - 1) * seg + j); }
+    if (Math.abs(profile[0][0]) > 1e-6) f.push(c1);
+    if (Math.abs(profile[p - 1][0]) > 1e-6) f.push(c2);
+    return finish({ v: v, f: f }, true);
+  });
+}
+function geoMesh(verts, faces, closed) {
+  var f = [], i, j, q, ok;
+  for (i = 0; i < faces.length; i++) { q = isArr(faces[i]) ? faces[i] : []; ok = q.length >= 3; for (j = 0; j < q.length; j++) { q[j] = Math.floor(N(q[j])); if (q[j] < 0 || q[j] >= verts.length) ok = false; } if (ok) f.push(q); }
+  return finish({ v: verts, f: f }, closed);
+}
+
+/* ---------- camera ---------- */
+function buildCamera(slide, env, av, W, H, over) {
+  var ac = av && av.camera, P = slide.cam.props;
+  function G(k, d) { if (ac && hasOwn(ac, k)) return ac[k]; if (P[k]) { env.loc = null; return P[k](env); } return d; }
+  var persp = String(G('mode', 'persp')).toLowerCase().indexOf('ortho') < 0, fov = clamp(N(G('fov', 50)) || 50, 5, 150), look = V3(G('look', null), [0, 0, 0]), eye, ob = G('orbit', null), roll = N(G('roll', 0));
+  if (ob !== null && ob !== undefined) {
+    ob = V3(ob, [0, 15, 10]); var az = ob[0] * PI / 180, el = ob[1] * PI / 180;
+    eye = [look[0] + ob[2] * Math.cos(el) * Math.sin(az), look[1] + ob[2] * Math.sin(el), look[2] + ob[2] * Math.cos(el) * Math.cos(az)];
+  } else eye = V3(G('position', null), [0, 0, 10]);
+  if (over) {
+    var rel = [eye[0] - look[0], eye[1] - look[1], eye[2] - look[2]], dist = Math.sqrt(dot3(rel, rel)) || 1, az0 = Math.atan2(rel[0], rel[2]), el0 = Math.asin(clamp(rel[1] / dist, -1, 1));
+    dist *= over.zoom || 1; az0 += (over.az || 0); el0 = clamp(el0 + (over.el || 0), -1.5, 1.5);
+    eye = [look[0] + dist * Math.cos(el0) * Math.sin(az0), look[1] + dist * Math.sin(el0), look[2] + dist * Math.cos(el0) * Math.cos(az0)];
+  }
+  var f = norm3([look[0] - eye[0], look[1] - eye[1], look[2] - eye[2]]), up = [0, 1, 0];
+  if (Math.abs(dot3(f, up)) > 0.999) up = [0, 0, -1];
+  var r = norm3(cross3(f, up)), u = cross3(r, f);
+  if (roll) { var cr = Math.cos(roll * PI / 180), sr = Math.sin(roll * PI / 180), r2 = [r[0] * cr + u[0] * sr, r[1] * cr + u[1] * sr, r[2] * cr + u[2] * sr]; u = [u[0] * cr - r[0] * sr, u[1] * cr - r[1] * sr, u[2] * cr - r[2] * sr]; r = r2; }
+  if (over && (over.px || over.py)) { var d = Math.sqrt(dot3([eye[0] - look[0], eye[1] - look[1], eye[2] - look[2]], [eye[0] - look[0], eye[1] - look[1], eye[2] - look[2]])) * 0.0016; eye = [eye[0] - r[0] * over.px * d + u[0] * over.py * d, eye[1] - r[1] * over.px * d + u[1] * over.py * d, eye[2] - r[2] * over.px * d + u[2] * over.py * d]; }
+  var cam = { eye: eye, r: r, u: u, f: f, persp: persp, W: W, H: H, hw: W / 2, hh: H / 2, near: 0.05, focal: (H / 2) / Math.tan(fov * PI / 360), oscale: H / (N(G('height', 10)) || 10) };
+  cam.view = function (p) { var dx = p[0] - eye[0], dy = p[1] - eye[1], dz = p[2] - eye[2]; return [dx * r[0] + dy * r[1] + dz * r[2], dx * u[0] + dy * u[1] + dz * u[2], -(dx * f[0] + dy * f[1] + dz * f[2])]; };
+  cam.dir = function (v) { return [v[0] * r[0] + v[1] * r[1] + v[2] * r[2], v[0] * u[0] + v[1] * u[1] + v[2] * u[2], -(v[0] * f[0] + v[1] * f[1] + v[2] * f[2])]; };
+  cam.proj = function (q) { if (persp) { var s = cam.focal / (-q[2]); return [cam.hw + q[0] * s, cam.hh - q[1] * s, s]; } return [cam.hw + q[0] * cam.oscale, cam.hh - q[1] * cam.oscale, cam.oscale]; };
+  return cam;
+}
+function clipPoly(vs, near) {
+  var out = [], n = vs.length, i, a, b, ia, ib, t;
+  for (i = 0; i < n; i++) {
+    a = vs[i]; b = vs[(i + 1) % n]; ia = a[2] <= -near; ib = b[2] <= -near;
+    if (ia) out.push(a);
+    if (ia !== ib) { t = (-near - a[2]) / (b[2] - a[2]); out.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, -near]); }
+  }
+  return out;
+}
+
+/* ---------- đối tượng -> danh sách vật vẽ ---------- */
+function fogMix(RC, rgb, z) {
+  if (!RC.fog) return rgb;
+  var k = clamp((-z - RC.fog.s) / ((RC.fog.e - RC.fog.s) || 1), 0, 1);
+  return k <= 0 ? rgb : mixRGBA(rgb, RC.fog.c, k);
+}
+function meshItems(o, geo, M, G, alpha, RC, defColor) {
+  var cam = RC.cam, col = parseColor(G('color', defColor)), wire = String(G('wire', 'no')).toLowerCase(), lit = truthy(G('lit', 1)), cl = G('cull', null),
+    cull = (cl === null || cl === undefined) ? geo.closed : truthy(cl), wc = G('wirecolor', null), wcol = wc ? parseColor(wc) : null, wireOnly = wire === 'only', wireOn = wire !== 'no' && wire !== 'false' && wire !== '0' && wire !== 'off',
+    vv = [], pj = [], i, k, v, p, q, L = RC.light, amb = RC.ambient, lw = (wireOn ? 1.6 : 1) * RC.px, nl, nw, nv, cx, cy, cz, f, lam, sh, pp, fi, fc, rgb, s, vs, cnt, z;
+  for (i = 0; i < geo.v.length; i++) { v = geo.v[i]; p = mApply(M, v[0], v[1], v[2]); q = cam.view(p); vv.push(q); pj.push(q[2] < -cam.near ? cam.proj(q) : null); }
+  for (fi = 0; fi < geo.f.length; fi++) {
+    f = geo.f[fi]; nl = geo.n[fi]; nw = norm3(mLin(M, nl[0], nl[1], nl[2])); nv = cam.dir(nw);
+    cx = cy = cz = 0; for (k = 0; k < f.length; k++) { q = vv[f[k]]; cx += q[0]; cy += q[1]; cz += q[2]; }
+    cx /= f.length; cy /= f.length; cz /= f.length;
+    if (cam.persp) { if (cull && nv[0] * cx + nv[1] * cy + nv[2] * cz >= 0) continue; } else if (cull && nv[2] <= 0) continue;
+    pp = []; var allIn = true;
+    for (k = 0; k < f.length; k++) { if (!pj[f[k]]) { allIn = false; break; } }
+    if (allIn) { for (k = 0; k < f.length; k++) { pp.push(pj[f[k]][0], pj[f[k]][1]); } }
+    else { vs = []; for (k = 0; k < f.length; k++) vs.push(vv[f[k]]); vs = clipPoly(vs, cam.near); if (vs.length < 3) continue; for (k = 0; k < vs.length; k++) { s = cam.proj(vs[k]); pp.push(s[0], s[1]); } }
+    lam = dot3(nw, L); lam = cull ? Math.max(0, lam) : Math.abs(lam);
+    sh = lit ? amb + (1 - amb) * lam : 1;
+    rgb = [col[0] * sh, col[1] * sh, col[2] * sh, col[3]];
+    rgb = fogMix(RC, rgb, cz);
+    var item = { k: 'poly', z: cz, p: pp, a: alpha, o: o, sel: RC.insel > 0 };
+    if (wireOnly) { item.stroke = css(wcol || rgb); item.lw = lw; }
+    else { item.fill = css(rgb); item.stroke = wireOn ? css(wcol || [255, 255, 255, 0.85]) : css(rgb); item.lw = wireOn ? lw : RC.px; }
+    RC.items.push(item);
+  }
+}
+function walkerFor(RC) { return RC; }
+
+function baseVec(G, key, d) { return V3(G(key, null), d); }
+function lineItems(RC, o, ptsw, width, col, alpha, glow, arrow) {   // ptsw: các điểm đã ở không gian world
+  var cam = RC.cam, cur = [], zs = 0, zc = 0, i, a, b, q1, q2, ia, ib, t, s, flush = function () {
+    if (cur.length >= 4) RC.items.push({ k: 'line', z: zs / (zc || 1), p: cur, w: width * RC.px, col: col, a: alpha, glow: glow, arrow: arrow, o: o, sel: RC.insel > 0 });
+    cur = []; zs = 0; zc = 0;
+  };
+  for (i = 0; i < ptsw.length - 1; i++) {
+    q1 = cam.view(ptsw[i]); q2 = cam.view(ptsw[i + 1]); ia = q1[2] <= -cam.near; ib = q2[2] <= -cam.near;
+    if (!ia && !ib) { flush(); continue; }
+    if (!ia) { t = (-cam.near - q1[2]) / (q2[2] - q1[2]); q1 = [q1[0] + (q2[0] - q1[0]) * t, q1[1] + (q2[1] - q1[1]) * t, -cam.near]; flush(); }
+    if (!ib) { t = (-cam.near - q1[2]) / (q2[2] - q1[2]); q2 = [q1[0] + (q2[0] - q1[0]) * t, q1[1] + (q2[1] - q1[1]) * t, -cam.near]; }
+    if (!cur.length) { s = cam.proj(q1); cur.push(s[0], s[1]); }
+    s = cam.proj(q2); cur.push(s[0], s[1]); zs += q1[2] + q2[2]; zc += 2;
+    if (!ib) flush();
+  }
+  flush();
+}
+
+var E = {};
+E.cube = function (o, M, G, a, RC) { var s = G('size', 1), v = V3(s, [1, 1, 1]); meshItems(o, geoCube(v[0], v[1], v[2]), M, G, a, RC, '#4aa3ff'); };
+E.sphere = function (o, M, G, a, RC) { var r = G('radius', null); r = r === null ? N(G('size', 2)) / 2 : N(r); var d = clamp(Math.floor(N(G('detail', 10))), 3, 40); meshItems(o, geoSphere(r, d * 2, d), M, G, a, RC, '#ffb547'); };
+E.cylinder = function (o, M, G, a, RC) { meshItems(o, geoCylinder(N(G('radius', 1)), N(G('height', 2)), clamp(Math.floor(N(G('detail', 24))), 3, 80)), M, G, a, RC, '#7ee0c3'); };
+E.cone = function (o, M, G, a, RC) { meshItems(o, geoCone(N(G('radius', 1)), N(G('height', 2)), clamp(Math.floor(N(G('detail', 24))), 3, 80)), M, G, a, RC, '#ff7a90'); };
+E.torus = function (o, M, G, a, RC) { var d = clamp(Math.floor(N(G('detail', 20))), 4, 60); meshItems(o, geoTorus(N(G('radius', 1.5)), N(G('tube', 0.4)), d, Math.max(6, Math.floor(d / 2))), M, G, a, RC, '#af52de'); };
+E.pyramid = function (o, M, G, a, RC) { var w = N(G('size', 2)); meshItems(o, geoPyramid(w, G('height', null) === null ? w : N(G('height'))), M, G, a, RC, '#e3b866'); };
+E.plane = E.rect = function (o, M, G, a, RC) {
+  var s = G('size', null), w = N(G('w', G('width', s === null ? 4 : V3(s, [4, 3, 0])[0]))), h = N(G('h', G('height', s === null ? 3 : V3(s, [4, 3, 0])[1])));
+  if (G('texture', null)) { E.image(o, M, G, a, RC, w, h); return; }
+  meshItems(o, geoPlane(w, h), M, G, a, RC, '#6cb6ff');
+};
+E.circle = function (o, M, G, a, RC) { meshItems(o, geoDisc(N(G('radius', 1)), clamp(Math.floor(N(G('detail', 40))), 6, 120)), M, G, a, RC, '#6cb6ff'); };
+E.polygon = function (o, M, G, a, RC) { var p = pts2(G('points', [])); if (p.length < 3) return; meshItems(o, geoPolygon(p), M, G, a, RC, '#6cb6ff'); };
+E.extrude = function (o, M, G, a, RC) { var p = pts2(G('points', [])); if (p.length < 3) return; meshItems(o, geoExtrude(p, N(G('depth', 1))), M, G, a, RC, '#e3b866'); };
+E.lathe = function (o, M, G, a, RC) { var p = pts2(G('profile', [])); if (p.length < 2) return; meshItems(o, geoLathe(p, clamp(Math.floor(N(G('detail', 24))), 3, 80)), M, G, a, RC, '#c0c0c0'); };
+E.mesh = function (o, M, G, a, RC) {
+  var v = pts2(G('vertices', [])), f = G('faces', []); if (v.length < 3 || !isArr(f)) return;
+  meshItems(o, geoMesh(v, f.map(function (q) { return isArr(q) ? q.slice() : []; }), truthy(G('closed', 0))), M, G, a, RC, '#af52de');
+};
+E.group = function () { };
+E.line = function (o, M, G, a, RC) {
+  var p = G('points', null), q = [], i;
+  if (p === null) p = [G('from', [0, 0, 0]), G('to', [1, 0, 0])];
+  p = pts2(p); for (i = 0; i < p.length; i++) q.push(mApply(M, p[i][0], p[i][1], p[i][2]));
+  lineItems(RC, o, q, N(G('width', 3)), css(parseColor(G('color', '#ffffff'))), a, truthy(G('glow', 0)), truthy(G('arrow', 0)));
+};
+E.grid = function (o, M, G, a, RC) {
+  var n = clamp(Math.floor(N(G('n', 10))), 1, 60), st = N(G('step', 1)), h = n * st / 2, i, c = css(parseColor(G('color', 'rgba(255,255,255,0.22)'))), w = N(G('width', 1));
+  for (i = 0; i <= n; i++) {
+    var x = -h + i * st;
+    lineItems(RC, o, [mApply(M, x, 0, -h), mApply(M, x, 0, h)], w, c, a, false, false);
+    lineItems(RC, o, [mApply(M, -h, 0, x), mApply(M, h, 0, x)], w, c, a, false, false);
+  }
+};
+E.axes = function (o, M, G, a, RC) {
+  var L = N(G('length', 3)), w = N(G('width', 3)), O = mApply(M, 0, 0, 0);
+  lineItems(RC, o, [O, mApply(M, L, 0, 0)], w, '#ff5a6e', a, false, true);
+  lineItems(RC, o, [O, mApply(M, 0, L, 0)], w, '#7ee0c3', a, false, true);
+  lineItems(RC, o, [O, mApply(M, 0, 0, L)], w, '#6cb6ff', a, false, true);
+};
+function dotItems(RC, o, wp, sizeW, col, alpha, glow) {
+  var cam = RC.cam, q = cam.view(wp), s, r;
+  if (q[2] > -cam.near) return;
+  s = cam.proj(q); r = Math.max(0.7 * RC.px, sizeW * s[2]);
+  RC.items.push({ k: 'dot', z: q[2], x: s[0], y: s[1], r: r, col: col, a: alpha, o: o, sel: RC.insel > 0, glow: glow });
+}
+E.points = function (o, M, G, a, RC) {
+  var p = pts2(G('points', [])), sz = N(G('size', 0.06)), c1 = parseColor(G('color', '#ffffff')), c2s = G('color2', null), c2 = c2s ? parseColor(c2s) : null, i, gm = 0, k, rgb, wp, q;
+  if (c2) { for (i = 0; i < p.length; i++) { k = Math.sqrt(p[i][0] * p[i][0] + p[i][1] * p[i][1] + p[i][2] * p[i][2]); if (k > gm) gm = k; } gm = gm || 1; }
+  var fade = truthy(G('fade', 0));
+  for (i = 0; i < p.length; i++) {
+    wp = mApply(M, p[i][0], p[i][1], p[i][2]);
+    if (c2) { k = Math.sqrt(p[i][0] * p[i][0] + p[i][1] * p[i][1] + p[i][2] * p[i][2]) / gm; rgb = mixRGBA(c1, c2, k); } else rgb = c1;
+    q = RC.cam.view(wp); rgb = fogMix(RC, rgb, q[2]);
+    dotItems(RC, o, wp, sz, css(rgb), fade ? a * clamp(1.4 - (-q[2]) / 40, 0.15, 1) : a, false);
+  }
+};
+E.particles = function (o, M, G, a, RC) {
+  var n = clamp(Math.floor(N(G('count', 80))), 1, 2000), life = N(G('life', 3)) || 3, spd = N(G('speed', 2)), spr = N(G('spread', 1)), grav = N(G('gravity', 0)), sz = N(G('size', 0.07)), c1 = parseColor(G('color', '#ffb547')),
+    c2s = G('color2', null), c2 = c2s ? parseColor(c2s) : c1, sd = N(G('seed', 1)), t = RC.env.t, i, age, ph, d, th, ph2, x, y, z, wp, rgb, r;
+  for (i = 0; i < n; i++) {
+    ph = ((t / life) + i / n + hash(i * 1.7 + sd)) % 1; age = ph * life; th = hash(i * 2.3 + sd) * TAU; ph2 = Math.acos(2 * hash(i * 5.9 + sd) - 1); r = spd * (0.4 + 0.6 * hash(i * 3.1 + sd));
+    x = Math.sin(ph2) * Math.cos(th) * r * age * spr; y = Math.cos(ph2) * r * age * spr - 0.5 * grav * age * age; z = Math.sin(ph2) * Math.sin(th) * r * age * spr;
+    wp = mApply(M, x, y, z); rgb = mixRGBA(c1, c2, ph);
+    dotItems(RC, o, wp, sz * (1 - 0.6 * ph), css(rgb), a * (1 - ph), false);
+  }
+};
+function planeAxes(M, G, RC, pivotW) {          // trục ngang/dọc của mặt phẳng (có thể billboard)
+  var O = mApply(M, 0, 0, 0), ex = mLin(M, 1, 0, 0), ey = mLin(M, 0, 1, 0);
+  if (truthy(G('billboard', 0))) {
+    var sx = Math.sqrt(dot3(ex, ex)), sy = Math.sqrt(dot3(ey, ey)), cam = RC.cam;
+    ex = [cam.r[0] * sx, cam.r[1] * sx, cam.r[2] * sx]; ey = [cam.u[0] * sy, cam.u[1] * sy, cam.u[2] * sy];
+  }
+  return { O: O, ex: ex, ey: ey };
+}
+E.text = E.label = function (o, M, G, a, RC) {
+  var v = G('text', ''), str = isArr(v) ? v.join(', ') : (typeof v === 'number' ? String(Math.round(v * 1e6) / 1e6) : String(v)), cam = RC.cam,
+    ax = planeAxes(M, G, RC), q0 = cam.view(ax.O);
+  if (o.type === 'label' && G('billboard', null) === null) ax = planeAxes(M, { }, RC), ax = (function () { var sx = Math.sqrt(dot3(ax.ex, ax.ex)), sy = Math.sqrt(dot3(ax.ey, ax.ey)); return { O: ax.O, ex: [cam.r[0] * sx, cam.r[1] * sx, cam.r[2] * sx], ey: [cam.u[0] * sy, cam.u[1] * sy, cam.u[2] * sy] }; })();
+  if (q0[2] > -cam.near || !str) return;
+  var px = cam.proj(q0), qx = cam.proj(cam.view([ax.O[0] + ax.ex[0], ax.O[1] + ax.ex[1], ax.O[2] + ax.ex[2]])), qy = cam.proj(cam.view([ax.O[0] + ax.ey[0], ax.O[1] + ax.ey[1], ax.O[2] + ax.ey[2]])),
+    size = N(G('size', 0.6)), sc = size / 64, col = parseColor(G('color', '#ffffff')), rgb = fogMix(RC, col, q0[2]), oc = G('outline', null);
+  RC.items.push({
+    k: 'text', z: q0[2], str: str, a: a, o: o, sel: RC.insel > 0, fill: css(rgb), outline: oc ? css(parseColor(oc)) : null, align: String(G('align', 'left')).toLowerCase(),
+    font: (truthy(G('italic', 0)) ? 'italic ' : '') + (truthy(G('bold', 0)) ? 'bold ' : '') + '64px ' + String(G('font', '"Segoe UI",Tahoma,Arial,sans-serif')), wrap: N(G('wrap', 0)), lh: N(G('lineheight', 1.25)),
+    m: [(qx[0] - px[0]) * sc, (qx[1] - px[1]) * sc, -(qy[0] - px[0]) * sc, -(qy[1] - px[1]) * sc, px[0], px[1]], sc: sc
+  });
+};
+E.image = function (o, M, G, a, RC, fw, fh) {
+  var name = String(G('src', G('texture', ''))), img = RC.assets && RC.assets[name], cam = RC.cam, w = fw !== undefined ? fw : N(G('w', G('width', 0))), h = fh !== undefined ? fh : N(G('h', G('height', 0))), ok = img && img.complete && img.naturalWidth > 0,
+    asp = ok ? img.naturalWidth / img.naturalHeight : 1.5;
+  if (!w && !h) { h = 4; w = h * asp; } else if (!h) h = w / asp; else if (!w) w = h * asp;
+  var ax = planeAxes(M, G, RC), N_ = clamp(Math.floor(N(G('detail', 6))), 1, 16), i, j, g = [], q, s, flip = truthy(G('flip', 0)), minz = 0, zs = 0, cnt = 0;
+  for (j = 0; j <= N_; j++) for (i = 0; i <= N_; i++) {
+    var lx = (i / N_ - 0.5) * w, ly = (0.5 - j / N_) * h;
+    q = cam.view([ax.O[0] + ax.ex[0] * lx + ax.ey[0] * ly, ax.O[1] + ax.ex[1] * lx + ax.ey[1] * ly, ax.O[2] + ax.ex[2] * lx + ax.ey[2] * ly]);
+    if (q[2] > -cam.near) return;
+    s = cam.proj(q); g.push(s[0], s[1]); zs += q[2]; cnt++;
+  }
+  RC.items.push({ k: 'tex', z: zs / cnt, g: g, n: N_, img: ok ? img : null, name: name, a: a * N(G('opacity2', 1)), o: o, sel: RC.insel > 0, flip: flip, miss: !ok });
+};
+
+function evalEnvFor(RC, o) { RC.env.loc = o.loc; return RC.env; }
+function walkObj(o, parentM, parentA, RC) {
+  var env = evalEnvFor(RC, o), A = RC.av[o.name], f, v;
+  function G(key, d) {
+    var fn = o.props[key], r;
+    if (A && hasOwn(A, key)) r = A[key];
+    else if (fn) { RC.env.loc = o.loc; r = fn(RC.env); }
+    else return d;
+    return r === undefined ? d : r;
+  }
+  var rev = N(G('reveal', 0)), until = N(G('until', 0)), ralpha = 1;
+  if (rev > RC.step) return;
+  if (until > 0 && RC.step >= until) return;
+  if (rev > 0) { var ts = RC.stepTimes[rev]; ralpha = ts === undefined ? 1 : clamp((RC.env.t - ts) / 0.5, 0, 1); }
+  if (!truthy(G('visible', 1))) return;
+  var alpha = parentA * clamp(N(G('opacity', 1)), 0, 1) * ralpha;
+  var pos = V3(G('position', null), [0, 0, 0]), rot = V3(G('rotate', null), [0, 0, 0]), sc = V3(G('scale', null), [1, 1, 1]);
+  if (o.drag) pos = [pos[0] + o.drag[0], pos[1] + o.drag[1], pos[2] + o.drag[2]];
+  var M = mMul(parentM, mTRS(pos, rot, sc)), i;
+  if (RC.selId && o.id === RC.selId) RC.insel++;
+  var em = E[o.type];
+  if (em && alpha > 0.002) { try { RC.env.loc = o.loc; em(o, M, G, alpha, RC); } catch (e) { RC.errors[o.line] = e.message; } }
+  for (i = 0; i < o.kids.length; i++) walkObj(o.kids[i], M, alpha, RC);
+  if (RC.selId && o.id === RC.selId) RC.insel--;
+}
+
+function animValues(a, env) {
+  var kfs = a.kf, i, j, D, t, res = {}, keys = {}, key, list, k0, k1, p, ef, v0, v1, delay, loop, pp;
+  if (!kfs.length) return null;
+  env.loc = a.loc;
+  delay = a.opts.delay ? N(a.opts.delay(env)) : 0; loop = a.opts.loop ? truthy(a.opts.loop(env)) : false; pp = a.opts.pingpong ? truthy(a.opts.pingpong(env)) : false;
+  D = kfs[kfs.length - 1].time; t = env.t - delay;
+  if (loop && D > 0) { if (pp) { t = ((t % (2 * D)) + 2 * D) % (2 * D); if (t > D) t = 2 * D - t; } else t = ((t % D) + D) % D; }
+  for (i = 0; i < kfs.length; i++) for (key in kfs[i].props) keys[key] = true;
+  for (key in keys) {
+    list = []; for (i = 0; i < kfs.length; i++) if (kfs[i].props[key]) list.push(kfs[i]);
+    if (t <= list[0].time) { res[key] = list[0].props[key](env); continue; }
+    if (t >= list[list.length - 1].time) { res[key] = list[list.length - 1].props[key](env); continue; }
+    for (j = 0; j < list.length - 1; j++) if (t >= list[j].time && t < list[j + 1].time) break;
+    k0 = list[j]; k1 = list[j + 1]; p = (t - k0.time) / ((k1.time - k0.time) || 1);
+    ef = k1.ease ? easeFn(k1.ease(env)) : easeFn('linear');
+    res[key] = lerpAny(k0.props[key](env), k1.props[key](env), ef(clamp(p, 0, 1)));
+  }
+  return res;
+}
+
+function drawText(ctx, it, RC) {
+  var lines = it.str.split('\n'), w, i, out = [], words, line, test, m = it.m, lh = 64 * it.lh, y0, maxw = 0, ww;
+  ctx.font = it.font;
+  if (it.wrap > 0) {
+    w = it.wrap / it.sc;
+    for (i = 0; i < lines.length; i++) {
+      words = lines[i].split(' '); line = '';
+      for (var k = 0; k < words.length; k++) { test = line ? line + ' ' + words[k] : words[k]; if (ctx.measureText(test).width > w && line) { out.push(line); line = words[k]; } else line = test; }
+      out.push(line);
+    }
+    lines = out;
+  }
+  y0 = -(lines.length - 1) / 2 * lh;
+  ctx.save(); ctx.globalAlpha = it.a; ctx.transform(m[0], m[1], m[2], m[3], m[4], m[5]);
+  ctx.textBaseline = 'middle'; ctx.textAlign = it.align === 'center' ? 'center' : it.align === 'right' ? 'right' : 'left';
+  for (i = 0; i < lines.length; i++) {
+    if (it.outline) { ctx.lineWidth = 8; ctx.lineJoin = 'round'; ctx.strokeStyle = it.outline; ctx.strokeText(lines[i], 0, y0 + i * lh); }
+    ctx.fillStyle = it.fill; ctx.fillText(lines[i], 0, y0 + i * lh);
+    ww = ctx.measureText(lines[i]).width; if (ww > maxw) maxw = ww;
+  }
+  ctx.restore();
+  var x0 = it.align === 'center' ? -maxw / 2 : it.align === 'right' ? -maxw : 0, hh = lines.length * lh / 2;
+  function T(x, y) { return [m[0] * x + m[2] * y + m[4], m[1] * x + m[3] * y + m[5]]; }
+  var a = T(x0, -hh - lh * 0.1 + y0 + (lines.length - 1) / 2 * lh), b = T(x0 + maxw, -hh + y0 + (lines.length - 1) / 2 * lh - lh * 0.1), c = T(x0 + maxw, hh + lh * 0.1 + y0 + (lines.length - 1) / 2 * lh), d = T(x0, hh + lh * 0.1 + y0 + (lines.length - 1) / 2 * lh);
+  it.quad = [a[0], a[1], b[0], b[1], c[0], c[1], d[0], d[1]];
+}
+function drawTri(ctx, img, x0, y0, x1, y1, x2, y2, u0, v0, u1, v1, u2, v2) {
+  var cx = (x0 + x1 + x2) / 3, cy = (y0 + y1 + y2) / 3, e = 0.7, k, dx, dy, l;
+  function out(x, y) { dx = x - cx; dy = y - cy; l = Math.sqrt(dx * dx + dy * dy) || 1; return [x + dx / l * e, y + dy / l * e]; }
+  var A = out(x0, y0), B = out(x1, y1), C = out(x2, y2), det = u0 * (v1 - v2) + u1 * (v2 - v0) + u2 * (v0 - v1);
+  if (Math.abs(det) < 1e-9) return;
+  var a = (x0 * (v1 - v2) + x1 * (v2 - v0) + x2 * (v0 - v1)) / det, c = (u0 * (x1 - x2) + u1 * (x2 - x0) + u2 * (x0 - x1)) / det, ee = x0 - a * u0 - c * v0,
+    b = (y0 * (v1 - v2) + y1 * (v2 - v0) + y2 * (v0 - v1)) / det, d = (u0 * (y1 - y2) + u1 * (y2 - y0) + u2 * (y0 - y1)) / det, f = y0 - b * u0 - d * v0;
+  ctx.save(); ctx.beginPath(); ctx.moveTo(A[0], A[1]); ctx.lineTo(B[0], B[1]); ctx.lineTo(C[0], C[1]); ctx.closePath(); ctx.clip();
+  ctx.transform(a, b, c, d, ee, f); ctx.drawImage(img, 0, 0); ctx.restore();
+}
+function drawTex(ctx, it, RC) {
+  var n = it.n, g = it.g, i, j, iw, ih, p, q, r, s, row = n + 1;
+  ctx.save(); ctx.globalAlpha = it.a;
+  if (!it.img) {
+    ctx.beginPath(); ctx.moveTo(g[0], g[1]); ctx.lineTo(g[n * 2], g[n * 2 + 1]); ctx.lineTo(g[(row * row - 1) * 2], g[(row * row - 1) * 2 + 1]); ctx.lineTo(g[(row * n) * 2], g[(row * n) * 2 + 1]); ctx.closePath();
+    ctx.fillStyle = 'rgba(120,130,150,0.35)'; ctx.fill(); ctx.strokeStyle = 'rgba(255,255,255,0.6)'; ctx.setLineDash && ctx.setLineDash([8, 6]); ctx.lineWidth = 2; ctx.stroke();
+    ctx.restore(); return;
+  }
+  iw = it.img.naturalWidth; ih = it.img.naturalHeight;
+  for (j = 0; j < n; j++) for (i = 0; i < n; i++) {
+    var a = (j * row + i) * 2, b = (j * row + i + 1) * 2, c = ((j + 1) * row + i + 1) * 2, d = ((j + 1) * row + i) * 2;
+    var u0 = i / n * iw, u1 = (i + 1) / n * iw, v0 = j / n * ih, v1 = (j + 1) / n * ih;
+    if (it.flip) { var tt = u0; u0 = iw - u0; u1 = iw - u1; }
+    drawTri(ctx, it.img, g[a], g[a + 1], g[b], g[b + 1], g[c], g[c + 1], u0, v0, u1, v0, u1, v1);
+    drawTri(ctx, it.img, g[a], g[a + 1], g[c], g[c + 1], g[d], g[d + 1], u0, v0, u1, v1, u0, v1);
+  }
+  ctx.restore();
+}
+function itemBBox(it, bb) {
+  function add(x, y) { if (x < bb[0]) bb[0] = x; if (y < bb[1]) bb[1] = y; if (x > bb[2]) bb[2] = x; if (y > bb[3]) bb[3] = y; }
+  var i, p;
+  if (it.k === 'poly' || it.k === 'line') { p = it.p; for (i = 0; i < p.length; i += 2) add(p[i], p[i + 1]); }
+  else if (it.k === 'dot') { add(it.x - it.r, it.y - it.r); add(it.x + it.r, it.y + it.r); }
+  else if (it.k === 'tex') { p = it.g; for (i = 0; i < p.length; i += 2) add(p[i], p[i + 1]); }
+  else if (it.k === 'text' && it.quad) { p = it.quad; for (i = 0; i < p.length; i += 2) add(p[i], p[i + 1]); }
+}
+
+/* Vẽ một slide lên ctx. Trả về {picks, bbox, errors, cam}. */
+ZER.renderSlide = function (ctx, W, H, slide, project, assets, t, step, stepTimes, opts) {
+  opts = opts || {};
+  var env = { t: t, time: t, dt: opts.dt || 0.016, frame: opts.frame || 0, step: step, loc: null, vars: {}, uf: project.uf, depth: 0 }, i, l, errors = {}, key, a, vals, av = {};
+  for (i = 0; i < slide.lets.length; i++) { l = slide.lets[i]; try { env.vars[l.name] = l.fn(env); } catch (e) { errors[0] = e.message; } }
+  for (i = 0; i < slide.anims.length; i++) { a = slide.anims[i]; try { vals = animValues(a, env); } catch (e2) { vals = null; errors[a.line] = e2.message; } if (vals) { if (!av[a.target]) av[a.target] = {}; for (key in vals) av[a.target][key] = vals[key]; } }
+  function SG(k, d) { var f = slide.props[k]; if (!f) return d; try { env.loc = null; var v = f(env); return v === undefined ? d : v; } catch (e) { errors[0] = e.message; return d; } }
+  var cam = buildCamera(slide, env, av, W, H, opts.over);
+  var Lt = V3(SG('light', null), [0.4, 0.8, 0.6]), fogv = SG('fog', null), fog = null;
+  if (isArr(fogv) && fogv.length >= 3) fog = { c: parseColor(fogv[0]), s: N(fogv[1]), e: N(fogv[2]) };
+  var RC = { cam: cam, env: env, av: av, items: [], assets: assets || {}, light: norm3(Lt), ambient: clamp(N(SG('ambient', 0.38)), 0, 1), fog: fog, px: H / 1080, step: step, stepTimes: stepTimes || [], errors: errors, insel: 0, selId: opts.selId || 0 };
+  /* nền */
+  var bg = SG('background', '#000000'), grd;
+  if (isArr(bg) && bg.length >= 2) { grd = ctx.createLinearGradient(0, 0, 0, H); grd.addColorStop(0, css(parseColor(bg[0]))); grd.addColorStop(1, css(parseColor(bg[1]))); ctx.fillStyle = grd; }
+  else ctx.fillStyle = css(parseColor(isArr(bg) ? bg[0] : bg));
+  ctx.globalAlpha = 1; ctx.fillRect(0, 0, W, H);
+  var ns = clamp(Math.floor(N(SG('stars', 0))), 0, 1500), sr = H / 1080;
+  if (ns) {
+    for (i = 0; i < ns; i++) {
+      var sx = hash(i * 2.1 + 1) * W, sy = hash(i * 3.7 + 2) * H, rr = (0.6 + hash(i * 5.3) * 1.6) * sr, tw = 0.45 + 0.55 * (0.5 + 0.5 * Math.sin(t * (0.5 + hash(i) * 2) + i));
+      ctx.fillStyle = 'rgba(255,255,255,' + (tw * (0.35 + hash(i * 9.1) * 0.6)).toFixed(2) + ')'; ctx.fillRect(sx, sy, rr * 1.4, rr * 1.4);
+    }
+  }
+  /* dựng vật vẽ */
+  var I = mIdent();
+  for (i = 0; i < slide.objs.length; i++) walkObj(slide.objs[i], I, 1, RC);
+  var items = RC.items;
+  items.sort(function (x, y) { return x.z - y.z; });
+  var picks = [], bb = [1e9, 1e9, -1e9, -1e9], hasSel = false, it, n = items.length, k, p;
+  for (i = 0; i < n; i++) {
+    it = items[i];
+    switch (it.k) {
+      case 'poly':
+        ctx.globalAlpha = it.a; p = it.p; ctx.beginPath(); ctx.moveTo(p[0], p[1]); for (k = 2; k < p.length; k += 2) ctx.lineTo(p[k], p[k + 1]); ctx.closePath();
+        if (it.fill) { ctx.fillStyle = it.fill; ctx.fill(); }
+        if (it.stroke) { ctx.strokeStyle = it.stroke; ctx.lineWidth = it.lw; ctx.lineJoin = 'round'; ctx.stroke(); }
+        break;
+      case 'line':
+        ctx.globalAlpha = it.a; p = it.p; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        ctx.beginPath(); ctx.moveTo(p[0], p[1]); for (k = 2; k < p.length; k += 2) ctx.lineTo(p[k], p[k + 1]);
+        if (it.glow) { ctx.strokeStyle = it.col; ctx.globalAlpha = it.a * 0.22; ctx.lineWidth = it.w * 3.5; ctx.stroke(); ctx.globalAlpha = it.a; }
+        ctx.strokeStyle = it.col; ctx.lineWidth = it.w; ctx.stroke();
+        if (it.arrow && p.length >= 4) {
+          var x1 = p[p.length - 4], y1 = p[p.length - 3], x2 = p[p.length - 2], y2 = p[p.length - 1], ang = Math.atan2(y2 - y1, x2 - x1), hl = it.w * 4 + 6 * RC.px;
+          ctx.beginPath(); ctx.moveTo(x2, y2); ctx.lineTo(x2 - hl * Math.cos(ang - 0.4), y2 - hl * Math.sin(ang - 0.4)); ctx.lineTo(x2 - hl * Math.cos(ang + 0.4), y2 - hl * Math.sin(ang + 0.4)); ctx.closePath(); ctx.fillStyle = it.col; ctx.fill();
+        }
+        break;
+      case 'dot':
+        ctx.globalAlpha = it.a; ctx.fillStyle = it.col;
+        if (it.r < 1.3) ctx.fillRect(it.x - it.r, it.y - it.r, it.r * 2, it.r * 2); else { ctx.beginPath(); ctx.arc(it.x, it.y, it.r, 0, TAU); ctx.fill(); }
+        break;
+      case 'text': drawText(ctx, it, RC); break;
+      case 'tex': drawTex(ctx, it, RC); break;
+    }
+    if (opts.pick) picks.push(it);
+    if (it.sel) { hasSel = true; itemBBox(it, bb); }
+  }
+  ctx.globalAlpha = 1;
+  /* hậu kỳ */
+  var vg = N(SG('vignette', 0));
+  if (vg > 0) { var rg = ctx.createRadialGradient(W / 2, H / 2, H * 0.35, W / 2, H / 2, H * 0.95); rg.addColorStop(0, 'rgba(0,0,0,0)'); rg.addColorStop(1, 'rgba(0,0,0,' + clamp(vg, 0, 1) + ')'); ctx.fillStyle = rg; ctx.fillRect(0, 0, W, H); }
+  var fi = N(SG('fade_in', 0)), fo = N(SG('fade_out', 0)), dur = N(SG('duration', 0)), fa = 0;
+  if (fi > 0 && t < fi) fa = Math.max(fa, 1 - t / fi);
+  if (fo > 0 && dur > 0 && t > dur - fo) fa = Math.max(fa, (t - (dur - fo)) / fo);
+  if (fa > 0) { ctx.fillStyle = 'rgba(0,0,0,' + clamp(fa, 0, 1) + ')'; ctx.fillRect(0, 0, W, H); }
+  /* khung chọn trong Studio */
+  if (opts.selId && hasSel) {
+    ctx.save(); ctx.strokeStyle = '#32d4ff'; ctx.lineWidth = 2; ctx.setLineDash && ctx.setLineDash([7, 5]);
+    ctx.strokeRect(bb[0] - 6, bb[1] - 6, bb[2] - bb[0] + 12, bb[3] - bb[1] + 12); ctx.restore();
+  }
+  return { items: opts.pick ? picks : null, bbox: hasSel ? bb : null, errors: errors, cam: cam };
+};
+
+/* Tìm vật ở toạ độ (x, y); duyệt từ vật gần nhất */
+function ptSeg(px, py, ax, ay, bx, by) {
+  var dx = bx - ax, dy = by - ay, l = dx * dx + dy * dy, t = l ? clamp(((px - ax) * dx + (py - ay) * dy) / l, 0, 1) : 0, x = ax + t * dx, y = ay + t * dy;
+  return Math.sqrt((px - x) * (px - x) + (py - y) * (py - y));
+}
+function inPoly(p, x, y) {
+  var c = false, i, j, n = p.length / 2;
+  for (i = 0, j = n - 1; i < n; j = i++) if (((p[i * 2 + 1] > y) !== (p[j * 2 + 1] > y)) && (x < (p[j * 2] - p[i * 2]) * (y - p[i * 2 + 1]) / (p[j * 2 + 1] - p[i * 2 + 1]) + p[i * 2])) c = !c;
+  return c;
+}
+ZER.pick = function (items, x, y, tol) {
+  var i, it, p, k;
+  tol = tol || 8;
+  if (!items) return null;
+  for (i = items.length - 1; i >= 0; i--) {
+    it = items[i];
+    if (it.k === 'poly') { if (inPoly(it.p, x, y)) return it; }
+    else if (it.k === 'tex') { var row = it.n + 1, g = it.g, q = [g[0], g[1], g[it.n * 2], g[it.n * 2 + 1], g[(row * row - 1) * 2], g[(row * row - 1) * 2 + 1], g[row * it.n * 2], g[row * it.n * 2 + 1]]; if (inPoly(q, x, y)) return it; }
+    else if (it.k === 'text') { if (it.quad && inPoly(it.quad, x, y)) return it; }
+    else if (it.k === 'dot') { if ((x - it.x) * (x - it.x) + (y - it.y) * (y - it.y) <= Math.pow(Math.max(it.r, tol), 2)) return it; }
+    else if (it.k === 'line') { p = it.p; for (k = 0; k + 3 < p.length; k += 2) if (ptSeg(x, y, p[k], p[k + 1], p[k + 2], p[k + 3]) <= Math.max(tol, it.w)) return it; }
+  }
+  return null;
+};
+
+/* ============================================================================
+   zer - phần 3: trình phát (slide, bước, chuyển cảnh, tự chạy, điều khiển)
+   ========================================================================== */
+var raf = (function () {
+  var w = typeof window !== 'undefined' ? window : null;
+  var f = w && (w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.mozRequestAnimationFrame || w.msRequestAnimationFrame);
+  return function (cb) { return f ? f.call(w, cb) : setTimeout(function () { cb(new Date().getTime()); }, 16); };
+})();
+function now() { return (typeof performance !== 'undefined' && performance.now) ? performance.now() : new Date().getTime(); }
+
+ZER.loadAssets = function (assets, done) {
+  var out = {}, k, left = 0, fin = false;
+  function chk() { if (!fin && left <= 0) { fin = true; done && done(out); } }
+  for (k in assets) if (hasOwn(assets, k)) {
+    left++;
+    (function (name) {
+      var im = new Image();
+      im.onload = im.onerror = function () { left--; chk(); };
+      im.src = assets[name]; out[name] = im;
+    })(k);
+  }
+  chk(); return out;
+};
+
+function Player(canvas, project, assets) {
+  this.canvas = canvas; this.ctx = canvas.getContext('2d'); this.project = project; this.assets = assets || {};
+  this.cur = 0; this.step = 0; this.t = 0; this.t0 = now(); this.playing = true; this.frame = 0; this.q = 1; this.stepTimes = [];
+  this.trans = null; this.over = null; this.selId = 0; this.pickItems = null; this.last = null; this.onchange = null; this.onframe = null; this.drawOnly = false;
+  this.autoplay = !!(project.props && project.props.autoplay && truthy(project.props.autoplay({ t: 0, vars: {}, uf: project.uf, depth: 0 })));
+  this.off1 = document.createElement('canvas'); this.off2 = document.createElement('canvas'); this.running = false; this.lastT = now(); this.autoAt = 0; this.pickMode = false;
+  this.size();
+}
+ZER.Player = Player;
+Player.prototype.slide = function () { return this.project.slides[this.cur]; };
+Player.prototype.size = function () {
+  var c = this.canvas, w = c.clientWidth || c.width, h = c.clientHeight || c.height, q = this.q, dpr = Math.min(window.devicePixelRatio || 1, 2) * q;
+  var W = Math.max(2, Math.round(w * dpr)), H = Math.max(2, Math.round(h * dpr));
+  if (c.width !== W || c.height !== H) { c.width = W; c.height = H; }
+  this.W = c.width; this.H = c.height;
+};
+Player.prototype.setQuality = function (q) { this.q = q; this.size(); };
+Player.prototype.reset = function () { this.t = 0; this.t0 = now(); this.step = 0; this.stepTimes = []; this.autoAt = 0; };
+Player.prototype.go = function (i, withTrans) {
+  var P = this.project, n = P.slides.length;
+  if (!n) return; i = Math.max(0, Math.min(n - 1, i));
+  if (i === this.cur) return;
+  if (withTrans !== false) this.startTrans(i);
+  this.cur = i; this.reset(); if (this.onchange) this.onchange(this);
+};
+Player.prototype.startTrans = function (to) {
+  var s = this.project.slides[to], kind = 'fade', env = { t: 0, vars: {}, uf: this.project.uf, depth: 0 }, d = 0.6;
+  if (s.props.transition) { try { var v = s.props.transition(env); if (isArr(v)) { kind = String(v[0]); d = N(v[1]) || d; } else kind = String(v); } catch (e) { } }
+  kind = kind.toLowerCase(); if (kind === 'none' || !this.drawOnly === false && false) return;
+  if (kind === 'none') return;
+  var o = this.off1; o.width = this.W; o.height = this.H; o.getContext('2d').drawImage(this.canvas, 0, 0);
+  this.trans = { kind: kind, d: d, t0: now(), dir: to >= this.cur ? 1 : -1 };
+};
+Player.prototype.next = function () {
+  var s = this.slide(); if (!s) return;
+  if (this.step < s.maxStep) { this.step++; this.stepTimes[this.step] = this.t; this.autoAt = this.t; if (this.onchange) this.onchange(this); }
+  else if (this.cur < this.project.slides.length - 1) this.go(this.cur + 1);
+};
+Player.prototype.prev = function () {
+  if (this.step > 0) { this.step--; if (this.onchange) this.onchange(this); }
+  else if (this.cur > 0) { this.go(this.cur - 1); var s = this.slide(); this.step = s.maxStep; }
+};
+Player.prototype.seek = function (t) { this.t = Math.max(0, t); this.t0 = now() - this.t * 1000; };
+Player.prototype.setPlaying = function (p) { this.playing = p; this.t0 = now() - this.t * 1000; };
+Player.prototype.render = function (ctx, canvasW, canvasH, forceT) {
+  var s = this.slide(); if (!s) { ctx.fillStyle = '#000'; ctx.fillRect(0, 0, canvasW, canvasH); return null; }
+  var r = ZER.renderSlide(ctx, canvasW, canvasH, s, this.project, this.assets, forceT === undefined ? this.t : forceT, this.step, this.stepTimes,
+    { dt: 0.016, frame: this.frame, over: this.over, selId: this.selId, pick: this.pickMode });
+  return r;
+};
+Player.prototype.tick = function () {
+  var n = now();
+  if (this.playing) this.t = (n - this.t0) / 1000; else this.t0 = n - this.t * 1000;
+  this.frame++;
+  var s = this.slide();
+  if (s && this.autoplay && this.playing) {
+    var dur = 0, e = { t: 0, vars: {}, uf: this.project.uf, depth: 0 };
+    if (s.props.duration) { try { dur = N(s.props.duration(e)); } catch (x) { } }
+    if (dur > 0 && this.t >= dur && this.cur < this.project.slides.length - 1) this.go(this.cur + 1);
+  }
+  var r = this.render(this.ctx, this.W, this.H);
+  if (r) { this.last = r; this.pickItems = r.items; }
+  if (this.trans) {
+    var k = (n - this.trans.t0) / (this.trans.d * 1000), ctx = this.ctx, W = this.W, H = this.H, kd = this.trans.kind;
+    if (k >= 1) this.trans = null;
+    else {
+      var e2 = k * k * (3 - 2 * k), o = this.off1, dir = this.trans.dir;
+      if (!this.off2.width || this.off2.width !== W) { this.off2.width = W; this.off2.height = H; }
+      ctx.save();
+      if (kd === 'slide') { ctx.drawImage(o, -W * e2 * dir, 0); ctx.globalAlpha = 1; var tmp = this.off2, tc = tmp.getContext('2d'); tc.clearRect(0, 0, W, H); tc.drawImage(this.canvas, 0, 0); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); ctx.drawImage(o, -W * e2 * dir, 0); ctx.drawImage(tmp, W * (1 - e2) * dir, 0); }
+      else if (kd === 'zoom') { var tmp2 = this.off2, tc2 = tmp2.getContext('2d'); tc2.clearRect(0, 0, W, H); tc2.drawImage(this.canvas, 0, 0); ctx.globalAlpha = 1; ctx.drawImage(o, 0, 0); var sc = 0.6 + 0.4 * e2; ctx.globalAlpha = e2; ctx.drawImage(tmp2, W * (1 - sc) / 2, H * (1 - sc) / 2, W * sc, H * sc); }
+      else { ctx.globalAlpha = 1 - e2; ctx.drawImage(o, 0, 0); }
+      ctx.restore(); ctx.globalAlpha = 1;
+    }
+  }
+  if (this.onframe) this.onframe(this);
+};
+Player.prototype.start = function () {
+  if (this.running) return; this.running = true; var self = this;
+  (function loop() { if (!self.running) return; try { self.tick(); } catch (e) { if (self.onerror) self.onerror(e); } raf(loop); })();
+};
+Player.prototype.stop = function () { this.running = false; };
+
+/* điều khiển bàn phím / chuột / cảm ứng cho chế độ trình chiếu */
+ZER.attachControls = function (el, player, opts) {
+  opts = opts || {};
+  var idle = 0, hideT, sx = 0, sy = 0, st = 0, off = [];
+  function on(t, ev, f) { t.addEventListener(ev, f, false); off.push(function () { t.removeEventListener(ev, f, false); }); }
+  function wake() { el.style.cursor = 'default'; clearTimeout(hideT); hideT = setTimeout(function () { el.style.cursor = 'none'; }, 2200); }
+  on(document, 'keydown', function (e) {
+    var k = e.keyCode, used = true;
+    if (k === 39 || k === 32 || k === 40 || k === 13 || k === 34 || k === 78) player.next();
+    else if (k === 37 || k === 38 || k === 33 || k === 8 || k === 80) player.prev();
+    else if (k === 36) player.go(0);
+    else if (k === 35) player.go(player.project.slides.length - 1);
+    else if (k === 70) { opts.fullscreen && opts.fullscreen(); }
+    else if (k === 27) { opts.exit && opts.exit(); }
+    else used = false;
+    if (used) { e.preventDefault(); }
+  });
+  on(el, 'click', function () { if (!opts.noClick) player.next(); });
+  on(el, 'contextmenu', function (e) { e.preventDefault(); player.prev(); });
+  on(el, 'mousemove', wake);
+  on(el, 'wheel', function (e) { e.preventDefault(); if (e.deltaY > 0) player.next(); else if (e.deltaY < 0) player.prev(); });
+  on(el, 'touchstart', function (e) { var t = e.touches[0]; sx = t.clientX; sy = t.clientY; st = now(); });
+  on(el, 'touchend', function (e) {
+    var t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { if (dx < 0) player.next(); else player.prev(); e.preventDefault(); }
+  });
+  wake();
+  return function () { for (var i = 0; i < off.length; i++) off[i](); clearTimeout(hideT); };
+};
+ZER.toggleFullscreen = function (el) {
+  var d = document, fs = d.fullscreenElement || d.webkitFullscreenElement || d.mozFullScreenElement || d.msFullscreenElement;
+  try {
+    var r;
+    if (fs) { r = (d.exitFullscreen || d.webkitExitFullscreen || d.mozCancelFullScreen || d.msExitFullscreen).call(d); }
+    else { var f = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen; if (f) r = f.call(el); }
+    if (r && r.catch) r.catch(function () { });
+  } catch (e) { }
+};
+ZER.compile = function (src) { return ZER.parse(src); };
+
+ZER.SAMPLES = {
+start: { name: 'Bắt đầu', code:
+'project:\n    title = "Dự án đầu tiên"\n\n' +
+'slide "Xin chào":\n    background = #0b1020, #1d2b5a\n    stars = 200\n    camera:\n        orbit = 20, 12, 11\n    text title "Xin chào 2zer011":\n        position = 0, 2.2, 0\n        size = 0.9\n        align = center\n        color = #ffffff\n    cube hop:\n        coordinates:\n            X = -2\n            Y = 0\n            Z = 0\n        color = #ff6b6b\n        size = 1.4\n        animate this:\n            at 0s:\n                rotate = 0, 0, 0\n            at 6s:\n                rotate = 360, 360, 0\n            loop = 1\n    sphere cau:\n        radius = 0.9\n        color = #4aa3ff\n        position = 2, bob(1, 0.4), 0\n    text tip "Chuột phải vào vật để mở mã":\n        position = 0, -2.4, 0\n        size = 0.4\n        align = center\n        color = #9fb4ff\n        reveal = 1\n\n' +
+'slide "Thiên hà":\n    background = #02030a\n    camera:\n        orbit = t * 8, 28, 16\n    points sao:\n        points = galaxy(1500, 8, 3)\n        size = 0.05\n        color = #ffd9a0\n        color2 = #5aa0ff\n    sphere loi:\n        radius = 0.5\n        color = #fff1b0\n        lit = 0\n    text tt "Mỗi điểm là một công thức":\n        position = 0, 4.5, 0\n        size = 0.5\n        align = center\n        billboard = 1\n'
+},
+galaxy: { name: 'Thiên hà', code:
+'slide "Thiên hà":\n    background = #02030a\n    vignette = 0.5\n    camera:\n        orbit = t * 10, 30, 18\n        fov = 55\n    points a:\n        points = galaxy(2500, 9, 4)\n        size = 0.05\n        color = #ffe2a8\n        color2 = #4f8bff\n    points b:\n        points = galaxy(1200, 6, 2)\n        size = 0.04\n        color = #ff7ad9\n        color2 = #7affd9\n        rotate = 0, t * 5, 0\n    sphere loi:\n        radius = 0.6\n        color = #fff4c2\n        lit = 0\n'
+},
+solar: { name: 'Hệ mặt trời mini', code:
+'slide "Hệ mặt trời":\n    background = #03040c, #0a1030\n    stars = 300\n    light = 0, 0.6, 0.8\n    camera:\n        orbit = 0, 38, 22\n        look = 0, 0, 0\n    grid g:\n        n = 24\n        position = 0, -0.01, 0\n    sphere mt:\n        radius = 1.2\n        color = #ffcf4a\n        lit = 0\n    for i in 1..5:\n        sphere hanh{i}:\n            radius = 0.25 + i * 0.07\n            color = hsl(i * 55, 70, 60)\n            position = cosd(t * 40 / i + i * 70) * (2 + i * 1.6), 0, sind(t * 40 / i + i * 70) * (2 + i * 1.6)\n        circle quydao{i}:\n            radius = 2 + i * 1.6\n            rotate = 90, 0, 0\n            color = rgba(255,255,255,0.12)\n            lit = 0\n            wire = only\n'
+},
+film: { name: 'Mở đầu phim', code:
+'project:\n    title = "Mở đầu phim"\n    autoplay = 1\n\n' +
+'slide "Cảnh 1":\n    background = #000000, #0b1330\n    duration = 7s\n    fade_in = 1.5s\n    fade_out = 1s\n    stars = 400\n    vignette = 0.7\n    camera:\n        position = 0, 0.5, 14\n        look = 0, 0, 0\n        fov = 45\n    animate camera:\n        at 0s:\n            position = 0, 0.5, 14\n        at 7s:\n            position = 0, 1.2, 4\n            ease = inout\n    particles bui:\n        count = 300\n        life = 5\n        speed = 1.2\n        color = #7aa8ff\n        color2 = #ffffff\n        size = 0.04\n    text ten "ZER 011":\n        position = 0, 0, 0\n        size = 1.6\n        align = center\n        bold = 1\n        color = #ffffff\n        opacity = fade_in(t, 1.5, 1.5)\n\n' +
+'slide "Cảnh 2":\n    background = #130508, #3a0f1c\n    duration = 6s\n    fade_in = 1s\n    fade_out = 1s\n    transition = fade, 1s\n    camera:\n        orbit = t * 25, 15, 9\n    torus vong:\n        radius = 2\n        tube = 0.5\n        color = #ff5e7e\n        rotate = t * 30, t * 50, 0\n    for i in 0..12:\n        sphere v{i}:\n            radius = 0.15\n            color = hsl(i * 30, 80, 60)\n            position = cosd(i * 30 + t * 60) * 3.5, sind(t * 90 + i * 40) * 0.8, sind(i * 30 + t * 60) * 3.5\n'
+},
+image360: { name: 'Ảnh xoay 360°', code:
+'slide "Ảnh xoay":\n    background = #101820, #243b55\n    camera:\n        orbit = 0, 10, 9\n    image anh:\n        src = anh1\n        w = 5\n        position = 0, 0, 0\n        rotate = 0, t * 40, 0\n        detail = 8\n    text ghi "Nhập ảnh ở tab Ảnh, đặt tên là anh1":\n        position = 0, -3.2, 0\n        size = 0.4\n        align = center\n        billboard = 1\n'
+}
+};
+
+})(typeof window!=='undefined'?window:global);
+</script>
+<script>
+var __SPEC = "# ZER — ngôn ngữ làm slide/phim 3D (đọc 1 lần là viết được)\n\nBạn là AI. Hãy viết **chỉ mã ZER** (không giải thích, không ``` ) khi được yêu cầu làm slide/phim. Dán kết quả vào Studio.\n\n## Quy tắc vàng\n1. Thụt lề **4 dấu cách** = lồng nhau. Dòng kết thúc bằng `:` mở khối con. Chú thích bắt đầu `//`.\n2. Một dòng = một việc: `tên = giá trị` (hoặc `tên: giá trị`). Vector ghi `x, y, z` (hoặc `(x,y,z)` / `[x,y,z]`). Số đơn như `scale = 2` tự nhân ra cả 3 trục.\n3. Hệ toạ độ: **Y hướng lên**, X sang phải, Z về phía người xem. Đơn vị tự do, màn hình thường rộng ~16 đơn vị ở khoảng cách camera 10.\n4. Góc tính bằng **độ**. Thời gian tính bằng **giây** (`2s`, `500ms` đều được). `t` = giây kể từ lúc vào slide → dùng `t` để tự chuyển động: `rotate = 0, t*40, 0`.\n5. Mọi giá trị đều có thể là **công thức** theo `t`: `position = cosd(t*60)*3, 0, sind(t*60)*3`.\n6. Màu: `#fff`, `#ff8800`, `#ff880080` (alpha), tên (`red`, `gold`, `skyblue`), `rgb(255,0,0)`, `hsl(210,80,60)`.\n7. Tên vật là tuỳ chọn nhưng cần khi muốn `animate` nó từ ngoài: `cube hop:`; chữ có thể ghi thẳng nội dung: `text tieude \"Xin chào\":`.\n8. Đừng bịa thuộc tính: bên dưới là danh sách đầy đủ. Gõ sai Studio sẽ gợi ý \"có phải …?\".\n\n## Khung chương trình\n```\nproject:\n    title = \"Tên phim\"\n    autoplay = 1            // tự chuyển slide theo duration (kiểu phim)\n\ndef f(a, b) = a * b + 1     // hàm tự định nghĩa (tuỳ chọn)\nlet R = 3                   // hằng dùng chung (tuỳ chọn)\n\nslide \"Tên slide\":\n    background = #0b1020, #1d2b5a      // 1 màu hoặc 2 màu (gradient dọc)\n    stars = 300                         // sao nền\n    light = 0.4, 0.8, 0.6               // hướng sáng\n    ambient = 0.38                      // sáng nền 0..1\n    fog = #000, 10, 40                  // màu, bắt đầu, kết thúc\n    vignette = 0.5                      // tối viền\n    duration = 8s                       // dùng khi autoplay\n    fade_in = 1s   fade_out = 1s        // (mỗi dòng một thuộc tính)\n    transition = slide, 0.6s            // fade | slide | zoom | none\n\n    camera:\n        position = 0, 2, 10             // hoặc orbit = góc_ngang, góc_đứng, khoảng_cách\n        look = 0, 0, 0\n        fov = 50                        // mode = ortho + height = 10 cho chiếu song song\n        roll = 0\n\n    <vật thể...>\n    animate ... \n```\n\n## Vật thể: `kiểu [tên] [\"chuỗi\"]:` rồi các thuộc tính\nThuộc tính chung (mọi vật): `position` `rotate` (độ, quanh X,Y,Z) `scale` `color` `opacity` (0..1) `visible` (0/1) `reveal = n` (hiện ở lần bấm n) `until = n` (ẩn từ lần bấm n) `lit = 0` (tắt đổ bóng) `wire = no|yes|only` `wirecolor`.\nVật con thụt lề dưới một vật khác → kế thừa vị trí/xoay/tỉ lệ của cha (nhóm). `group` là vật rỗng chỉ để gom.\n\n| kiểu | thuộc tính riêng (mặc định) |\n|---|---|\n| `cube` (`box`) | `size` 1 (hoặc `size = w, h, d`) |\n| `sphere` | `radius` 1 · `detail` 10 |\n| `cylinder` | `radius` 1 · `height` 2 · `detail` 24 |\n| `cone` | `radius` 1 · `height` 2 · `detail` 24 |\n| `torus` | `radius` 1.5 · `tube` 0.4 · `detail` 20 |\n| `pyramid` | `size` 2 · `height` |\n| `plane` / `rect` | `w` 4 · `h` 3 (hoặc `width`/`height`) · nếu có `src` thì thành ảnh |\n| `circle` | `radius` 1 |\n| `polygon` | `points = (x,y,0), (x,y,0), ...` (nằm trên mặt XY) |\n| `extrude` | `points` như polygon · `depth` 1 |\n| `lathe` | `profile = (r,y,0), (r,y,0)...` xoay quanh trục Y |\n| `mesh` | `vertices = ...` · `faces = ...` (chỉ số, từ 0) |\n| `line` | `points` hoặc `from`,`to` · `width` 3 · `color` · `glow = 1` · `arrow = 1` |\n| `points` | `points = galaxy(1500, 8, 3)` · `size` 0.06 · `color` · `color2` (chuyển màu theo khoảng cách tâm) |\n| `particles` | `count` 80 · `life` 3 · `speed` 2 · `spread` 1 · `gravity` 0 · `size` 0.07 · `color` · `color2` |\n| `text` | nội dung (chuỗi sau tên hoặc `text = ...`) · `size` 0.6 · `align = left|center|right` · `bold` `italic` `font` `outline` `wrap` `lineheight` · `billboard = 1` luôn quay mặt về camera |\n| `label` | như text nhưng luôn quay mặt về camera |\n| `image` | `src = tên_ảnh` (ảnh đã nhập ở tab Ảnh) · `w` hoặc `h` (giữ tỉ lệ) · `detail` 6 · `flip` |\n| `grid` | `n` 10 ô · `step` 1 · `color` · nằm trên mặt XZ |\n| `axes` | `length` 3 |\n\nKhối vị trí kiểu dài (tương đương `position = 1.9, 8.9, 9.9`):\n```\n    cube a:\n        coordinates:\n            X = 1.9473839\n            Y = 8.948267282\n            Z = 9.9382727\n```\n\n## Vòng lặp\n```\n    for i in 0..30:                 // 0..29 (không gồm đầu cuối), thêm \"step 2\" nếu cần\n        sphere s{i}:                // {i} chèn vào tên\n            position = cosd(i*12)*4, i*0.1, sind(i*12)*4\n            color = hsl(i*12, 80, 60)\n```\nTối đa 3000 lần lặp/vòng.\n\n## Animation (hai cách)\n**1) Công thức theo t** (đơn giản nhất, chạy mãi): `rotate = 0, t*30, 0` · `position = 0, bob(1, 0.3), 0` · `opacity = fade_in(t, 1, 1)` · `scale = 1 + 0.1*sin(t*4)`.\n\n**2) Keyframe** — đặt trong vật (`animate this:`) hoặc ngoài slide (`animate tên:`; `animate camera:` để chạy camera):\n```\n    animate hop:\n        at 0s:\n            position = -4, 0, 0\n        at 2s:\n            position = 4, 0, 0\n            ease = inout            // linear in out inout cubicout expoout backout elasticout bounceout sineinout\n        at 4s:\n            position = -4, 0, 0\n        loop = 1                    // lặp   (pingpong = 1: đi rồi về, delay = 1s: chờ)\n```\nChỉ thuộc tính có trong keyframe mới được nội suy (số, vector, màu).\n\n## Bấm từng bước (thuyết trình)\n`reveal = 1`, `reveal = 2` … → mỗi lần bấm → / Space hiện thêm. `until = 3` ẩn đi từ bước 3.\n\n## Bố cục nhanh (copy được)\n- Tiêu đề: `text tieude \"…\":` `position = 0, 3, 0` · `size = 0.9` · `align = center` · `color = #fff`\n- Cảnh xoay quanh vật: `camera:` → `orbit = t*10, 20, 12`\n- Nền không gian: `background = #02030a` · `stars = 400` · `vignette = 0.5`\n- Tên cảnh phim: `autoplay = 1` ở project + `duration = 6s`, `fade_in`, `fade_out` ở mỗi slide.\n\n## Biến & hàm có sẵn\nBiến: `t` `time` `dt` `frame` `step` + biến `for`, `let`.\nToán: `sin cos tan asin acos atan atan2 sqrt pow abs floor ceil round min max clamp lerp map smoothstep mod hypot pi` · độ: `sind cosd tand deg rad`.\nSóng/thời gian: `saw tri square pulse wave pingpong loop bob spin blink after between fade_in fade_out tween shake`.\nNgẫu nhiên (ổn định): `rand rrange randint pick noise snoise fbm jitter`.\nVector: `vec add sub mul div dot cross vlen norm dist polar orbit_y sph`.\nMàu: `rgb rgba hsl hsla gray mixc lighten darken alpha rainbow palette`.\nSinh điểm (cho `points`/`line`/`polygon`): `ring star spiral helix grid grid3 line_pts sphere_pts torus_pts galaxy scatter lissajous wave_pts curve shift scale_pts range count get`.\nChữ: `str fmt concat upper lower typewriter count_up pad` (vd `text = typewriter(\"Xin chào\", t, 12)`).\nEasing: `ease(t, \"inout\")`, `ease_in ease_out ease_inout ...`.\n(Danh sách đầy đủ có chữ ký + ví dụ: tab \"Hàm\".)\n\n## Lỗi thường gặp\n- Thiếu `:` ở cuối dòng khai báo vật/khối.\n- Thụt lề lệch (dùng đúng 4 dấu cách, không tab).\n- Dùng `x = ` cho vector — hãy dùng `position = x, y, z` (X/Y/Z chỉ dùng trong khối `coordinates:`).\n- Quên tên ảnh phải khớp tên đã nhập (tab Ảnh).\n- Vật quá nhỏ/lớn: màn hình rộng ~16 đơn vị tại khoảng cách 10.\n\n## Ví dụ đầy đủ\n```\nproject:\n    title = \"Mở đầu\"\n    autoplay = 1\n\nslide \"Cảnh 1\":\n    background = #000, #0b1330\n    stars = 400\n    duration = 7s\n    fade_in = 1.5s\n    fade_out = 1s\n    camera:\n        position = 0, 0.5, 14\n        look = 0, 0, 0\n    animate camera:\n        at 0s:\n            position = 0, 0.5, 14\n        at 7s:\n            position = 0, 1.2, 4\n            ease = inout\n    particles bui:\n        count = 300\n        life = 5\n        color = #7aa8ff\n    text ten \"ZER 011\":\n        size = 1.6\n        align = center\n        bold = 1\n        opacity = fade_in(t, 1.5, 1.5)\n    for i in 0..12:\n        sphere v{i}:\n            radius = 0.15\n            color = hsl(i*30, 80, 60)\n            position = cosd(i*30 + t*60)*3.5, sind(t*90 + i*40)*0.8, sind(i*30 + t*60)*3.5\n```\n";
+(function () {
+'use strict';
+var KEY = 'zer.v1';
+function $(id) { return document.getElementById(id); }
+function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function lsGet() { try { var s = localStorage.getItem(KEY); return s ? JSON.parse(s) : null; } catch (e) { return null; } }
+function lsSet(o) { try { localStorage.setItem(KEY, JSON.stringify(o)); return true; } catch (e) { toast('Không lưu được (bộ nhớ trình duyệt đầy?)'); return false; } }
+function uid() { return 'p' + new Date().getTime().toString(36) + Math.floor(Math.random() * 1e4).toString(36); }
+var tT;
+function toast(m) { var t = $('toast'); t.textContent = m; t.style.display = 'block'; clearTimeout(tT); tT = setTimeout(function () { t.style.display = 'none'; }, 3200); }
+
+var db = lsGet() || { cur: '', projects: {} };
+if (!db.projects) db.projects = {};
+function newProject(code, name, assets) { var id = uid(); db.projects[id] = { id: id, name: name || 'Dự án mới', code: code, assets: assets || {}, updated: new Date().getTime() }; db.cur = id; return db.projects[id]; }
+function save() { if (PR) { PR.updated = new Date().getTime(); } lsSet(db); }
+
+var hash = location.hash.replace(/^#/, ''), PR = null;
+var hm = /^(play|edit)=(.*)$/.exec(hash), mode = hm ? hm[1] : 'edit', hid = hm ? decodeURIComponent(hm[2]) : '';
+if (hid.indexOf('sample:') === 0) { var sm = ZER.SAMPLES[hid.slice(7)] || ZER.SAMPLES.start; PR = { id: 'sample', name: sm.name, code: sm.code, assets: {} }; }
+else if (hid && hid !== 'new' && db.projects[hid]) PR = db.projects[hid];
+else if (hid === 'new' || !db.cur || !db.projects[db.cur]) PR = newProject(ZER.SAMPLES.start.code, 'Dự án đầu tiên');
+else PR = db.projects[db.cur];
+if (hid && hid !== 'new' && db.projects[hid]) db.cur = hid;
+
+/* ---------- trình phát chung ---------- */
+var parsed = null, assetImgs = {}, player = null;
+function setAssets(done) { assetImgs = ZER.loadAssets(PR.assets, function () { done && done(); }); }
+
+/* ---------- chế độ chỉ chiếu ---------- */
+function startPresent(fromSlide, onExit) {
+  var pres = $('pres'), cv = $('pcv'), pp;
+  pres.style.display = 'block';
+  var proj = ZER.parse(PR.code);
+  var imgs = ZER.loadAssets(PR.assets);
+  pp = new ZER.Player(cv, proj, imgs);
+  try { if (localStorage.getItem('lite') === '1') pp.setQuality(0.75); } catch (e) { }
+  pp.go(fromSlide || 0, false); pp.start();
+  function rs() { pp.size(); }
+  window.addEventListener('resize', rs, false);
+  var detach = ZER.attachControls(pres, pp, { fullscreen: function () { ZER.toggleFullscreen(pres); }, exit: exit });
+  function exit() {
+    pp.stop(); detach(); window.removeEventListener('resize', rs, false); pres.style.display = 'none';
+    var d = document; if (d.fullscreenElement || d.webkitFullscreenElement || d.msFullscreenElement) ZER.toggleFullscreen(pres);
+    onExit && onExit();
+  }
+  ZER.toggleFullscreen(pres);
+  return pp;
+}
+if (mode === 'play') {
+  document.body.className = 'playonly';
+  var hide = ['top', 'left', 'mid', 'right'], hi;
+  for (hi = 0; hi < hide.length; hi++) $(hide[hi]).style.display = 'none';
+  $('pres').style.display = 'block';
+  var pp0 = startPresent(0, function () { location.href = 'index.html'; });
+  document.title = PR.name + ' — 2zer011';
+  var pl = document.createElement('div');
+  pl.style.cssText = 'position:fixed;left:0;right:0;top:40%;text-align:center;z-index:101;color:#fff;font-size:20px;pointer-events:none';
+  pl.textContent = ''; document.body.appendChild(pl);
+  return;
+}
+
+/* ---------- Studio ---------- */
+var code = $('code'), hl = $('hl'), gut = $('gut'), cv = $('cv'), SEL = 0, curSlide = 0, over = null;
+var HL_KW = /^(project|slide|def|let|for|in|animate|at|camera|step|step)$/;
+var TYPES = {}; (function () { var t = ZER.TYPES, i; for (i = 0; i < t.length; i++) TYPES[t[i]] = 1; TYPES.box = 1; })();
+function hlLine(s) {
+  var e = esc(s);
+  return e.replace(/(\/\/.*$)|("[^"]*")|(#[0-9a-fA-F]{3,8}\b)|(\b\d+(?:\.\d+)?(?:s|ms|deg)?\b)|(\b[A-Za-zÀ-ỹ_][\w]*\b)(?=\s*\()|(\b[A-Za-z_][\w]*\b)(?=\s*(?:=|:))|(\b[A-Za-z_][\w]*\b)/g, function (m, c, st, col, num, fn, key, w) {
+    if (c) return '<span class="k5">' + c + '</span>';
+    if (st) return '<span class="k3">' + st + '</span>';
+    if (col) return '<span class="k4">' + col + '</span>';
+    if (num) return '<span class="k4">' + num + '</span>';
+    if (fn) return '<span class="k6">' + fn + '</span>';
+    if (key) { return (HL_KW.test(key) ? '<span class="k1">' : TYPES[key] ? '<span class="k2">' : '<span class="k1">') + key + '</span>'; }
+    if (w) { if (HL_KW.test(w)) return '<span class="k1">' + w + '</span>'; if (TYPES[w]) return '<span class="k2">' + w + '</span>'; }
+    return m;
+  });
+}
+function paintCode() {
+  var lines = code.value.split('\n'), out = [], nums = [], i;
+  for (i = 0; i < lines.length; i++) { out.push(hlLine(lines[i])); nums.push(i + 1); }
+  hl.innerHTML = out.join('\n') + '\n'; gut.textContent = nums.join('\n');
+  syncScroll();
+}
+function syncScroll() { hl.scrollTop = code.scrollTop; hl.scrollLeft = code.scrollLeft; gut.scrollTop = code.scrollTop; }
+code.addEventListener('scroll', syncScroll, false);
+function lineStart(n) { var l = code.value.split('\n'), p = 0, i; for (i = 0; i < n - 1 && i < l.length; i++) p += l[i].length + 1; return p; }
+function lineEnd(n) { var l = code.value.split('\n'), p = 0, i; for (i = 0; i < n && i < l.length; i++) p += l[i].length + 1; return Math.max(0, p - 1); }
+function selectLines(a, b) {
+  $('tabs').children[0].click();
+  code.focus(); code.setSelectionRange(lineStart(a), lineEnd(b || a));
+  code.scrollTop = Math.max(0, (a - 4) * 18); syncScroll();
+}
+function setCode(v, keepSel) { code.value = v; paintCode(); onEdit(); }
+code.addEventListener('keydown', function (e) {
+  var v = code.value, s = code.selectionStart, en = code.selectionEnd, ls, ind, pre;
+  if (e.keyCode === 9) {
+    e.preventDefault(); ls = v.lastIndexOf('\n', s - 1) + 1;
+    if (e.shiftKey) { if (v.substr(ls, 4) === '    ') { code.value = v.slice(0, ls) + v.slice(ls + 4); code.setSelectionRange(Math.max(ls, s - 4), Math.max(ls, en - 4)); } }
+    else if (s !== en && v.slice(s, en).indexOf('\n') > -1) {
+      var blk = v.slice(ls, en).replace(/^/gm, '    '); code.value = v.slice(0, ls) + blk + v.slice(en); code.setSelectionRange(s + 4, ls + blk.length);
+    } else { code.value = v.slice(0, s) + '    ' + v.slice(en); code.setSelectionRange(s + 4, s + 4); }
+    paintCode(); onEdit();
+  } else if (e.keyCode === 13) {
+    e.preventDefault(); ls = v.lastIndexOf('\n', s - 1) + 1; pre = v.slice(ls, s); ind = /^\s*/.exec(pre)[0];
+    if (/:\s*$/.test(pre)) ind += '    ';
+    code.value = v.slice(0, s) + '\n' + ind + v.slice(en); code.setSelectionRange(s + 1 + ind.length, s + 1 + ind.length); paintCode(); onEdit();
+  }
+}, false);
+function insertAtCursor(txt) {
+  var s = code.selectionStart, v = code.value;
+  code.value = v.slice(0, s) + txt + v.slice(code.selectionEnd); code.setSelectionRange(s + txt.length, s + txt.length); code.focus(); paintCode(); onEdit();
+}
+code.addEventListener('input', function () { paintCode(); onEdit(); }, false);
+
+/* dán mã từ AI: bỏ hàng rào ``` và dòng ngôn ngữ */
+code.addEventListener('paste', function (e) {
+  var t = e.clipboardData && e.clipboardData.getData('text'); if (!t || t.indexOf('```') < 0) return;
+  e.preventDefault(); t = t.replace(/^[\s\S]*?```[a-z0-9]*\n/i, '').replace(/\n?```[\s\S]*$/, '').replace(/\t/g, '    ');
+  insertAtCursor(t);
+}, false);
+/* ---------- biên dịch + vẽ ---------- */
+var eT = 0;
+function onEdit() { PR.code = code.value; clearTimeout(eT); eT = setTimeout(function () { recompile(); save(); }, 220); }
+function recompile() {
+  var keepT = player ? player.t : 0, keepStep = player ? player.step : 0;
+  parsed = ZER.parse(PR.code);
+  var e = $('errs'), i, h = '';
+  for (i = 0; i < parsed.errors.length; i++) h += '<div class="er' + (parsed.errors[i].warn ? ' w' : '') + '" data-l="' + parsed.errors[i].line + '">' + (parsed.errors[i].warn ? '&#9888; ' : '') + 'Dòng ' + parsed.errors[i].line + ': ' + esc(parsed.errors[i].msg) + '</div>';
+  e.innerHTML = h || '<div class="ok">Không có lỗi &#10003; (' + parsed.slides.length + ' slide)</div>';
+  if (!player) { player = new ZER.Player(cv, parsed, assetImgs); player.pickMode = true; player.onchange = uiUpdate; player.start(); player.onframe = frameUI; }
+  player.project = parsed; player.assets = assetImgs;
+  if (curSlide >= parsed.slides.length) curSlide = Math.max(0, parsed.slides.length - 1);
+  player.cur = curSlide; player.step = Math.min(keepStep, parsed.slides[curSlide] ? parsed.slides[curSlide].maxStep : 0);
+  uiUpdate(); thumbs();
+  document.title = PR.name + ' — 2zer011 Studio';
+}
+$('errs').addEventListener('click', function (e) { var l = e.target.getAttribute && e.target.getAttribute('data-l'); if (l) selectLines(+l); }, false);
+
+function uiUpdate() {
+  var s = player && player.slide(); curSlide = player ? player.cur : 0;
+  $('stepTxt').textContent = s ? ('bước ' + player.step + '/' + s.maxStep) : '';
+  var k = $('slist').children, i; for (i = 0; i < k.length; i++) k[i].className = 'sl' + (i === curSlide ? ' on' : '');
+}
+var lastTxt = '';
+function frameUI(p) {
+  var t = p.t.toFixed(1) + 's'; if (t !== lastTxt) { lastTxt = t; $('tTxt').textContent = t; }
+  var seek = $('tSeek'); if (p.playing && document.activeElement !== seek) seek.value = String(Math.round((p.t % 10) * 100));
+}
+function thumbs() {
+  var L = $('slist'), i, w, c, d, s;
+  L.innerHTML = '';
+  for (i = 0; i < parsed.slides.length; i++) {
+    d = document.createElement('div'); d.className = 'sl' + (i === curSlide ? ' on' : ''); d.setAttribute('data-i', i);
+    c = document.createElement('canvas'); c.width = 150; c.height = 84; d.appendChild(c);
+    var sp = document.createElement('span'); sp.textContent = (i + 1) + ' ' + parsed.slides[i].name; d.appendChild(sp); L.appendChild(d);
+    try { ZER.renderSlide(c.getContext('2d'), 150, 84, parsed.slides[i], parsed, assetImgs, 1, parsed.slides[i].maxStep, [], {}); } catch (e) { }
+  }
+}
+$('slist').addEventListener('click', function (e) {
+  var n = e.target; while (n && n !== this && !n.getAttribute('data-i')) n = n.parentNode;
+  if (n && n.getAttribute && n.getAttribute('data-i') !== null) { player.go(+n.getAttribute('data-i'), false); over = player.over = null; var s = parsed.slides[curSlide]; if (s) selectLines(s.line, s.line); }
+}, false);
+
+/* ---------- thao tác slide bằng cách cắt dòng mã ---------- */
+function lines() { return code.value.split('\n'); }
+function slideRange(i) { var s = parsed.slides[i]; if (!s) return null; var nx = parsed.slides[i + 1], end = nx ? nx.line - 1 : lines().length; return [s.line, end]; }
+function applyLines(arr) { setCode(arr.join('\n')); }
+$('sAdd').onclick = function () {
+  var l = lines(), n = parsed.slides.length + 1; while (l.length && /^\s*$/.test(l[l.length - 1])) l.pop();
+  l.push('', 'slide "Slide ' + n + '":', '    background = #0b1020, #1d2b5a', '    camera:', '        orbit = 0, 10, 10', '    text tieude "Tiêu đề":', '        position = 0, 0, 0', '        size = 1', '        align = center', '        color = #ffffff', '');
+  applyLines(l); setTimeout(function () { player.go(parsed.slides.length - 1, false); }, 300);
+};
+$('sDup').onclick = function () { var r = slideRange(curSlide); if (!r) return; var l = lines(); var blk = l.slice(r[0] - 1, r[1]); while (blk.length && /^\s*$/.test(blk[blk.length - 1])) blk.pop(); l.splice.apply(l, [r[1], 0, ''].concat(blk)); applyLines(l); };
+$('sDel').onclick = function () { if (parsed.slides.length < 2) { toast('Phải còn ít nhất 1 slide'); return; } var r = slideRange(curSlide), l = lines(); l.splice(r[0] - 1, r[1] - r[0] + 1); applyLines(l); };
+function moveSlide(d) {
+  var a = curSlide, b = a + d; if (b < 0 || b >= parsed.slides.length) return;
+  var l = lines(), ra = slideRange(a), rb = slideRange(b), lo = a < b ? ra : rb, hi = a < b ? rb : ra;
+  var A = l.slice(lo[0] - 1, lo[1]), B = l.slice(hi[0] - 1, hi[1]);
+  l.splice.apply(l, [lo[0] - 1, B.length + A.length].concat(B, A)); curSlide = b; applyLines(l); setTimeout(function () { player.go(b, false); }, 300);
+}
+$('sUp').onclick = function () { moveSlide(-1); }; $('sDn').onclick = function () { moveSlide(1); };
+
+/* ---------- thanh thời gian ---------- */
+$('tPlay').onclick = function () { player.setPlaying(!player.playing); this.innerHTML = player.playing ? '&#10073;&#10073;' : '&#9654;'; };
+$('tRst').onclick = function () { player.seek(0); player.stepTimes = []; player.step = 0; uiUpdate(); };
+$('tSeek').oninput = function () { player.setPlaying(false); $('tPlay').innerHTML = '&#9654;'; player.seek(this.value / 100); };
+$('tNext').onclick = function () { var s = player.slide(); if (s && player.step < s.maxStep) { player.step++; player.stepTimes[player.step] = player.t; uiUpdate(); } };
+$('tPrev').onclick = function () { if (player.step > 0) { player.step--; uiUpdate(); } };
+$('tHome').onclick = function () { over = player.over = null; };
+
+/* ---------- chuột trên khung vẽ: chọn / kéo / xoay ---------- */
+function cpos(e) { var r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * cv.width / r.width, (e.clientY - r.top) * cv.height / r.height]; }
+function itemAt(e) { var p = cpos(e); return ZER.pick(player.pickItems, p[0], p[1], 8 * cv.width / 960); }
+var drag = null;
+cv.addEventListener('mousedown', function (e) {
+  hideCtx(); if (e.button !== 0) return;
+  var it = itemAt(e), p = cpos(e);
+  if (it && it.o) { player.selId = it.o.id; drag = { kind: 'obj', o: it.o, sx: p[0], sy: p[1], z: it.z, moved: false }; var o0 = it.o; o0.drag = [0, 0, 0]; }
+  else { player.selId = 0; drag = { kind: e.shiftKey ? 'pan' : 'orbit', sx: p[0], sy: p[1] }; if (!player.over) player.over = { az: 0, el: 0, zoom: 1, px: 0, py: 0 }; over = player.over; drag.az = over.az; drag.el = over.el; drag.px = over.px; drag.py = over.py; }
+  e.preventDefault();
+}, false);
+window.addEventListener('mousemove', function (e) {
+  if (!drag) return; var p = cpos(e), dx = p[0] - drag.sx, dy = p[1] - drag.sy;
+  if (drag.kind === 'obj') {
+    var c = player.last && player.last.cam; if (!c) return; if (Math.abs(dx) + Math.abs(dy) > 2) drag.moved = true;
+    var k = c.persp ? (-drag.z) / c.focal : 1 / c.oscale;
+    drag.o.drag = [(c.r[0] * dx - c.u[0] * dy) * k, (c.r[1] * dx - c.u[1] * dy) * k, (c.r[2] * dx - c.u[2] * dy) * k];
+  } else if (drag.kind === 'orbit') { over.az = drag.az - dx * 0.006; over.el = drag.el + dy * 0.006; }
+  else { over.px = drag.px + dx; over.py = drag.py + dy; }
+}, false);
+window.addEventListener('mouseup', function () {
+  if (!drag) return; var d = drag; drag = null;
+  if (d.kind === 'obj') { if (d.moved) writeMove(d.o, d.o.drag); d.o.drag = null; }
+}, false);
+cv.addEventListener('wheel', function (e) { e.preventDefault(); if (!player.over) player.over = { az: 0, el: 0, zoom: 1, px: 0, py: 0 }; over = player.over; over.zoom = Math.max(0.1, Math.min(8, over.zoom * (e.deltaY > 0 ? 1.1 : 0.9))); }, false);
+cv.addEventListener('dblclick', function () { over = player.over = null; }, false);
+function fmt(n) { return String(Math.round(n * 1000) / 1000); }
+function writeMove(o, d) {
+  var l = lines(), i, start = o.line - 1, end = o.endLine - 1, ind = /^\s*/.exec(l[start])[0] + '    ', m, np, found = false, re;
+  function num(s) { return parseFloat(s); }
+  for (i = start + 1; i <= end && i < l.length; i++) {
+    if ((/^\s*/.exec(l[i])[0]).length !== ind.length) continue;
+    re = /^(\s*)(position|pos|coordinates)\s*=\s*(-?[\d.eE+-]+)\s*,\s*(-?[\d.eE+-]+)\s*,\s*(-?[\d.eE+-]+)\s*$/i;
+    if ((m = re.exec(l[i]))) { l[i] = m[1] + m[2] + ' = ' + fmt(num(m[3]) + d[0]) + ', ' + fmt(num(m[4]) + d[1]) + ', ' + fmt(num(m[5]) + d[2]); found = true; break; }
+    if (/^\s*(position|pos|coordinates)\s*:\s*$/i.test(l[i])) {
+      var xyz = { x: -1, y: -1, z: -1 }, j, mm, ok = true;
+      for (j = i + 1; j <= end && j < l.length && (/^\s*/.exec(l[j])[0]).length > ind.length; j++) { mm = /^(\s*)([XYZxyz])\s*=\s*(-?[\d.eE+-]+)\s*$/.exec(l[j]); if (mm) xyz[mm[2].toLowerCase()] = j; }
+      if (xyz.x < 0 || xyz.y < 0 || xyz.z < 0) { ok = false; }
+      if (ok) {
+        var ks = ['x', 'y', 'z'], q;
+        for (q = 0; q < 3; q++) { mm = /^(\s*)([XYZxyz])\s*=\s*(-?[\d.eE+-]+)\s*$/.exec(l[xyz[ks[q]]]); l[xyz[ks[q]]] = mm[1] + mm[2] + ' = ' + fmt(num(mm[3]) + d[q]); }
+        found = true; break;
+      }
+    }
+    if (/^\s*(position|pos|coordinates)\s*=/i.test(l[i])) { toast('Vị trí dùng công thức - hãy sửa bằng tay trong mã'); return; }
+  }
+  if (!found) {
+    if (o.loc && Object.keys && Object.keys(o.loc).length) { toast('Vật sinh từ vòng for - sửa bằng tay trong mã'); return; }
+    l.splice(start + 1, 0, ind + 'position = ' + fmt(d[0]) + ', ' + fmt(d[1]) + ', ' + fmt(d[2]));
+  }
+  setCode(l.join('\n'));
+}
+
+/* chuột phải -> mở khung code đúng chỗ */
+function hideCtx() { $('ctx').style.display = 'none'; }
+cv.addEventListener('contextmenu', function (e) {
+  e.preventDefault(); var it = itemAt(e), s = parsed.slides[curSlide], c = $('ctx'), h = '';
+  if (it && it.o) {
+    player.selId = it.o.id; var o = it.o;
+    selectLines(o.line, o.endLine);
+    c.innerHTML = '<div data-a="code">Mở mã: ' + esc(o.type + ' ' + (o.named ? o.name : '')) + ' (dòng ' + o.line + ')</div><div data-a="dup">Nhân đôi vật</div><div data-a="del">Xoá vật</div><div data-a="anim">Thêm animation xoay 360°</div>';
+    c.__o = o;
+  } else {
+    if (s) selectLines(s.line, s.line);
+    c.innerHTML = '<div data-a="slide">Mở mã slide (dòng ' + (s ? s.line : 1) + ')</div><div data-a="cube">+ Hình khối</div><div data-a="sphere">+ Hình cầu</div><div data-a="text">+ Chữ</div><div data-a="img">+ Nhập ảnh</div>'; c.__o = null;
+  }
+  c.style.left = Math.min(e.clientX, window.innerWidth - 200) + 'px'; c.style.top = Math.min(e.clientY, window.innerHeight - 160) + 'px'; c.style.display = 'block';
+}, false);
+$('ctx').addEventListener('click', function (e) {
+  var a = e.target.getAttribute && e.target.getAttribute('data-a'), o = this.__o, l = lines(), s = parsed.slides[curSlide], r, ind;
+  hideCtx(); if (!a) return;
+  if (a === 'del' && o) { l.splice(o.line - 1, o.endLine - o.line + 1); applyLines(l); }
+  else if (a === 'dup' && o) { var blk = l.slice(o.line - 1, o.endLine); l.splice.apply(l, [o.endLine, 0].concat(blk)); applyLines(l); }
+  else if (a === 'anim' && o) {
+    ind = /^\s*/.exec(l[o.line - 1])[0] + '    ';
+    l.splice(o.endLine, 0, ind + 'animate this:', ind + '    at 0s:', ind + '        rotate = 0, 0, 0', ind + '    at 6s:', ind + '        rotate = 360, 360, 0', ind + '    loop = 1'); applyLines(l);
+  } else if (a === 'cube' || a === 'sphere' || a === 'text') { addObj(a); }
+  else if (a === 'img') $('fImg').click();
+}, false);
+document.addEventListener('mousedown', function (e) { if (!$('ctx').contains(e.target)) hideCtx(); }, false);
+function slideEndLine() { var r = slideRange(curSlide), l = lines(), e = r[1]; while (e > r[0] && /^\s*$/.test(l[e - 1])) e--; return e; }
+function addObj(t) {
+  var l = lines(), e = slideEndLine(), n = Math.floor(Math.random() * 900 + 100), txt;
+  if (t === 'cube') txt = ['    cube v' + n + ':', '        position = 0, 0, 0', '        size = 1.5', '        color = #4aa3ff'];
+  else if (t === 'sphere') txt = ['    sphere v' + n + ':', '        position = 0, 0, 0', '        radius = 1', '        color = #ffb547'];
+  else txt = ['    text c' + n + ' "Chữ mới":', '        position = 0, 0, 0', '        size = 0.7', '        align = center', '        color = #ffffff'];
+  l.splice.apply(l, [e, 0].concat(txt)); applyLines(l); setTimeout(function () { selectLines(e + 1, e + txt.length); }, 300);
+}
+
+/* ---------- ảnh ---------- */
+function safeName(n) { n = n.replace(/\.[^.]*$/, '').toLowerCase().replace(/[^a-z0-9_]+/g, '_').replace(/^_+|_+$/g, '') || 'anh'; if (/^\d/.test(n)) n = 'a' + n; var b = n, i = 1; while (PR.assets[n]) n = b + (++i); return n; }
+function addImageFile(f) {
+  if (!f || !/^image\//.test(f.type)) return;
+  var rd = new FileReader(); rd.onload = function () {
+    var im = new Image(); im.onload = function () {
+      var m = 1280, sc = Math.min(1, m / Math.max(im.width, im.height)), c = document.createElement('canvas'), png = /png|gif|svg/.test(f.type);
+      c.width = Math.round(im.width * sc); c.height = Math.round(im.height * sc); var x = c.getContext('2d'); x.drawImage(im, 0, 0, c.width, c.height);
+      var url; try { url = png ? c.toDataURL('image/png') : c.toDataURL('image/jpeg', 0.82); } catch (e) { url = rd.result; }
+      var name = safeName(f.name || 'anh'); PR.assets[name] = url; save();
+      setAssets(function () { renderAssets(); });
+      var l = lines(), e = slideEndLine(), blk = ['    image ' + name + ':', '        src = ' + name, '        position = 0, 0, 0', '        w = 4'];
+      l.splice.apply(l, [e, 0].concat(blk)); applyLines(l); setTimeout(function () { selectLines(e + 1, e + blk.length); }, 300);
+      toast('Đã nhập ảnh "' + name + '"');
+    }; im.src = rd.result;
+  }; rd.readAsDataURL(f);
+}
+function addImages(files) { var i; for (i = 0; i < files.length; i++) addImageFile(files[i]); }
+$('fImg').onchange = function () { addImages(this.files); this.value = ''; };
+$('bAddImg').onclick = function () { $('fImg').click(); };
+function renderAssets() {
+  var h = '', k, n = 0;
+  for (k in PR.assets) { n++; h += '<div class="asset"><img src="' + PR.assets[k] + '"><b>' + esc(k) + '</b><br><a href="#" data-k="' + esc(k) + '" style="color:#ff8e8e">xoá</a></div>'; }
+  $('assets').innerHTML = h || '<small>Chưa có ảnh. Dùng trong mã: <code>image: src = ten_anh</code></small>';
+}
+$('assets').addEventListener('click', function (e) { var k = e.target.getAttribute && e.target.getAttribute('data-k'); if (k) { e.preventDefault(); delete PR.assets[k]; save(); setAssets(); renderAssets(); } }, false);
+var dragC = 0;
+document.addEventListener('dragenter', function (e) { dragC++; $('drop').style.display = 'block'; e.preventDefault(); }, false);
+document.addEventListener('dragleave', function () { if (--dragC <= 0) { dragC = 0; $('drop').style.display = 'none'; } }, false);
+document.addEventListener('dragover', function (e) { e.preventDefault(); }, false);
+document.addEventListener('drop', function (e) { e.preventDefault(); dragC = 0; $('drop').style.display = 'none'; if (e.dataTransfer && e.dataTransfer.files) addImages(e.dataTransfer.files); }, false);
+document.addEventListener('paste', function (e) { var it = e.clipboardData && e.clipboardData.items, i; if (!it) return; for (i = 0; i < it.length; i++) if (it[i].type.indexOf('image') === 0) { addImageFile(it[i].getAsFile()); e.preventDefault(); } }, false);
+
+/* ---------- tab, hàm, mẫu, cú pháp ---------- */
+$('tabs').addEventListener('click', function (e) {
+  var p = e.target.getAttribute && e.target.getAttribute('data-p'); if (!p) return;
+  var b = this.children, i, ps = ['pCode', 'pFn', 'pImg', 'pSmp', 'pSx', 'pAi'];
+  for (i = 0; i < b.length; i++) b[i].className = b[i].getAttribute('data-p') === p ? 'on' : '';
+  for (i = 0; i < ps.length; i++) $(ps[i]).className = 'pane' + (ps[i] === p ? ' on' : '');
+}, false);
+function renderFns(q) {
+  var d = ZER.DOCS, i, cat = '', h = '', x; q = (q || '').toLowerCase();
+  for (i = 0; i < d.length; i++) {
+    x = d[i]; if (q && (x.name + ' ' + x.desc + ' ' + x.cat).toLowerCase().indexOf(q) < 0) continue;
+    if (x.cat !== cat) { cat = x.cat; h += '<h4>' + esc(cat) + '</h4>'; }
+    h += '<div class="fn" data-i="' + i + '"><code>' + esc(x.sig) + '</code><small>' + esc(x.desc) + '</small></div>';
+  }
+  $('fnl').innerHTML = h || '<small>Không có hàm khớp</small>';
+}
+$('flt').oninput = function () { renderFns(this.value); };
+$('fnl').addEventListener('click', function (e) { var n = e.target; while (n && n !== this && !n.getAttribute('data-i')) n = n.parentNode; if (n && n.getAttribute && n.getAttribute('data-i')) { $('tabs').children[0].click(); insertAtCursor(ZER.DOCS[+n.getAttribute('data-i')].snip); } }, false);
+(function () {
+  var h = '', k; for (k in ZER.SAMPLES) h += '<div class="fn" data-k="' + k + '"><b>' + esc(ZER.SAMPLES[k].name) + '</b><small>Bấm để mở thành dự án mới</small></div>';
+  $('smp').innerHTML = h;
+  $('smp').addEventListener('click', function (e) { var n = e.target; while (n && n !== this && !n.getAttribute('data-k')) n = n.parentNode; if (n && n.getAttribute && n.getAttribute('data-k')) { var s = ZER.SAMPLES[n.getAttribute('data-k')]; location.hash = '#edit=' + newProject(s.code, s.name).id; location.reload(); } }, false);
+})();
+$('sxBody').innerHTML = '<h4>Cấu trúc</h4><pre class="sx">' + esc(
+'project:\n    title = "Tên"\n    autoplay = 1        // tự chạy như phim\n\n' +
+'def f(a, b) = a * b + 1   // tự định nghĩa hàm\nlet R = 3                // hằng số dùng chung\n\n' +
+'slide "Tên slide":\n    background = #000, #123\n    stars = 300   fog = #000, 10, 40\n    duration = 8s   fade_in = 1s   transition = slide, 0.6s\n\n' +
+'    camera:\n        orbit = t*10, 20, 12   // góc ngang, góc đứng, khoảng cách\n        fov = 50   roll = 0\n\n' +
+'    cube hop:\n        coordinates:\n            X = 1.9473839\n            Y = 8.948267282\n            Z = 9.9382727\n        rotate = t*30, t*45, 0   // xoay 360° mọi hướng\n        scale = 1, 2, 1\n        color = hsl(t*40, 80, 60)\n        reveal = 1    // hiện ở bước bấm 1\n\n' +
+'    for i in 0..50:\n        sphere s{i}:\n            position = cosd(i*7)*4, i*0.1, sind(i*7)*4\n\n' +
+'    animate hop:\n        at 0s:\n            position = 0, 0, 0\n        at 3s:\n            position = 5, 2, 0\n            ease = inout\n        loop = 1   pingpong = 1') + '</pre>' +
+'<h4>Vật thể</h4><pre class="sx">' + esc('cube sphere cylinder cone torus pyramid plane rect circle polygon\nextrude lathe mesh line points particles text label image grid axes group') + '</pre>' +
+'<h4>Biến sẵn có</h4><pre class="sx">t / time (giây)  dt  frame  step  i (trong for)</pre>' +
+'<h4>Phím</h4><pre class="sx">Chuột phải vào vật = mở mã vật đó\nKéo vật = di chuyển (ghi lại vào mã)\nTrình chiếu: → Space Enter = tiếp, ← = lùi, F toàn màn hình, Esc thoát</pre>';
+
+/* ---------- đặc tả cho AI ---------- */
+function fullSpec() {
+  var d = ZER.DOCS, i, cat = '', h = '\n\n## Danh sách hàm đầy đủ\n';
+  for (i = 0; i < d.length; i++) { if (d[i].cat !== cat) { cat = d[i].cat; h += '\n### ' + cat + '\n'; } h += '- `' + d[i].sig + '` — ' + d[i].desc + '\n'; }
+  return __SPEC + h;
+}
+$('specTxt').textContent = fullSpec();
+$('bCopy').onclick = function () {
+  var t = $('specTxt'), r;
+  try { var ta = document.createElement('textarea'); ta.value = fullSpec(); ta.style.cssText = 'position:fixed;left:-999px;top:0'; document.body.appendChild(ta); ta.select(); r = document.execCommand('copy'); document.body.removeChild(ta); } catch (e) { r = false; }
+  if (!r && navigator.clipboard) { navigator.clipboard.writeText(fullSpec()); r = true; }
+  toast(r ? 'Đã sao chép đặc tả - dán cho AI' : 'Không sao chép được, hãy bôi đen và Ctrl+C');
+};
+$('bDlSpec').onclick = function () { download('ZER-AI.md', fullSpec(), 'text/markdown'); };
+
+/* ---------- dự án: mới, xuất, nhập ---------- */
+$('pname').value = PR.name; $('pname').onchange = function () { PR.name = this.value || 'Dự án'; save(); document.title = PR.name + ' — 2zer011 Studio'; };
+$('bNew').onclick = function () { location.hash = '#edit=new'; location.reload(); };
+$('bLib').onclick = function () { save(); location.href = 'index.html'; };
+$('bPlay').onclick = function () { save(); var pp = startPresent(curSlide, function () { pp = null; }); };
+function download(name, text, type) {
+  var b = new Blob([text], { type: type || 'text/plain' });
+  if (navigator.msSaveBlob) { navigator.msSaveBlob(b, name); return; }
+  var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = name; document.body.appendChild(a); a.click(); setTimeout(function () { document.body.removeChild(a); }, 500);
+}
+function fname() { return (PR.name || 'du-an').replace(/[^\w\-]+/g, '_'); }
+$('bExp').onclick = function () { download(fname() + '.zer.json', JSON.stringify({ zer: 1, name: PR.name, code: PR.code, assets: PR.assets }), 'application/json'); };
+$('bImp').onclick = function () { $('fJson').click(); };
+$('fJson').onchange = function () {
+  var f = this.files[0]; if (!f) return; var rd = new FileReader();
+  rd.onload = function () { try { var o = JSON.parse(rd.result); var p = newProject(o.code || '', o.name || 'Đã nhập', o.assets || {}); save(); location.hash = '#edit=' + p.id; location.reload(); } catch (e) { toast('File không hợp lệ'); } };
+  rd.readAsText(f); this.value = '';
+};
+$('bExpHtml').onclick = function () {
+  var rt = $('zer-runtime').textContent, data = JSON.stringify({ code: PR.code, assets: PR.assets }).replace(/</g, '\\u003c');
+  var boot = '(function(){var D=' + data + ';var cv=document.getElementById("c");var pr=ZER.parse(D.code);var im=ZER.loadAssets(D.assets,function(){});var p=new ZER.Player(cv,pr,im);p.start();' +
+    'window.addEventListener("resize",function(){p.size();},false);ZER.attachControls(document.body,p,{fullscreen:function(){ZER.toggleFullscreen(document.documentElement);}});})();';
+  var html = '<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + esc(PR.name) + '</title><style>html,body{margin:0;height:100%;background:#000;overflow:hidden}#c{position:absolute;left:0;top:0;width:100%;height:100%}</style></head><body><canvas id="c"></canvas><script>' + rt.replace(/<\/script/g, '<\\/script') + '<\/script><script>' + boot + '<\/script></body></html>';
+  download(fname() + '.html', html, 'text/html');
+};
+window.addEventListener('resize', function () { if (player) player.size(); }, false);
+window.addEventListener('beforeunload', function () { save(); }, false);
+
+/* ---------- khởi động ---------- */
+code.value = PR.code; paintCode(); renderFns(''); renderAssets();
+setAssets(function () { recompile(); });
+recompile();
+})();
+
+</script>
+</body>
+</html>
