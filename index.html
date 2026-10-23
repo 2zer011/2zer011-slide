@@ -84,6 +84,7 @@ footer{margin-top:28px;font-size:13px;color:#6E6157}
     <button id="bTab" type="button">Mở tab riêng</button>
     <span id="ptitle"></span>
   </div>
+  <button id="xb" type="button" style="display:none;position:absolute;left:6px;top:6px;z-index:20;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.55);color:#fff;font-size:18px;padding:0">&#10005;</button>
   <div id="loading">Đang tải bài…</div>
   <iframe id="frame" title="Bài thuyết trình" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 </div>
@@ -208,7 +209,23 @@ var DECKS = [
     var f = d.exitFullscreen || d.webkitExitFullscreen || d.mozCancelFullScreen || d.msExitFullscreen;
     if (f && fsEl()) { try { f.call(d); } catch (x) {} }
   }
+  // Điện thoại dựng đứng: xoay khung 90° cho vừa màn hình (và thử khoá ngang)
+  function rotFit() {
+    var W = window.innerWidth, H = window.innerHeight, on = player.style.display === 'block' && H > W * 1.15 && W < 900, st = frame.style;
+    if (on) {
+      st.right = 'auto'; st.bottom = 'auto'; st.top = '0px'; st.left = W + 'px'; st.width = H + 'px'; st.height = W + 'px';
+      st.webkitTransformOrigin = st.transformOrigin = '0 0'; st.webkitTransform = st.transform = 'rotate(90deg)';
+    } else {
+      st.right = ''; st.bottom = ''; st.top = ''; st.left = ''; st.width = ''; st.height = '';
+      st.webkitTransform = st.transform = '';
+    }
+    $('bar').style.display = on ? 'none' : ''; $('xb').style.display = on ? 'block' : 'none';
+  }
+  window.addEventListener('resize', rotFit, false); window.addEventListener('orientationchange', function () { setTimeout(rotFit, 200); }, false);
+  function lockLandscape() { try { var o = screen.orientation; if (o && o.lock) { var r = o.lock('landscape'); if (r && r['catch']) r['catch'](function () {}); } } catch (x) {} }
   function syncFs() {
+    if (fsEl()) lockLandscape();
+    setTimeout(rotFit, 150);
     var on = !!fsEl();
     player.className = on ? 'fs' : '';
     bFull.innerHTML = on ? 'Thoát toàn màn hình' : 'Toàn màn hình';
@@ -223,7 +240,7 @@ var DECKS = [
     current = deck;
     ptitle.innerHTML = esc(deck.title);
     loading.style.display = 'block';
-    player.style.display = 'block';
+    player.style.display = 'block'; rotFit();
     d.body.style.overflow = 'hidden';
     if (full) enterFs();                      // phải gọi ngay trong sự kiện click
     frame.onload = function () {
@@ -241,12 +258,12 @@ var DECKS = [
     exitFs();
     frame.onload = null;
     frame.src = 'about:blank';
-    player.style.display = 'none';
+    player.style.display = 'none'; rotFit();
     player.className = '';
     d.body.style.overflow = '';
     current = null;
   }
-  bBack.onclick = closeDeck;
+  bBack.onclick = closeDeck; $('xb').onclick = closeDeck;
   bTab.onclick = function () { if (current) { var f = current.file; closeDeck(); window.open(f, '_blank'); } };
   d.onkeydown = function (e) {
     e = e || window.event;

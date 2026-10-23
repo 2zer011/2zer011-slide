@@ -204,10 +204,27 @@ body{color:#e8eefc}
     var d = S('defs', {}, svg), g = S('radialGradient', { id: id }, d);
     S('stop', { offset: '0%', 'stop-color': '#fff6d6' }, g); S('stop', { offset: '35%', 'stop-color': c1 }, g);
     S('stop', { offset: '100%', 'stop-color': c1, 'stop-opacity': 0 }, g);
+    var sg = S('radialGradient', { id: id + 's', cx: '42%', cy: '40%', r: '65%' }, d);
+    S('stop', { offset: '0%', 'stop-color': '#fffef2' }, sg); S('stop', { offset: '40%', 'stop-color': '#ffe27a' }, sg);
+    S('stop', { offset: '80%', 'stop-color': '#ffb01f' }, sg); S('stop', { offset: '100%', 'stop-color': '#ff8a14' }, sg);
   }
   function earthGrad(svg, id) {
     var d = S('defs', {}, svg), g = S('radialGradient', { id: id, cx: '35%', cy: '30%', r: '80%' }, d);
-    S('stop', { offset: '0%', 'stop-color': '#7cc4ff' }, g); S('stop', { offset: '100%', 'stop-color': '#1b5fb0' }, g);
+    S('stop', { offset: '0%', 'stop-color': '#9ad8ff' }, g); S('stop', { offset: '55%', 'stop-color': '#2f7fd0' }, g); S('stop', { offset: '100%', 'stop-color': '#0f3f86' }, g);
+    var sh = S('radialGradient', { id: id + 'sh', cx: '36%', cy: '32%', r: '85%' }, d);
+    S('stop', { offset: '0%', 'stop-color': '#000', 'stop-opacity': 0 }, sh); S('stop', { offset: '65%', 'stop-color': '#000', 'stop-opacity': 0 }, sh); S('stop', { offset: '100%', 'stop-color': '#000', 'stop-opacity': .5 }, sh);
+  }
+
+  function earthAt(p, x, y, r, id) {
+    var o = S('g', { transform: 'translate(' + x + ' ' + y + ')' }, p), g = S('g', { transform: 'scale(' + (r / 100) + ')' }, o);
+    S('circle', { cx: 0, cy: 0, r: 100, fill: 'url(#' + id + ')' }, g);
+    var L = ['M-55 -40 Q-30 -70 0 -55 Q15 -30 -10 -15 Q-25 5 -45 -5 Q-70 -15 -55 -40Z', 'M20 -50 Q55 -62 75 -30 Q82 0 55 10 Q30 0 40 -20 Q15 -30 20 -50Z', 'M-30 15 Q-5 10 5 35 Q0 65 -20 75 Q-40 50 -30 15Z', 'M40 35 Q65 30 72 50 Q60 68 42 60Z'], i;
+    for (i = 0; i < L.length; i++) S('path', { d: L[i], fill: '#5cb36f', opacity: .92 }, g);
+    S('ellipse', { cx: 5, cy: -92, rx: 38, ry: 9, fill: '#f2f8ff', opacity: .9 }, g); S('ellipse', { cx: 0, cy: 94, rx: 46, ry: 8, fill: '#f2f8ff', opacity: .9 }, g);
+    S('ellipse', { cx: -20, cy: -20, rx: 40, ry: 7, fill: '#fff', opacity: .3, transform: 'rotate(-18)' }, g); S('ellipse', { cx: 35, cy: 30, rx: 34, ry: 6, fill: '#fff', opacity: .28, transform: 'rotate(12)' }, g);
+    S('circle', { cx: 0, cy: 0, r: 100, fill: 'url(#' + id + 'sh)' }, g);
+    S('circle', { cx: 0, cy: 0, r: 98, fill: 'none', stroke: 'rgba(150,210,255,.55)', 'stroke-width': 5 }, g);
+    return o;
   }
 
   /* sao nền */
@@ -221,9 +238,9 @@ body{color:#e8eefc}
   (function () {
     var v = document.getElementById('cover'); defsGlow(v, 'cg', '#ffb547'); earthGrad(v, 'cge');
     S('circle', { cx: 410, cy: 410, r: 400, fill: 'url(#cg)', opacity: .55 }, v);
-    S('circle', { cx: 410, cy: 410, r: 96, fill: '#ffcf70' }, v);
+    S('circle', { cx: 410, cy: 410, r: 96, fill: 'url(#cgs)' }, v);
     S('ellipse', { cx: 410, cy: 410, rx: 340, ry: 250, fill: 'none', stroke: 'rgba(255,255,255,.28)', 'stroke-width': 2, 'stroke-dasharray': '6 10' }, v);
-    S('circle', { cx: 650, cy: 270, r: 30, fill: 'url(#cge)' }, v);
+    earthAt(v, 650, 270, 34, 'cge');
   })();
 
   /* 2. các hành tinh trong */
@@ -231,11 +248,11 @@ body{color:#e8eefc}
     var v = document.getElementById('inner'); defsGlow(v, 'ig', '#ffb547'); earthGrad(v, 'ige');
     var C = 380, pl = [[62, 'Sao Thủy', '0,39 AU', 210, 7, '#b9b1a8'], [115, 'Sao Kim', '0,72 AU', 35, 11, '#e8c987'], [160, 'Trái Đất', '1 AU', 305, 16, 'url(#ige)'], [243, 'Sao Hỏa', '1,52 AU', 160, 10, '#d9684a']], i;
     S('circle', { cx: C, cy: C, r: 110, fill: 'url(#ig)', opacity: .6 }, v);
-    S('circle', { cx: C, cy: C, r: 24, fill: '#ffcf70' }, v);
+    S('circle', { cx: C, cy: C, r: 24, fill: 'url(#igs)' }, v);
     for (i = 0; i < pl.length; i++) {
       var p = pl[i], a = p[3] * PI / 180, x = C + p[0] * Math.cos(a), y = C - p[0] * Math.sin(a), e = i === 2;
       S('circle', { cx: C, cy: C, r: p[0], fill: 'none', stroke: e ? 'rgba(108,182,255,.8)' : 'rgba(255,255,255,.22)', 'stroke-width': e ? 3 : 1.5 }, v);
-      S('circle', { cx: x, cy: y, r: p[4], fill: p[5] }, v);
+      if (e) earthAt(v, x, y, p[4], 'ige'); else S('circle', { cx: x, cy: y, r: p[4], fill: p[5] }, v);
       var right = Math.cos(a) >= 0;
       T(v, x + (right ? 1 : -1) * (p[4] + 12), y - 2, p[1], e ? 28 : 22, e ? '#6cb6ff' : '#c9d6f2', right ? 'start' : 'end', e ? 700 : 400);
       T(v, x + (right ? 1 : -1) * (p[4] + 12), y + 24, p[2], 20, '#7f90b3', right ? 'start' : 'end');
@@ -246,23 +263,23 @@ body{color:#e8eefc}
   /* 3. quỹ đạo */
   var orbit = (function () {
     var v = document.getElementById('orbit'); defsGlow(v, 'og', '#ffb547'); earthGrad(v, 'oge');
-    var a = 380, e = 0.4, b = a * Math.sqrt(1 - e * e), cx = 500, cy = 358, sx = cx + a * e, sy = cy;
+    var a = 340, e = 0.22, b = a * Math.sqrt(1 - e * e), cx = 500, cy = 358, sx = cx + a * e, sy = cy;
     S('ellipse', { cx: cx, cy: cy, rx: a, ry: b, fill: 'none', stroke: 'rgba(255,255,255,.32)', 'stroke-width': 2, 'stroke-dasharray': '5 9' }, v);
     var wedge = S('path', { d: '', fill: 'rgba(255,181,71,.28)', stroke: 'rgba(255,181,71,.7)', 'stroke-width': 1.5 }, v);
     S('circle', { cx: sx, cy: sy, r: 120, fill: 'url(#og)', opacity: .55 }, v);
-    S('circle', { cx: sx, cy: sy, r: 34, fill: '#ffcf70' }, v);
+    S('circle', { cx: sx, cy: sy, r: 34, fill: 'url(#ogs)' }, v);
     T(v, sx, sy + 66, 'Mặt Trời', 22, '#ffd98f');
     S('circle', { cx: sx + a * (1 - e), cy: sy, r: 6, fill: '#ffb547' }, v);
     S('circle', { cx: sx - a * (1 + e), cy: sy, r: 6, fill: '#ffb547' }, v);
     T(v, sx + a * (1 - e), sy + 36, 'Cận nhật · ~3/1', 22, '#ffd98f', 'middle');
     T(v, sx - a * (1 + e), sy + 36, 'Viễn nhật · ~4/7', 22, '#ffd98f', 'middle');
-    var pl = S('circle', { cx: 0, cy: 0, r: 17, fill: 'url(#oge)' }, v);
+    var pl = earthAt(v, 0, 0, 21, 'oge');
     var lb = T(v, 0, 0, 'Trái Đất', 24, '#6cb6ff', 'middle', 700);
     var mon = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31], run = false, t0 = 0, id = 0, YEAR = 26000;
     function kep(M) { var E = M, i; for (i = 0; i < 7; i++) E = E - (E - e * Math.sin(E) - M) / (1 - e * Math.cos(E)); return E; }
     function pos(M) { var E = kep(M); return [sx + a * (Math.cos(E) - e), sy - b * Math.sin(E)]; }
     function draw(t) {
-      var M = 2 * PI * t, p = pos(M); pl.setAttribute('cx', p[0]); pl.setAttribute('cy', p[1]);
+      var M = 2 * PI * t, p = pos(M); pl.setAttribute('transform', 'translate(' + p[0] + ' ' + p[1] + ')');
       lb.setAttribute('x', p[0]); lb.setAttribute('y', p[1] + (p[1] > sy ? 46 : -30));
       var dd = 'M' + sx + ' ' + sy + ' L' + p[0] + ' ' + p[1], k, q;
       for (k = 1; k <= 14; k++) { q = pos(M - (k / 14) * (2 * PI / 12)); dd += ' L' + q[0] + ' ' + q[1]; }
@@ -333,14 +350,14 @@ body{color:#e8eefc}
   (function () {
     var v = document.getElementById('solar'); earthGrad(v, 'ssge'); defsGlow(v, 'sg', '#ffb547');
     var Sx = 70, Sy = 350, Rr = 297, k, d = '';
-    S('circle', { cx: Sx, cy: Sy, r: 130, fill: 'url(#sg)', opacity: .7 }, v); S('circle', { cx: Sx, cy: Sy, r: 40, fill: '#ffcf70' }, v);
+    S('circle', { cx: Sx, cy: Sy, r: 130, fill: 'url(#sg)', opacity: .7 }, v); S('circle', { cx: Sx, cy: Sy, r: 40, fill: 'url(#sgs)' }, v);
     T(v, Sx + 10, Sy + 80, 'Mặt Trời', 22, '#ffd98f');
     for (k = -34; k <= 34; k += 2) { var q = k * PI / 180; d += (k === -34 ? 'M' : 'L') + (Sx + Rr * Math.cos(q)).toFixed(1) + ' ' + (Sy - Rr * Math.sin(q)).toFixed(1) + ' '; }
     S('path', { d: d, fill: 'none', stroke: 'rgba(255,255,255,.3)', 'stroke-width': 2, 'stroke-dasharray': '5 9' }, v);
     var qa = 17 * PI / 180, Ax = Sx + Rr * Math.cos(qa), Ay = Sy + Rr * Math.sin(qa), Bx = Sx + Rr * Math.cos(qa), By = Sy - Rr * Math.sin(qa);
     var a1 = Math.atan2(Sy - Ay, Sx - Ax), a2 = Math.atan2(Sy - By, Sx - Bx);
     function earth(x, y) {
-      S('circle', { cx: x, cy: y, r: 62, fill: 'url(#ssge)' }, v);
+      earthAt(v, x, y, 62, 'ssge');
       S('path', { d: 'M' + x + ' ' + (y - 62) + ' A62 62 0 0 1 ' + x + ' ' + (y + 62) + ' Z', fill: 'rgba(2,4,14,.55)' }, v);
     }
     function ray(x, y, ang, len, col, dash) {
@@ -364,7 +381,7 @@ body{color:#e8eefc}
     var v = document.getElementById('seasons'); defsGlow(v, 'seg', '#ffb547');
     var Sx = 550, Sy = 385, rx = 420, ry = 195;
     S('ellipse', { cx: Sx, cy: Sy, rx: rx, ry: ry, fill: 'none', stroke: 'rgba(255,255,255,.3)', 'stroke-width': 2, 'stroke-dasharray': '5 9' }, v);
-    S('circle', { cx: Sx, cy: Sy, r: 120, fill: 'url(#seg)', opacity: .6 }, v); S('circle', { cx: Sx, cy: Sy, r: 44, fill: '#ffcf70' }, v);
+    S('circle', { cx: Sx, cy: Sy, r: 120, fill: 'url(#seg)', opacity: .6 }, v); S('circle', { cx: Sx, cy: Sy, r: 44, fill: 'url(#segs)' }, v);
     T(v, Sx, Sy + 78, 'Mặt Trời', 22, '#ffd98f');
     var tilt = 23.44 * PI / 180, dx = Math.sin(tilt), dy = -Math.cos(tilt);
     var P = [[Sx - rx, Sy, 50, '21/6', 'Hạ chí', 'Bắc: mùa hè', 'b'], [Sx, Sy + ry, 58, '23/9', 'Thu phân', '', 'b'], [Sx + rx, Sy, 50, '21/12', 'Đông chí', 'Bắc: mùa đông', 'b'], [Sx, Sy - ry, 42, '20/3', 'Xuân phân', '', 't']], i;
